@@ -12,11 +12,11 @@ namespace EasyCrypto.Tests
     public class KeyCheckValueValidatorTests
     {
         [Fact]
-        public void KeyCheckValidIs3BytesLong()
+        public void KeyCheckValidIs19BytesLong()
         {
             byte[] key = CryptoRandom.NextBytesStatic(32);
             byte[] kcv = KeyCheckValueValidator.GenerateKeyCheckValue(key);
-            Assert.True(kcv.Length == 3, "KCV is not 3 bytes long");
+            Assert.True(kcv.Length == 19, "KCV is not 19 bytes long");
         }
 
         [Fact]

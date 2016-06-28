@@ -18,7 +18,7 @@ namespace EasyCrypto.Validation
         public static void ValidateMessageAuthenticationCode(byte[] key, byte[] originalMac, Stream encryptedData)
         {
             byte[] calculatedMac = CalculateMessageAuthenticationCode(key, encryptedData);
-            if (!PasswordHasher.CompareByteArrays(calculatedMac, originalMac))
+            if (!DataTools.CompareByteArrays(calculatedMac, originalMac))
             {
                 throw new Exceptions.DataIntegrityValidationException("Validation of Message Authentication Code (MAC) has failed. " +
                     "Most likely reason for this exception is that encrypted data was modifiled.");

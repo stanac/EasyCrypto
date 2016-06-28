@@ -204,6 +204,11 @@ namespace EasyCrypto
                 aes.IV = iv;
                 aes.Key = key;
                 aes.Padding = PaddingMode.ISO10126;
+                aes.BlockSize = 128;
+                if (skipValidations)
+                {
+                    aes.Padding = PaddingMode.Zeros;
+                }
                 using (var encryptor = aes.CreateEncryptor())
                 {
                     CryptoStream cs = new CryptoStream(destination, encryptor, CryptoStreamMode.Write);
@@ -235,6 +240,15 @@ namespace EasyCrypto
                 aes.IV = iv;
                 aes.Key = key;
                 aes.Padding = PaddingMode.ISO10126;
+                if (skipValidations)
+                {
+                    aes.Padding = PaddingMode.Zeros;
+                }
+                aes.BlockSize = 128;
+                if (skipValidations)
+                {
+                    aes.Padding = PaddingMode.Zeros;
+                }
                 using (var decryptor = aes.CreateDecryptor())
                 {
                     CryptoStream cs = new CryptoStream(destination, decryptor, CryptoStreamMode.Write);

@@ -1,5 +1,0 @@
-E:\code\github\_unpublished\EasyCrypto\EasyCrypto\bin\Debug\EasyCrypto.dll
-E:\code\github\_unpublished\EasyCrypto\EasyCrypto\bin\Debug\EasyCrypto.pdb
-E:\code\github\_unpublished\EasyCrypto\EasyCrypto\obj\Debug\EasyCrypto.dll
-E:\code\github\_unpublished\EasyCrypto\EasyCrypto\obj\Debug\EasyCrypto.pdb
-E:\code\github\_unpublished\EasyCrypto\EasyCrypto\obj\Debug\EasyCrypto.csprojResolveAssemblyReference.cache

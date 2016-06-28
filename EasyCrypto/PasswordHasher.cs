@@ -128,7 +128,7 @@ namespace EasyCrypto
         public bool ValidatePassword(string password, byte[] hash, byte[] salt)
         {
             byte[] newHash = HashPassword(password, salt);
-            return CompareByteArrays(hash, newHash);
+            return DataTools.CompareByteArrays(hash, newHash);
         }
 
         /// <summary>
@@ -163,17 +163,5 @@ namespace EasyCrypto
 
         public byte[] GenerateRandomSalt() => CryptoRandom.NextBytesStatic(SaltLengthInBytes);
 
-        internal static bool CompareByteArrays(byte[] ba1, byte[] ba2)
-        {
-            if (ba1 == null) throw new ArgumentNullException(nameof(ba1));
-            if (ba2 == null) throw new ArgumentNullException(nameof(ba2));
-
-            if (ba1.Length != ba2.Length) return false;
-            for (int i = 0; i < ba1.Length; i++)
-            {
-                if (ba1[i] != ba2[i]) return false;
-            }
-            return true;
-        }
     }
 }
