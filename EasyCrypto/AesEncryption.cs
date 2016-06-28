@@ -72,12 +72,10 @@ namespace EasyCrypto
         /// <param name="dataToEncrypt">Stream containing data to encrypt</param>
         /// <param name="password">Password that is used for generating key for encryption/decryption</param>
         /// <param name="destination">Stream to which to write encrypted data</param>
-        /// <param name="keySize">Optional key size in bytes. Valid values are 16, 24 and 32. Default is 32.</param>
-        public static void EncryptWithPassword(Stream dataToEncrypt, string password, Stream destination, int keySize = 32)
+        public static void EncryptWithPassword(Stream dataToEncrypt, string password, Stream destination)
         {
-            if (!(new[] { 16, 24, 32 }).Contains(keySize)) throw new ArgumentException($"{nameof(keySize)} must be 16, 24 or 32 bytes");
             byte[] salt;
-            var ph = new PasswordHasher((uint)keySize);
+            var ph = new PasswordHasher(32);
             byte[] key = ph.HashPasswordAndGenerateSalt(password, out salt);
             destination.Write(BitConverter.GetBytes(salt.Length), 0, sizeof(int));
             destination.Write(salt, 0, salt.Length);
@@ -182,7 +180,14 @@ namespace EasyCrypto
         /// <param name="iv">Initialization vector, must be 16 bytes</param>
         /// <param name="destination">Stream to which encrypted data will be wrote.</param>
         public static void Encrypt(Stream dataToEncrypt, byte[] key, byte[] iv, Stream destination)
-            => Encrypt(false, dataToEncrypt, key, iv, destination);
+            => Encrypt(new CryptoRequest
+            {
+                SkipValidations = false,
+                InData = dataToEncrypt,
+                OutData = destination,
+                Key = key,
+                IV = iv
+            });
 
         /// <summary>
         /// 
@@ -192,30 +197,43 @@ namespace EasyCrypto
         /// <param name="iv">Initialization vector, must be 16 bytes</param>
         /// <param name="destination">Stream to which decrypted data will be wrote.</param>
         public static void Decrypt(Stream dataToDecrypt, byte[] key, byte[] iv, Stream destination)
-            => Decrypt(false, dataToDecrypt, key, iv, destination);
+            => Decrypt(new CryptoRequest
+            {
+                IV = iv,
+                Key = key,
+                InData = dataToDecrypt,
+                OutData = destination,
+                SkipValidations = false
+            });
 
-        internal static void Encrypt(bool skipValidations, Stream dataToEncrypt, byte[] key, byte[] iv, Stream destination)
+        internal static void Encrypt(CryptoRequest request)
         {
-            if (iv == null || iv.Length != 16) throw new ArgumentException($"{nameof(iv)} must be 16 bytes in length");
-            if (key == null || !(new[] { 16, 24, 32 }).Contains(key.Length)) throw new ArgumentException($"{nameof(key)} must 16, 24 or 32 bytes in length");
+            if (request.IV == null || request.IV.Length != 16) throw new ArgumentException("IV must be 16 bytes in length");
+            if (request.Key == null || !(new[] { 16, 24, 32 }).Contains(request.Key.Length)) throw new ArgumentException("Key must 16, 24 or 32 bytes in length");
+
+            var container = CryptoContainer.CreateForEncryption(request);
+            if (!request.SkipValidations)
+            {
+                //container.WriteEmptyHeaderData();
+            }
 
             using (var aes = new AesManaged())
             {
-                aes.IV = iv;
-                aes.Key = key;
+                aes.IV = request.IV;
+                aes.Key = request.Key;
                 aes.Padding = PaddingMode.ISO10126;
                 aes.BlockSize = 128;
-                if (skipValidations)
+                if (request.SkipValidations)
                 {
                     aes.Padding = PaddingMode.Zeros;
                 }
                 using (var encryptor = aes.CreateEncryptor())
                 {
-                    CryptoStream cs = new CryptoStream(destination, encryptor, CryptoStreamMode.Write);
+                    CryptoStream cs = new CryptoStream(request.OutData, encryptor, CryptoStreamMode.Write);
                     int bufferSize = aes.BlockSize;
                     byte[] buffer = new byte[bufferSize];
                     int read = 0;
-                    while ((read = dataToEncrypt.Read(buffer, 0, bufferSize)) > 0)
+                    while ((read = request.InData.Read(buffer, 0, bufferSize)) > 0)
                     {
                         cs.Write(buffer, 0, read);
                         cs.Flush();
@@ -223,39 +241,43 @@ namespace EasyCrypto
                     cs.FlushFinalBlock();
                 }
             }
+            if (!request.SkipValidations)
+            {
+                //container.WriteChecksAndEmbededData();
+            }
         }
 
-        internal static void Decrypt(bool skipValidations, Stream dataToDecrypt, byte[] key, byte[] iv, Stream destination)
+        internal static void Decrypt(CryptoRequest request)
         {
             //if (!skipValidations)
             //{
             //    KeyCheckValueValidator.ValidateKeyCheckValue(key, dataToDecrypt);
             //}
 
-            if (iv == null || iv.Length != 16) throw new ArgumentException($"{nameof(iv)} must be 16 bytes in length");
-            if (key == null || !(new[] { 16, 24, 32 }).Contains(key.Length)) throw new ArgumentException($"{nameof(key)} must 16, 24 or 32 bytes in length");
+            if (request.IV == null || request.IV.Length != 16) throw new ArgumentException($"IV must be 16 bytes in length");
+            if (request.Key == null || !(new[] { 16, 24, 32 }).Contains(request.Key.Length)) throw new ArgumentException($"Key must 16, 24 or 32 bytes in length");
 
             using (var aes = new AesManaged())
             {
-                aes.IV = iv;
-                aes.Key = key;
+                aes.IV = request.IV;
+                aes.Key = request.Key;
                 aes.Padding = PaddingMode.ISO10126;
-                if (skipValidations)
+                if (request.SkipValidations)
                 {
                     aes.Padding = PaddingMode.Zeros;
                 }
                 aes.BlockSize = 128;
-                if (skipValidations)
+                if (request.SkipValidations)
                 {
                     aes.Padding = PaddingMode.Zeros;
                 }
                 using (var decryptor = aes.CreateDecryptor())
                 {
-                    CryptoStream cs = new CryptoStream(destination, decryptor, CryptoStreamMode.Write);
+                    CryptoStream cs = new CryptoStream(request.OutData, decryptor, CryptoStreamMode.Write);
                     int bufferSize = aes.BlockSize;
                     byte[] buffer = new byte[bufferSize];
                     int read = 0;
-                    while ((read = dataToDecrypt.Read(buffer, 0, bufferSize)) > 0)
+                    while ((read = request.InData.Read(buffer, 0, bufferSize)) > 0)
                     {
                         cs.Write(buffer, 0, read);
                         cs.Flush();

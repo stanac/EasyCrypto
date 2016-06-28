@@ -15,10 +15,10 @@ namespace EasyCrypto
         public uint HashIterations { get; private set; }
 
         /// <summary>
-        /// Default constructor with 16 bytes of salt, 16 bytes of hash and 25000 hash iterations
+        /// Default constructor with 32 bytes of salt, 32 bytes of hash and 25000 hash iterations
         /// </summary>
         public PasswordHasher()
-            : this(16)
+            : this(32)
         { }
 
         /// <summary>

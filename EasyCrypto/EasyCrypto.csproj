@@ -46,6 +46,7 @@
     <Compile Include="CryptoContainer.cs" />
     <Compile Include="CryptoContainerFlags.cs" />
     <Compile Include="CryptoRandom.cs" />
+    <Compile Include="CryptoRequest.cs" />
     <Compile Include="DataTools.cs" />
     <Compile Include="Exceptions\DataIntegrityValidationException.cs" />
     <Compile Include="Exceptions\KeyCheckValueValidationException.cs" />

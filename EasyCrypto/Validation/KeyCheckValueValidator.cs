@@ -17,7 +17,14 @@ namespace EasyCrypto.Validation
             using (Stream outStream = new MemoryStream())
             {
                 inStream.Write(_kcvData, 0, _kcvData.Length);
-                AesEncryption.Encrypt(true, inStream, key, iv, outStream);
+                AesEncryption.Encrypt(new CryptoRequest
+                {
+                    SkipValidations = true,
+                    InData = inStream,
+                    OutData = outStream,
+                    Key = key,
+                    IV = iv
+                });
                 outStream.Position = 0;
                 outStream.Read(result, 0, result.Length);
             }
