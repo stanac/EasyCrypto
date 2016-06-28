@@ -48,6 +48,7 @@
     <Compile Include="CryptoRandom.cs" />
     <Compile Include="CryptoRequest.cs" />
     <Compile Include="DataTools.cs" />
+    <Compile Include="Exceptions\DataFormatValidationException.cs" />
     <Compile Include="Exceptions\DataIntegrityValidationException.cs" />
     <Compile Include="Exceptions\KeyCheckValueValidationException.cs" />
     <Compile Include="PasswordGenerationOptions.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="PasswordHasher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubStream.cs" />
+    <Compile Include="ValidationResult.cs" />
     <Compile Include="Validation\KeyCheckValueValidator.cs" />
     <Compile Include="Validation\MessageAuthenticationCodeValidator.cs" />
   </ItemGroup>

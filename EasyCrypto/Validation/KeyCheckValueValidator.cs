@@ -33,11 +33,16 @@ namespace EasyCrypto.Validation
 
         public static void ValidateKeyCheckValue(byte[] key, byte[] originalKCV)
         {
-            byte[] calculatedKcv = GenerateKeyCheckValue(key, originalKCV.SkiptTake(3, 16));
-            if (!DataTools.CompareByteArrays(originalKCV, calculatedKcv))
+            if (!ValidateKeyCheckValueInternal(key, originalKCV))
             {
                 throw new Exceptions.KeyCheckValueValidationException("KCV validation is unsuccessful. Most likely wrong key/password used for decryption.");
             }
+        }
+
+        internal static bool ValidateKeyCheckValueInternal(byte[] key, byte[] originalKCV)
+        {
+            byte[] calculatedKcv = GenerateKeyCheckValue(key, originalKCV.SkiptTake(3, 16));
+            return DataTools.CompareByteArrays(originalKCV, calculatedKcv);
         }
     }
 }

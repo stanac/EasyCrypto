@@ -66,15 +66,7 @@ namespace EasyCrypto.Tests
         [Fact]
         public void EncryptedDataCanBeDecryptedWithKey32()
             => TestEncryptDecrypt(32);
-
-        [Fact]
-        public void EncryptedDataCanBeDecryptedWithKey16()
-            => TestEncryptDecrypt(16);
-
-        [Fact]
-        public void EncryptedDataCanBeDecryptedWithKey24()
-            => TestEncryptDecrypt(24);
-
+        
         //[Fact]
         //public void EncryptingWithSameParametersWillResultInSameOutput()
         //{

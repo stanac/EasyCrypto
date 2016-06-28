@@ -12,5 +12,6 @@ namespace EasyCrypto
         public byte[] IV { get; set; }
         public bool SkipValidations { get; set; }
         public byte[] Key { get; set; }
+        public string Password { get; set; }
     }
 }

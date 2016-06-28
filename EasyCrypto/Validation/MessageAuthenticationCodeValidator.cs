@@ -5,24 +5,29 @@ namespace EasyCrypto.Validation
 {
     public static class MessageAuthenticationCodeValidator
     {
-        public static byte[] CalculateMessageAuthenticationCode(byte[] key, Stream encryptedData)
+        public static byte[] CalculateMessageAuthenticationCode(byte[] key, Stream encryptedData, long startIndex = 0)
         {
             HMACSHA384 hmac = new HMACSHA384(key);
             long originalPosition = encryptedData.Position;
-            encryptedData.Position = 0;
+            encryptedData.Position = startIndex;
             byte[] mac = hmac.ComputeHash(encryptedData);
             encryptedData.Position = originalPosition;
             return mac;
         }
 
-        public static void ValidateMessageAuthenticationCode(byte[] key, byte[] originalMac, Stream encryptedData)
+        public static void ValidateMessageAuthenticationCode(byte[] key, byte[] originalMac, Stream encryptedData, long startIndex = 0)
         {
-            byte[] calculatedMac = CalculateMessageAuthenticationCode(key, encryptedData);
-            if (!DataTools.CompareByteArrays(calculatedMac, originalMac))
+            if (!ValidateMessageAuthenticationCodeInternal(key, originalMac, encryptedData, startIndex))
             {
                 throw new Exceptions.DataIntegrityValidationException("Validation of Message Authentication Code (MAC) has failed. " +
                     "Most likely reason for this exception is that encrypted data was modifiled.");
             }
+        }
+
+        internal static bool ValidateMessageAuthenticationCodeInternal(byte[] key, byte[] originalMac, Stream encryptedData, long startIndex)
+        {
+            byte[] calculatedMac = CalculateMessageAuthenticationCode(key, encryptedData, startIndex);
+            return DataTools.CompareByteArrays(calculatedMac, originalMac);
         }
     }
 }

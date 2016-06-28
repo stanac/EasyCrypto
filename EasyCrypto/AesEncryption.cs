@@ -77,9 +77,7 @@ namespace EasyCrypto
             byte[] salt;
             var ph = new PasswordHasher(32);
             byte[] key = ph.HashPasswordAndGenerateSalt(password, out salt);
-            destination.Write(BitConverter.GetBytes(salt.Length), 0, sizeof(int));
-            destination.Write(salt, 0, salt.Length);
-            EncryptAndEmbedIv(dataToEncrypt, key, destination);
+            EncryptAndEmbedIv(dataToEncrypt, key, destination, salt);
         }
 
         /// <summary>
@@ -91,16 +89,7 @@ namespace EasyCrypto
         /// <param name="password">Password that is used for generating key for encryption/decryption</param>
         /// <param name="destination">Stream to which to write decrypted data</param>
         public static void DecryptWithPassword(Stream dataToDecrypt, string password, Stream destination)
-        {
-            byte[] sizeOfSaltBytes = new byte[sizeof(int)];
-            dataToDecrypt.Read(sizeOfSaltBytes, 0, sizeOfSaltBytes.Length);
-            int sizeOfSalt = BitConverter.ToInt32(sizeOfSaltBytes, 0);
-            byte[] salt = new byte[sizeOfSalt];
-            dataToDecrypt.Read(salt, 0, salt.Length);
-            var ph = new PasswordHasher((uint)sizeOfSalt);
-            byte[] key = ph.HashPassword(password, salt);
-            DecryptWithEmbededIv(dataToDecrypt, key, destination);
-        }
+            => DecryptWithEmbededIv(dataToDecrypt, null, destination, password);
 
         /// <summary>
         /// Encrypts bytes and embeds IV. Can be decrypted with <see cref="DecryptWithEmbededIv(byte[], byte[])"/>
@@ -132,10 +121,21 @@ namespace EasyCrypto
         /// <param name="key">Key that will be used for encryption/decryption, must be 16, 24 or 32 bytes long.</param>
         /// <param name="destination"></param>
         public static void EncryptAndEmbedIv(Stream dataToEncrypt, byte[] key, Stream destination)
+            => EncryptAndEmbedIv(dataToEncrypt, key, destination, null);
+
+        private static void EncryptAndEmbedIv(Stream dataToEncrypt, byte[] key, Stream destination, byte[] salt)
         {
             byte[] iv = CryptoRandom.NextBytesStatic(16);
-            destination.Write(iv, 0, iv.Length);
-            Encrypt(dataToEncrypt, key, iv, destination);
+            Encrypt(new CryptoRequest
+            {
+                EmbedIV = true,
+                InData = dataToEncrypt,
+                OutData = destination,
+                IV = iv,
+                Key = key,
+                EmbedSalt = salt != null,
+                Salt = salt
+            });
         }
 
         /// <summary>
@@ -146,10 +146,19 @@ namespace EasyCrypto
         /// <param name="key">Key that will be used for encryption/decryption, must be 16, 24 or 32 bytes long.</param>
         /// <param name="destination">Stream to which decrypted data will be wrote.</param>
         public static void DecryptWithEmbededIv(Stream dataToDecrypt, byte[] key, Stream destination)
+            => DecryptWithEmbededIv(dataToDecrypt, key, destination, null);
+
+        private static void DecryptWithEmbededIv(Stream dataToDecrypt, byte[] key, Stream destination, string password)
         {
-            byte[] iv = new byte[16];
-            dataToDecrypt.Read(iv, 0, iv.Length);
-            Decrypt(dataToDecrypt, key, iv, destination);
+            Decrypt(new CryptoRequest
+            {
+                EmbedIV = true,
+                InData = dataToDecrypt,
+                OutData = destination,
+                Key = key,
+                Password = password,
+                EmbedSalt = password != null
+            });
         }
 
         /// <summary>
@@ -159,8 +168,16 @@ namespace EasyCrypto
         /// <param name="key">Key that will be used for encryption/decryption, must be 16, 24 or 32 bytes long.</param>
         /// <param name="iv">Initialization vector, must be 16 bytes</param>
         /// <returns></returns>
-        public static byte[] Encrypt(byte[] dataToEncrypt, byte[] key, byte[] iv) 
-            => HandleByteToStream(dataToEncrypt, (inStream, outStream) => Encrypt(inStream, key, iv, outStream));
+        public static byte[] Encrypt(byte[] dataToEncrypt, byte[] key, byte[] iv)
+            => HandleByteToStream(dataToEncrypt, (inStream, outStream) => // Encrypt(inStream, key, iv, outStream));
+            Encrypt(new CryptoRequest
+            {
+                EmbedIV = true,
+                InData = inStream,
+                OutData = outStream,
+                IV = iv,
+                Key = key
+            }));
 
         /// <summary>
         /// 
@@ -208,13 +225,15 @@ namespace EasyCrypto
 
         internal static void Encrypt(CryptoRequest request)
         {
+            if (request.Key.Length != 32) throw new ArgumentException("Key must be 32 bytes long.");
             if (request.IV == null || request.IV.Length != 16) throw new ArgumentException("IV must be 16 bytes in length");
             if (request.Key == null || !(new[] { 16, 24, 32 }).Contains(request.Key.Length)) throw new ArgumentException("Key must 16, 24 or 32 bytes in length");
 
-            var container = CryptoContainer.CreateForEncryption(request);
+            CryptoContainer container = null;
             if (!request.SkipValidations)
             {
-                //container.WriteEmptyHeaderData();
+                container = CryptoContainer.CreateForEncryption(request);
+                container.WriteEmptyHeaderData();
             }
 
             using (var aes = new AesManaged())
@@ -243,17 +262,29 @@ namespace EasyCrypto
             }
             if (!request.SkipValidations)
             {
-                //container.WriteChecksAndEmbededData();
+                container.WriteChecksAndEmbededData();
             }
         }
 
         internal static void Decrypt(CryptoRequest request)
         {
-            //if (!skipValidations)
-            //{
-            //    KeyCheckValueValidator.ValidateKeyCheckValue(key, dataToDecrypt);
-            //}
+            CryptoContainer container = null;
+            if (!request.SkipValidations)
+            {
+                container = CryptoContainer.CreateForDecryption(request);
+                var validationResult = container.ReadAndValidateDataForDecryption();
+                if (!validationResult.IsValid)
+                {
+                    throw validationResult.ExceptionToThrow ?? new Exception("Unknown error");
+                }
+                request.IV = container.GetIV();
+                if (request.Password != null)
+                {
+                    request.Key = container.CalculateKey();
+                }
+            }
 
+            if (request.Key == null || request.Key.Length != 32) throw new ArgumentException("Key must be 32 bytes long.");
             if (request.IV == null || request.IV.Length != 16) throw new ArgumentException($"IV must be 16 bytes in length");
             if (request.Key == null || !(new[] { 16, 24, 32 }).Contains(request.Key.Length)) throw new ArgumentException($"Key must 16, 24 or 32 bytes in length");
 
