@@ -5,7 +5,15 @@ namespace EasyCrypto
 {
     public static class DataTools
     {
-        public static byte[] SkiptTake(this byte[] array, int skip, int take)
+        /// <summary>
+        /// Skips and take desired number of bytes.
+        /// </summary>
+        /// <param name="array">The array used for source.</param>
+        /// <param name="skip">Number of bytes to skip (start index).</param>
+        /// <param name="take">Number of bytes to take.</param>
+        /// <returns>Byte array</returns>
+        /// <exception cref="System.ArgumentNullException"></exception>
+        public static byte[] SkipTake(this byte[] array, int skip, int take)
         {
             if (array == null)
                 throw new ArgumentNullException(nameof(array));
@@ -18,6 +26,11 @@ namespace EasyCrypto
             return ret;
         }
 
+        /// <summary>
+        /// Joins the byte arrays.
+        /// </summary>
+        /// <param name="byteArrays">The byte arrays to join.</param>
+        /// <returns>Joined byte array to one byte array</returns>
         public static byte[] JoinByteArrays(params byte[][] byteArrays)
         {
             byte[] ret = new byte[byteArrays.Sum(x => x.Length)];
@@ -30,6 +43,12 @@ namespace EasyCrypto
             return ret;
         }
 
+        /// <summary>
+        /// Compares two byte arrays.
+        /// </summary>
+        /// <param name="ba1">Byte array 1.</param>
+        /// <param name="ba2">Byte array 2.</param>
+        /// <returns>Bool, true if arrays are equal.</returns>
         public static bool CompareByteArrays(byte[] ba1, byte[] ba2)
         {
             if (ba1 == null) throw new ArgumentNullException(nameof(ba1));

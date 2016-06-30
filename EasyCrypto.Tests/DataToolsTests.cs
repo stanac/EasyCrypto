@@ -23,7 +23,7 @@ namespace EasyCrypto.Tests
 
             Assert.Equal(expected, summed);
         }
-        
+
         public static bool CompareByteArrays(byte[] ba1, byte[] ba2)
         {
             if (ba1 == null) throw new ArgumentNullException(nameof(ba1));

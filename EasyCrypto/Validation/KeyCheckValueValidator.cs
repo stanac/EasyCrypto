@@ -41,7 +41,7 @@ namespace EasyCrypto.Validation
 
         internal static bool ValidateKeyCheckValueInternal(byte[] key, byte[] originalKCV)
         {
-            byte[] calculatedKcv = GenerateKeyCheckValue(key, originalKCV.SkiptTake(3, 16));
+            byte[] calculatedKcv = GenerateKeyCheckValue(key, originalKCV.SkipTake(3, 16));
             return DataTools.CompareByteArrays(originalKCV, calculatedKcv);
         }
     }

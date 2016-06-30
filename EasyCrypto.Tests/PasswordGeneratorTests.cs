@@ -113,10 +113,10 @@ namespace EasyCrypto.Tests
             int numberOfSymbols = password.Count(options.ValidSymbols.Contains);
             int numberOfNumbers = password.Count("0123456789".Contains);
 
-            Assert.True(numberOfLower >= options.MinLowerCase, "Number of lower case is less than minumum");
-            Assert.True(numberOfUpper >= options.MinUpperCase, "Number of upper case is less than minumum");
-            Assert.True(numberOfSymbols >= options.MinSymbols, "Number of symbols is less than minumum");
-            Assert.True(numberOfNumbers >= options.MinNumbers, "Number of numbers is less than minumum");
+            Assert.True(numberOfLower >= options.MinLowerCase, "Number of lower case is less than minimum");
+            Assert.True(numberOfUpper >= options.MinUpperCase, "Number of upper case is less than minimum");
+            Assert.True(numberOfSymbols >= options.MinSymbols, "Number of symbols is less than minimum");
+            Assert.True(numberOfNumbers >= options.MinNumbers, "Number of numbers is less than minimum");
         }
 
         private bool IsSinglePasswordInRange(string password, PasswordGenerationOptions options)

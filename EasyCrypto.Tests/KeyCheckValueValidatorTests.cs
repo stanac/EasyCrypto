@@ -35,7 +35,7 @@ namespace EasyCrypto.Tests
                 exceptionWasThrown = true;
             }
 
-            Assert.False(exceptionWasThrown, "Validation of KCV has faild");
+            Assert.False(exceptionWasThrown, "Validation of KCV has failed");
         }
     }
 }

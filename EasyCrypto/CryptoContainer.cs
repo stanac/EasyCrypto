@@ -6,6 +6,9 @@ using System.IO;
 
 namespace EasyCrypto
 {
+    /// <summary>
+    /// Used internally to check for format and metadata (header data)
+    /// </summary>
     internal class CryptoContainer
     {
         /*
@@ -93,7 +96,7 @@ namespace EasyCrypto
             OutData.Write(data, 0, data.Length);
         }
 
-        public void WriteChecksAndEmbededData()
+        public void WriteChecksAndEmbeddedData()
         {
             OutData.Position = 0;
             OutData.Write(BitConverter.GetBytes(MagicNumber), 0, 4);
@@ -182,7 +185,7 @@ namespace EasyCrypto
 
         public byte[] GetIV() => GetHeaderBytes(8, 16);
         
-        private byte[] GetHeaderBytes(int startIndex, int length) => _headerData.SkiptTake(startIndex, length);
+        private byte[] GetHeaderBytes(int startIndex, int length) => _headerData.SkipTake(startIndex, length);
         private short GetHeaderInt16(int startIndex) => BitConverter.ToInt16(_headerData, startIndex);
         private int GetHeaderInt32(int startIndex) => BitConverter.ToInt32(_headerData, startIndex);
 

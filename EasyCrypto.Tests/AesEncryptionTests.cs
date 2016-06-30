@@ -43,7 +43,7 @@ namespace EasyCrypto.Tests
         }
 
         [Fact]
-        public void EncryptedWithEmbededIvCanBeDecrypted()
+        public void EncryptedWithEmbeddedIvCanBeDecrypted()
         {
             using (var cr = new CryptoRandom())
             {
@@ -53,7 +53,7 @@ namespace EasyCrypto.Tests
                     byte[] plainText = cr.NextBytes((uint)cr.NextInt(4 * 1025, 8 * 1025));
 
                     byte[] encrypted = AesEncryption.EncryptAndEmbedIv(plainText, key);
-                    byte[] decrypted = AesEncryption.DecryptWithEmbededIv(encrypted, key);
+                    byte[] decrypted = AesEncryption.DecryptWithEmbeddedIv(encrypted, key);
 
                     string plainString = Convert.ToBase64String(plainText);
                     string decryptedString = Convert.ToBase64String(decrypted);

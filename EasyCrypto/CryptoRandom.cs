@@ -46,7 +46,7 @@ namespace EasyCrypto
         /// <summary>
         /// Generates random int &gt;= minInclusive and &lt; maxExclusive
         /// </summary>
-        /// <param name="minInclusive">Minimum inclusiv value to return</param>
+        /// <param name="minInclusive">Minimum inclusive value to return</param>
         /// <param name="maxExclusive">Maximum exclusive value to return</param>
         /// <returns>Random integer</returns>
         public static int NextIntStatic(int minInclusive, int maxExclusive)
@@ -73,7 +73,7 @@ namespace EasyCrypto
         /// <summary>
         /// Generates random int &gt;= minInclusive and &lt; maxExclusive
         /// </summary>
-        /// <param name="minInclusive">Minimum inclusiv value to return</param>
+        /// <param name="minInclusive">Minimum inclusive value to return</param>
         /// <param name="maxExclusive">Maximum exclusive value to return</param>
         /// <returns>Random integer</returns>
         public int NextInt(int minInclusive, int maxExclusive)
@@ -100,8 +100,8 @@ namespace EasyCrypto
         /// <summary>
         /// Fills array of integers with random values
         /// </summary>
-        /// <param name="arrayToFill">Array to fill with random ints</param>
-        /// <param name="minInclusive">Minimum inclusiv value to return</param>
+        /// <param name="arrayToFill">Array to fill with random integers</param>
+        /// <param name="minInclusive">Minimum inclusive value to return</param>
         /// <param name="maxExclusive">Maximum exclusive value to return</param>
         public void FillIntArrayWithRandomValues(int[] arrayToFill, int minInclusive, int maxExclusive)
         {

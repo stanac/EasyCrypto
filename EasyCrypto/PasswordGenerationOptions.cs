@@ -29,22 +29,22 @@ namespace EasyCrypto
         public string ValidSymbols { get; private set; } = "!@#$%^&*_+-";
 
         /// <summary>
-        /// Minumum number of upper case to use, maximum will be set to at least twice as mutch (zero means don't use it), default is 4
+        /// Minimum number of upper case to use, maximum will be set to at least twice as much (zero means don't use it), default is 4
         /// </summary>
         public uint MinUpperCase { get; private set; } = 4;
 
         /// <summary>
-        /// Minumum number of lower case to use, maximum will be set to at least twice as mutch (zero means don't use it), default is 4
+        /// Minimum number of lower case to use, maximum will be set to at least twice as much (zero means don't use it), default is 4
         /// </summary>
         public uint MinLowerCase { get; private set; } = 4;
 
         /// <summary>
-        /// Minumum number of numbers to use, maximum will be set to at least twice as mutch (zero means don't use it), default is 2
+        /// Minimum number of numbers to use, maximum will be set to at least twice as much (zero means don't use it), default is 2
         /// </summary>
         public uint MinNumbers { get; private set; } = 2;
 
         /// <summary>
-        /// Minumum number of symbols to use, maximum will be set to at least twice as mutch (zero means don't use it), default is 2
+        /// Minimum number of symbols to use, maximum will be set to at least twice as much (zero means don't use it), default is 2
         /// </summary>
         public uint MinSymbols { get; private set; } = 2;
 
@@ -156,7 +156,7 @@ namespace EasyCrypto
             message = null;
             if (MinLowerCase + MinNumbers + MinSymbols + MinUpperCase > Length)
             {
-                message = "Following condition is not satisfiled: MinLowerCase + MinNumbers + MinSymbols + MinUpperCase <= Length";
+                message = "Following condition is not satisfied: MinLowerCase + MinNumbers + MinSymbols + MinUpperCase <= Length";
             }
             return message == null;
         }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace EasyCrypto
 {
     /// <summary>
-    /// Class for generating cryto secure passwords
+    /// Class for generating cryptographically secure passwords
     /// </summary>
     public class PasswordGenerator : IDisposable
     {

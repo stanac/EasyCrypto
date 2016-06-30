@@ -20,7 +20,7 @@ namespace EasyCrypto.Validation
             if (!ValidateMessageAuthenticationCodeInternal(key, originalMac, encryptedData, startIndex))
             {
                 throw new Exceptions.DataIntegrityValidationException("Validation of Message Authentication Code (MAC) has failed. " +
-                    "Most likely reason for this exception is that encrypted data was modifiled.");
+                    "Most likely reason for this exception is that encrypted data was modified.");
             }
         }
 
