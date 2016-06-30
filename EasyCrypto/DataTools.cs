@@ -3,6 +3,9 @@ using System.Linq;
 
 namespace EasyCrypto
 {
+    /// <summary>
+    /// Helper methods for work with byte arrays
+    /// </summary>
     public static class DataTools
     {
         /// <summary>

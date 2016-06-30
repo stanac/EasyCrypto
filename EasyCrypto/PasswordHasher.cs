@@ -8,10 +8,31 @@ using System.Threading.Tasks;
 
 namespace EasyCrypto
 {
+    /// <summary>
+    /// Password hasher and validator
+    /// </summary>
     public class PasswordHasher
     {
+        /// <summary>
+        /// Gets the hash length in bytes.
+        /// </summary>
+        /// <value>
+        /// The hash length in bytes.
+        /// </value>
         public uint HashLengthInBytes { get; private set; }
+        /// <summary>
+        /// Gets the salt length in bytes.
+        /// </summary>
+        /// <value>
+        /// The salt length in bytes.
+        /// </value>
         public uint SaltLengthInBytes { get; private set; }
+        /// <summary>
+        /// Gets the hash iterations.
+        /// </summary>
+        /// <value>
+        /// The hash iterations.
+        /// </value>
         public uint HashIterations { get; private set; }
 
         /// <summary>
@@ -24,7 +45,7 @@ namespace EasyCrypto
         /// <summary>
         /// Construction that accepts size of hash and salt
         /// </summary>
-        /// <param name="hashAndSaltLengthsInBytes">Length of hash and salt in bytes, 
+        /// <param name="hashAndSaltLengthsInBytes">Length of hash and salt in bytes,
         /// must be one of: 8, 16, 32, 64, 128 (128 might be overkill)</param>
         public PasswordHasher(uint hashAndSaltLengthsInBytes)
             : this(hashAndSaltLengthsInBytes, 25000)
@@ -33,9 +54,10 @@ namespace EasyCrypto
         /// <summary>
         /// Construction that accepts size of hash and salt and number of iterations
         /// </summary>
-        /// <param name="hashAndSaltLengthsInBytes">Length of hash and salt in bytes, 
+        /// <param name="hashAndSaltLengthsInBytes">Length of hash and salt in bytes,
         /// must be one of: 8, 16, 32, 64, 128 (128 might be overkill)</param>
         /// <param name="hashIterations">Number of hash iterations</param>
+        /// <exception cref="System.ArgumentException"></exception>
         public PasswordHasher(uint hashAndSaltLengthsInBytes, uint hashIterations)
         {
             if (!(new[] { 8, 16, 32, 64, 128 }.Contains((int)hashAndSaltLengthsInBytes)))
@@ -55,7 +77,14 @@ namespace EasyCrypto
         /// </summary>
         /// <param name="password">Password to hash</param>
         /// <param name="salt">Salt to use for hashing</param>
-        /// <returns>Byte[], hashed password</returns>
+        /// <returns>
+        /// Byte[], hashed password
+        /// </returns>
+        /// <exception cref="System.ArgumentException">
+        /// password cannot be null, empty or white space
+        /// or
+        /// salt cannot be null and must be in length equal to value set in constructor, default is 16 bytes
+        /// </exception>
         public byte[] HashPassword(string password, byte[] salt)
         {
             if (string.IsNullOrWhiteSpace(password))
@@ -79,7 +108,9 @@ namespace EasyCrypto
         /// </summary>
         /// <param name="password">Password to hash</param>
         /// <param name="salt">Generated salt</param>
-        /// <returns>Byte[], Hash of the password</returns>
+        /// <returns>
+        /// Byte[], Hash of the password
+        /// </returns>
         public byte[] HashPasswordAndGenerateSalt(string password, out byte[] salt)
         {
             salt = GenerateRandomSalt();
@@ -87,10 +118,12 @@ namespace EasyCrypto
         }
 
         /// <summary>
-        /// Hashes password and adds salt to output, can be later validated by <see cref="ValidatePasswordWithEmbeddedSalt(string, byte[])"/>
+        /// Hashes password and adds salt to output, can be later validated by <see cref="ValidatePasswordWithEmbeddedSalt(string, byte[])" />
         /// </summary>
         /// <param name="password">Password to hash</param>
-        /// <returns>Byte[], hashed password with embedded salt</returns>
+        /// <returns>
+        /// Byte[], hashed password with embedded salt
+        /// </returns>
         public byte[] HashPasswordAndGenerateEmbeddedSalt(string password)
         {
             byte[] salt;
@@ -106,11 +139,13 @@ namespace EasyCrypto
         }
 
         /// <summary>
-        /// Same as <see cref="HashPasswordAndGenerateEmbeddedSalt(string)"/> but returns base64 string
-        /// Can be validated by <see cref="ValidatePasswordWithEmbeddedSaltAsString(string, string)"/>
+        /// Same as <see cref="HashPasswordAndGenerateEmbeddedSalt(string)" /> but returns base64 string
+        /// Can be validated by <see cref="ValidatePasswordWithEmbeddedSaltAsString(string, string)" />
         /// </summary>
         /// <param name="password">Password to hash</param>
-        /// <returns>String, hashed password with embedded salt</returns>
+        /// <returns>
+        /// String, hashed password with embedded salt
+        /// </returns>
         public string HashPasswordAndGenerateEmbeddedSaltAsString(string password)
             => Convert.ToBase64String(HashPasswordAndGenerateEmbeddedSalt(password));
 
@@ -136,7 +171,9 @@ namespace EasyCrypto
         /// </summary>
         /// <param name="password">Password to check</param>
         /// <param name="hashAndEmbeddedSalt">Hash with embedded salt</param>
-        /// <returns>Bool, true if password is valid</returns>
+        /// <returns>
+        /// Bool, true if password is valid
+        /// </returns>
         public bool ValidatePasswordWithEmbeddedSalt(string password, byte[] hashAndEmbeddedSalt)
         {
             int saltLength = BitConverter.ToInt32(hashAndEmbeddedSalt, 0);
@@ -151,16 +188,22 @@ namespace EasyCrypto
         }
 
         /// <summary>
-        /// Same as <see cref="ValidatePasswordWithEmbeddedSalt(string, byte[])"/> but accepts string for hashWithEmbeddedPassword
+        /// Same as <see cref="ValidatePasswordWithEmbeddedSalt(string, byte[])" /> but accepts string for hashWithEmbeddedPassword
         /// </summary>
         /// <param name="password">Password to check</param>
         /// <param name="hashAndEmbeddedSalt">Hash with embedded salt</param>
-        /// <returns>Bool, true if password is valid</returns>
+        /// <returns>
+        /// Bool, true if password is valid
+        /// </returns>
         public bool ValidatePasswordWithEmbeddedSaltAsString(string password, string hashAndEmbeddedSalt)
             => ValidatePasswordWithEmbeddedSalt(password, Convert.FromBase64String(hashAndEmbeddedSalt));
 
         #endregion Validating password
 
+        /// <summary>
+        /// Generates the random salt.
+        /// </summary>
+        /// <returns></returns>
         public byte[] GenerateRandomSalt() => CryptoRandom.NextBytesStatic(SaltLengthInBytes);
 
     }

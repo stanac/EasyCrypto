@@ -9,7 +9,12 @@ namespace EasyCrypto
     public class CryptoRandom : IDisposable
     {
         private readonly RNGCryptoServiceProvider _rng = new RNGCryptoServiceProvider();
-        
+
+        /// <summary>
+        /// Returns new random bytes.
+        /// </summary>
+        /// <param name="length">The number for bytes to return.</param>
+        /// <returns>Byte array</returns>
         public static byte[] NextBytesStatic(uint length)
         {
             using (var cr = new CryptoRandom())
@@ -89,6 +94,10 @@ namespace EasyCrypto
         /// <returns>Random double</returns>
         public double NextDouble() => (double)NextInt() / int.MaxValue;
 
+        /// <summary>
+        /// Return random double between 0 and 1
+        /// </summary>
+        /// <returns>Double between 0 and 1</returns>
         public static double NextDoubleStatic()
         {
             using (var cr = new CryptoRandom())
@@ -121,7 +130,10 @@ namespace EasyCrypto
                 arrayToFill[i] = temp;
             }
         }
-        
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
             _rng.Dispose();
