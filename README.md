@@ -1,5 +1,7 @@
 # EasyCrypto
 
+[![Build status](https://ci.appveyor.com/api/projects/status/6py1gx536fn0tu2j?svg=true)](https://ci.appveyor.com/project/ProjectMona/easycrypto)
+
 EasyCrypto is .NET library that helps with
 - Encryption and decryption of streams, byte arrays and strings
 - Password generating, hashing and validating
