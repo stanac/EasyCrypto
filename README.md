@@ -22,7 +22,7 @@ Install-Package EasyCrypto
 
 ## Examples of usage
 
-**For full API see the [pages]().**
+**For full API see the [pages](https://stanac.github.io/EasyCrypto/).**
 
 ---
 
@@ -101,7 +101,7 @@ void Dispose()
 ### Class PasswordGenerator : IDisposable
 
 PasswordGenerator has static methods in the same manner as CryptoRanom, following examples will
-show only calls to instance methods. For all available options check [PasswordGenerationOptions class]().
+show only calls to instance methods. For all available options check [PasswordGenerationOptions class](https://stanac.github.io/EasyCrypto/EasyCrypto/PasswordGenerationOptions.htm).
 
 ```cs
 using (var pg = new PasswordGenerator())
