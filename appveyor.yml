@@ -1,0 +1,8 @@
+branches:
+  only:
+    - master
+image: Visual Studio 2015
+configuration: Release
+test:
+  assemblies: 
+    - EasyCrypto.Tests.dll
