@@ -10,7 +10,7 @@ namespace EasyCrypto.Tests
             var ph = new PasswordHasher();
             string password = PasswordGenerator.GenerateStatic();
             string hashAndSalt = ph.HashPasswordAndGenerateEmbeddedSaltAsString(password);
-            bool isValid = ph.ValidatePasswordWithEmbeddedSaltAsString(password, hashAndSalt);
+            bool isValid = ph.ValidatePasswordWithEmbeddedSalt(password, hashAndSalt);
             Assert.True(isValid, "Password hash and validation failed");
         }
 
@@ -20,7 +20,7 @@ namespace EasyCrypto.Tests
             var ph = new PasswordHasher();
             string password = PasswordGenerator.GenerateStatic();
             string hashAndSalt = ph.HashPasswordAndGenerateEmbeddedSaltAsString(password);
-            bool isValid = ph.ValidatePasswordWithEmbeddedSaltAsString(password + "!", hashAndSalt);
+            bool isValid = ph.ValidatePasswordWithEmbeddedSalt(password + "!", hashAndSalt);
             Assert.False(isValid, "Password hash and validation failed for changed password");
         }
 
@@ -30,7 +30,7 @@ namespace EasyCrypto.Tests
             var ph = new PasswordHasher(8);
             string password = PasswordGenerator.GenerateStatic();
             string hashAndSalt = ph.HashPasswordAndGenerateEmbeddedSaltAsString(password);
-            bool isValid = ph.ValidatePasswordWithEmbeddedSaltAsString(password, hashAndSalt);
+            bool isValid = ph.ValidatePasswordWithEmbeddedSalt(password, hashAndSalt);
             Assert.True(isValid, "Password hash and validation for 8 bytes failed");
         }
         
@@ -40,7 +40,7 @@ namespace EasyCrypto.Tests
             var ph = new PasswordHasher(32);
             string password = PasswordGenerator.GenerateStatic();
             string hashAndSalt = ph.HashPasswordAndGenerateEmbeddedSaltAsString(password);
-            bool isValid = ph.ValidatePasswordWithEmbeddedSaltAsString(password, hashAndSalt);
+            bool isValid = ph.ValidatePasswordWithEmbeddedSalt(password, hashAndSalt);
             Assert.True(isValid, "Password hash and validation for 8 bytes failed");
         }
         
@@ -50,19 +50,19 @@ namespace EasyCrypto.Tests
             var ph = new PasswordHasher(64);
             string password = PasswordGenerator.GenerateStatic();
             string hashAndSalt = ph.HashPasswordAndGenerateEmbeddedSaltAsString(password);
-            bool isValid = ph.ValidatePasswordWithEmbeddedSaltAsString(password, hashAndSalt);
+            bool isValid = ph.ValidatePasswordWithEmbeddedSalt(password, hashAndSalt);
             Assert.True(isValid, "Password hash and validation for 8 bytes failed");
         }
 
-        [Fact]
-        public void HashedPasswordIsValidHashSalt128()
-        {
-            var ph = new PasswordHasher(128);
-            string password = PasswordGenerator.GenerateStatic();
-            string hashAndSalt = ph.HashPasswordAndGenerateEmbeddedSaltAsString(password);
-            bool isValid = ph.ValidatePasswordWithEmbeddedSaltAsString(password, hashAndSalt);
-            Assert.True(isValid, "Password hash and validation for 8 bytes failed");
-        }
+        //[Fact]
+        //public void HashedPasswordIsValidHashSalt128()
+        //{
+        //    var ph = new PasswordHasher(128);
+        //    string password = PasswordGenerator.GenerateStatic();
+        //    string hashAndSalt = ph.HashPasswordAndGenerateEmbeddedSaltAsString(password);
+        //    bool isValid = ph.ValidatePasswordWithEmbeddedSalt(password, hashAndSalt);
+        //    Assert.True(isValid, "Password hash and validation for 8 bytes failed");
+        //}
 
     }
 }

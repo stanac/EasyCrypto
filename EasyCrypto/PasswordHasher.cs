@@ -55,14 +55,14 @@ namespace EasyCrypto
         /// Construction that accepts size of hash and salt and number of iterations
         /// </summary>
         /// <param name="hashAndSaltLengthsInBytes">Length of hash and salt in bytes,
-        /// must be one of: 8, 16, 32, 64, 128 (128 might be overkill)</param>
+        /// must be one of: 8, 16, 32, 64</param>
         /// <param name="hashIterations">Number of hash iterations</param>
         /// <exception cref="System.ArgumentException"></exception>
         public PasswordHasher(uint hashAndSaltLengthsInBytes, uint hashIterations)
         {
-            if (!(new[] { 8, 16, 32, 64, 128 }.Contains((int)hashAndSaltLengthsInBytes)))
+            if (!(new[] { 8, 16, 32, 64 }.Contains((int)hashAndSaltLengthsInBytes)))
             {
-                throw new ArgumentException($"{nameof(hashAndSaltLengthsInBytes)} must be 8, 16, 32 or 64");
+                throw new ArgumentException($"{nameof(hashAndSaltLengthsInBytes)} must be 8, 16, 32, 64");
             }
 
             HashLengthInBytes = hashAndSaltLengthsInBytes;
@@ -140,7 +140,7 @@ namespace EasyCrypto
 
         /// <summary>
         /// Same as <see cref="HashPasswordAndGenerateEmbeddedSalt(string)" /> but returns base64 string
-        /// Can be validated by <see cref="ValidatePasswordWithEmbeddedSaltAsString(string, string)" />
+        /// Can be validated by <see cref="ValidatePasswordWithEmbeddedSalt(string, string)" />
         /// </summary>
         /// <param name="password">Password to hash</param>
         /// <returns>
@@ -195,7 +195,7 @@ namespace EasyCrypto
         /// <returns>
         /// Bool, true if password is valid
         /// </returns>
-        public bool ValidatePasswordWithEmbeddedSaltAsString(string password, string hashAndEmbeddedSalt)
+        public bool ValidatePasswordWithEmbeddedSalt(string password, string hashAndEmbeddedSalt)
             => ValidatePasswordWithEmbeddedSalt(password, Convert.FromBase64String(hashAndEmbeddedSalt));
 
         #endregion Validating password

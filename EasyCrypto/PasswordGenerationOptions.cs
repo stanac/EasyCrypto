@@ -8,6 +8,8 @@ namespace EasyCrypto
     /// </summary>
     public class PasswordGenerationOptions
     {
+        private PasswordGenerationOptions() { }
+
         /// <summary>
         /// Length of password, default is 16
         /// </summary>

@@ -1,5 +1,4 @@
-﻿using EasyCrypto.Validation;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -10,7 +9,7 @@ namespace EasyCrypto
     /// <summary>
     /// AES encryption helper class
     /// </summary>
-    public class AesEncryption
+    public static class AesEncryption
     {
         /// <summary>
         /// Encrypts string and returns string. Salt and IV will be embedded to encrypted string.
@@ -162,7 +161,7 @@ namespace EasyCrypto
         }
 
         /// <summary>
-        /// 
+        /// Encrypts data from byte array to byte array.
         /// </summary>
         /// <param name="dataToEncrypt"></param>
         /// <param name="key">Key that will be used for encryption/decryption, must be 16, 24 or 32 bytes long.</param>
@@ -180,7 +179,7 @@ namespace EasyCrypto
             }));
 
         /// <summary>
-        /// 
+        /// Decrypts data from byte array to byte array.
         /// </summary>
         /// <param name="dataToDecrypt"></param>
         /// <param name="key">Key that will be used for encryption/decryption, must be 16, 24 or 32 bytes long.</param>
@@ -190,7 +189,7 @@ namespace EasyCrypto
             => HandleByteToStream(dataToDecrypt, (inStream, outStream) => Decrypt(inStream, key, iv, outStream));
 
         /// <summary>
-        /// 
+        /// Encrypts data from stream to stream.
         /// </summary>
         /// <param name="dataToEncrypt">Stream with data to decrypt.</param>
         /// <param name="key">Key that will be used for encryption/decryption, must be 16, 24 or 32 bytes long.</param>
@@ -207,7 +206,7 @@ namespace EasyCrypto
             });
 
         /// <summary>
-        /// 
+        /// Decrypts data from stream to stream.
         /// </summary>
         /// <param name="dataToDecrypt">Stream with data to encrypt.</param>
         /// <param name="key">Key that will be used for encryption/decryption, must be 16, 24 or 32 bytes long.</param>
@@ -227,7 +226,6 @@ namespace EasyCrypto
         {
             if (request.Key.Length != 32) throw new ArgumentException("Key must be 32 bytes long.");
             if (request.IV == null || request.IV.Length != 16) throw new ArgumentException("IV must be 16 bytes in length");
-            if (request.Key == null || !(new[] { 16, 24, 32 }).Contains(request.Key.Length)) throw new ArgumentException("Key must 16, 24 or 32 bytes in length");
 
             CryptoContainer container = null;
             if (!request.SkipValidations)
@@ -286,7 +284,6 @@ namespace EasyCrypto
 
             if (request.Key == null || request.Key.Length != 32) throw new ArgumentException("Key must be 32 bytes long.");
             if (request.IV == null || request.IV.Length != 16) throw new ArgumentException($"IV must be 16 bytes in length");
-            if (request.Key == null || !(new[] { 16, 24, 32 }).Contains(request.Key.Length)) throw new ArgumentException($"Key must 16, 24 or 32 bytes in length");
 
             using (var aes = new AesManaged())
             {
