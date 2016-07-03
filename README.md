@@ -18,7 +18,8 @@ with default hash and salt size of 256 bits and 25K iterations.
 
 ---
 
-**For full API see the [pages](https://stanac.github.io/EasyCrypto/).** \
+**For full API see the [pages](https://stanac.github.io/EasyCrypto/).**
+
 For changes see [history](https://github.com/stanac/EasyCrypto/blob/master/HISTORY.md).
 
 ## Install from nuget
