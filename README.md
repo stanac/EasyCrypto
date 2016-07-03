@@ -16,6 +16,11 @@ and [MAC](https://en.wikipedia.org/wiki/Message_authentication_code). MAC is cal
 with default hash and salt size of 256 bits and 25K iterations.
 - Asymmetric (public key) encryption is currently not supported.
 
+---
+
+**For full API see the [pages](https://stanac.github.io/EasyCrypto/).** \
+For changes see [history](https://github.com/stanac/EasyCrypto/blob/master/HISTORY.md).
+
 ## Install from nuget
 
 ```
@@ -23,8 +28,6 @@ Install-Package EasyCrypto
 ```
 
 ## Examples of usage
-
-**For full API see the [pages](https://stanac.github.io/EasyCrypto/).**
 
 ---
 
@@ -65,6 +68,19 @@ static byte[] DecryptWithPassword(byte[] dataToDecrypt, string password)
 
 static string EncryptWithPassword(string dataToEncrypt, string password)
 static string DecryptWithPassword(string dataToDecrypt, string password)
+
+
+// validation methods (from v1.1.0, used to verify key/password and data integrity):
+
+static ValidationResult ValidateEncryptedData(byte[] encryptedData, byte[] key, byte[] iv)
+static ValidationResult ValidateEncryptedData(Stream encryptedData, byte[] key, byte[] iv)
+
+static ValidationResult ValidateEncryptedDataWithEmbededIv(byte[] encryptedData, byte[] key)
+static ValidationResult ValidateEncryptedDataWithEmbededIv(Stream encryptedData, byte[] key)
+
+static ValidationResult ValidateEncryptedDataWithPassword(string encryptedData, string password)
+static ValidationResult ValidateEncryptedDataWithPassword(byte[] encryptedData, string password)
+static ValidationResult ValidateEncryptedDataWithPassword(Stream encryptedData, string password)
 ```
 
 ---
