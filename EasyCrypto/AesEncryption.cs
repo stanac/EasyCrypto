@@ -331,10 +331,24 @@ namespace EasyCrypto
         #endregion
 
         #region validations
-        
+
+        /// <summary>
+        /// Validates the encrypted data.
+        /// </summary>
+        /// <param name="encryptedData">The encrypted data</param>
+        /// <param name="key">The key</param>
+        /// <param name="iv">The IV</param>
+        /// <returns>ValidationResult</returns>
         public static ValidationResult ValidateEncryptedData(byte[] encryptedData, byte[] key, byte[] iv)
             => HandleByteToStream(encryptedData, (stream) => ValidateEncryptedData(stream, key, iv));
 
+        /// <summary>
+        /// Validates the encrypted data.
+        /// </summary>
+        /// <param name="encryptedData">The encrypted data</param>
+        /// <param name="key">The key</param>
+        /// <param name="iv">The IV</param>
+        /// <returns>ValidationResult</returns>
         public static ValidationResult ValidateEncryptedData(Stream encryptedData, byte[] key, byte[] iv)
             => ValidateEncryptedData(new CryptoRequest
             {
@@ -343,9 +357,21 @@ namespace EasyCrypto
                 Key = key
             });
 
+        /// <summary>
+        /// Validates the encrypted data.
+        /// </summary>
+        /// <param name="encryptedData">The encrypted data</param>
+        /// <param name="key">Key used for encryption</param>
+        /// <returns>ValidationResult</returns>
         public static ValidationResult ValidateEncryptedDataWithEmbededIv(byte[] encryptedData, byte[] key)
             => HandleByteToStream(encryptedData, (stream) => ValidateEncryptedDataWithEmbededIv(stream, key));
-            
+
+        /// <summary>
+        /// Validates the encrypted data.
+        /// </summary>
+        /// <param name="encryptedData">The encrypted data</param>
+        /// <param name="key">Key used for encryption</param>
+        /// <returns>ValidationResult</returns>
         public static ValidationResult ValidateEncryptedDataWithEmbededIv(Stream encryptedData, byte[] key)
             => ValidateEncryptedData(new CryptoRequest
             {
@@ -354,12 +380,30 @@ namespace EasyCrypto
                 EmbedIV = true
             });
 
+        /// <summary>
+        /// Validates the encrypted data.
+        /// </summary>
+        /// <param name="encryptedData">The encrypted data</param>
+        /// <param name="password">Password used for encryption</param>
+        /// <returns>ValidationResult</returns>
         public static ValidationResult ValidateEncryptedDataWithPassword(string encryptedData, string password)
             => ValidateEncryptedDataWithPassword(Convert.FromBase64String(encryptedData), password);
 
+        /// <summary>
+        /// Validates the encrypted data.
+        /// </summary>
+        /// <param name="encryptedData">The encrypted data</param>
+        /// <param name="password">Password used for encryption</param>
+        /// <returns>ValidationResult</returns>
         public static ValidationResult ValidateEncryptedDataWithPassword(byte[] encryptedData, string password)
             => HandleByteToStream(encryptedData, (stream) => ValidateEncryptedDataWithPassword(stream, password));
 
+        /// <summary>
+        /// Validates the encrypted data.
+        /// </summary>
+        /// <param name="encryptedData">The encrypted data</param>
+        /// <param name="password">Password used for encryption</param>
+        /// <returns>ValidationResult</returns>
         public static ValidationResult ValidateEncryptedDataWithPassword(Stream encryptedData, string password)
             => ValidateEncryptedData(new CryptoRequest
             {
