@@ -86,7 +86,7 @@ static ValidationResult ValidateEncryptedDataWithPassword(Stream encryptedData, 
 
 ---
 
-### Class CryptoRanom : IDisposable
+### Class CryptoRandom : IDisposable
 
 Every method in CryptoRandom class has static equivalent method which is called [MethodName]Static.
 This class is disposable and if you are generating multiple random values it's recommended to use 

@@ -9,6 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyCrypto.Tests", "EasyCry
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FB6CE4BE-57BC-49C8-B41A-62C57D401694}"
 	ProjectSection(SolutionItems) = preProject
+		HISTORY.md = HISTORY.md
 		readme.md = readme.md
 	EndProjectSection
 EndProject
