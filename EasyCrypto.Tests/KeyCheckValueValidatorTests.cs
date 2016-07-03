@@ -1,10 +1,5 @@
 ﻿using EasyCrypto.Exceptions;
 using EasyCrypto.Validation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace EasyCrypto.Tests
@@ -20,7 +15,7 @@ namespace EasyCrypto.Tests
         }
 
         [Fact]
-        public void UnalteredKeyCheckValueIsValidKeyLength32()
+        public void UnalteredKeyCheckValueIsValid()
         {
             byte[] key = CryptoRandom.NextBytesStatic(32);
             byte[] kcv = KeyCheckValueValidator.GenerateKeyCheckValue(key);
@@ -36,6 +31,27 @@ namespace EasyCrypto.Tests
             }
 
             Assert.False(exceptionWasThrown, "Validation of KCV has failed");
+        }
+
+        [Fact]
+        public void AlteredKeyCheckValueIsNotValid()
+        {
+            byte[] key = CryptoRandom.NextBytesStatic(32);
+            byte[] kcv = KeyCheckValueValidator.GenerateKeyCheckValue(key);
+            if (key[0] > 120) key[0]--;
+            else key[0]++;
+
+            bool exceptionWasThrown = false;
+            try
+            {
+                KeyCheckValueValidator.ValidateKeyCheckValue(key, kcv);
+            }
+            catch (KeyCheckValueValidationException)
+            {
+                exceptionWasThrown = true;
+            }
+
+            Assert.True(exceptionWasThrown, "Validation of KCV should have failed, but it didn't");
         }
     }
 }

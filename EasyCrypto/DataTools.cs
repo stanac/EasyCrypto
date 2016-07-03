@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 
 namespace EasyCrypto
@@ -63,6 +64,21 @@ namespace EasyCrypto
                 if (ba1[i] != ba2[i]) return false;
             }
             return true;
+        }
+
+        /// <summary>
+        /// Reads whole stream and returns bytes of the stream.
+        /// </summary>
+        /// <param name="stream">The stream to read.</param>
+        /// <returns>Byte array, from the stream</returns>
+        public static byte[] ToBytes(this Stream stream)
+        {
+            long position = stream.Position;
+            byte[] data = new byte[stream.Length];
+            stream.Position = 0;
+            stream.Read(data, 0, data.Length);
+            stream.Position = position;
+            return data;
         }
     }
 }

@@ -9,12 +9,13 @@ namespace EasyCrypto
     public class ValidationResult
     {
         /// <summary>
-        /// Gets a value indicating whether [key is valid].
+        /// Gets a value indicating whether [key/password is valid].
         /// </summary>
         /// <value>
-        ///   <c>true</c> if [key is valid]; otherwise, <c>false</c>.
+        ///   <c>true</c> if [key/password is valid]; otherwise, <c>false</c>.
         /// </value>
         public bool KeyIsValid { get; internal set; }
+
         /// <summary>
         /// Gets a value indicating whether [data integrity is valid].
         /// </summary>
@@ -22,6 +23,7 @@ namespace EasyCrypto
         /// <c>true</c> if [data integrity is valid]; otherwise, <c>false</c>.
         /// </value>
         public bool DataIntegrityIsValid { get; internal set; }
+
         /// <summary>
         /// Gets a value indicating whether [data format is valid].
         /// </summary>
@@ -29,6 +31,7 @@ namespace EasyCrypto
         ///   <c>true</c> if [data format is valid]; otherwise, <c>false</c>.
         /// </value>
         public bool DataFormatIsValid { get; internal set; }
+
         /// <summary>
         /// Gets a value indicating whether [data format version is valid].
         /// </summary>
@@ -36,6 +39,7 @@ namespace EasyCrypto
         /// <c>true</c> if [data format version is valid]; otherwise, <c>false</c>.
         /// </value>
         public bool DataFormatVersionIsValid { get; internal set; }
+
         /// <summary>
         /// Gets a value indicating whether [data format version is exact].
         /// </summary>
@@ -59,6 +63,7 @@ namespace EasyCrypto
         /// The exception to throw.
         /// </value>
         internal DataFormatValidationException ExceptionToThrow { get; private set; }
+
         /// <summary>
         /// Gets or sets the error message.
         /// </summary>
@@ -67,12 +72,15 @@ namespace EasyCrypto
         /// </value>
         public string ErrorMessage { get; set; }
 
+        public DataValidationErrors? ErrorType { get; set; }
+
         /// <summary>
         /// Sets the exception.
         /// </summary>
         /// <param name="error">The error.</param>
         internal void SetException(DataValidationErrors error)
         {
+            ErrorType = error;
             string message = "Unknown error";
             switch (error)
             {

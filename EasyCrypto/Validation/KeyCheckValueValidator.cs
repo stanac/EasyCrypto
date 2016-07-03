@@ -32,11 +32,12 @@ namespace EasyCrypto.Validation
         /// <returns></returns>
         private static byte[] GenerateKeyCheckValue(byte[] key, byte[] iv)
         {
-            byte[] result = new byte[_kcvLength];
+            byte[] result = null;
             using (Stream inStream = new MemoryStream())
             using (Stream outStream = new MemoryStream())
             {
                 inStream.Write(_kcvData, 0, _kcvData.Length);
+                inStream.Position = 0;
                 AesEncryption.Encrypt(new CryptoRequest
                 {
                     SkipValidations = true,
@@ -45,8 +46,9 @@ namespace EasyCrypto.Validation
                     Key = key,
                     IV = iv
                 });
-                outStream.Position = 0;
-                outStream.Read(result, 0, result.Length);
+
+                byte[] encryptedData = outStream.ToBytes();
+                result = encryptedData.SkipTake(0, _kcvLength);
             }
             return DataTools.JoinByteArrays(result, iv);
         }

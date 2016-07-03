@@ -67,20 +67,6 @@ namespace EasyCrypto.Tests
         public void EncryptedDataCanBeDecryptedWithKey32()
             => TestEncryptDecrypt(32);
         
-        //[Fact]
-        //public void EncryptingWithSameParametersWillResultInSameOutput()
-        //{
-        //    byte[] data = Guid.NewGuid().ToByteArray();
-        //    byte[] iv = CryptoRandom.NextBytesStatic(16);
-        //    byte[] key = CryptoRandom.NextBytesStatic(16);
-
-        //    byte[] encrypted1 = AesEncryption.Encrypt(data, key, iv);
-        //    byte[] encrypted2 = AesEncryption.Encrypt(data, key, iv);
-
-        //    bool areEqual = DataTools.CompareByteArrays(encrypted1, encrypted2);
-        //    Assert.True(areEqual);
-        //}
-
         private void TestEncryptDecrypt(uint keySize)
         {
             using (var cr = new CryptoRandom())

@@ -74,8 +74,8 @@ namespace EasyCrypto
             => new CryptoContainer(request, false);
 
         public const int MagicNumber = 212574318;
-        public const short DataVersionNumber = 1;
-        public const short MinCompatibleDataVersionNumber = 1;
+        public const short DataVersionNumber = 2;               // number was incremented, there was a bug
+        public const short MinCompatibleDataVersionNumber = 2;  // KCV was calculating wrong in V1 it was always 000
 
         public CryptoContainerFlags Flags { get; private set; }
         public byte[] Salt { get; private set; }
