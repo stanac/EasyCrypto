@@ -29,6 +29,7 @@ namespace EasyCrypto
          */
 
         private readonly string _password;
+
         private byte[] _headerData;
         private const int HeaderSize = 127;
 
@@ -66,7 +67,7 @@ namespace EasyCrypto
             Key = request.Key;
             _password = request.Password;
         }
-
+        
         public static CryptoContainer CreateForEncryption(CryptoRequest request)
             => new CryptoContainer(request, true);
 
@@ -74,8 +75,9 @@ namespace EasyCrypto
             => new CryptoContainer(request, false);
 
         public const int MagicNumber = 212574318;
-        public const short DataVersionNumber = 2;               // number was incremented, there was a bug
-        public const short MinCompatibleDataVersionNumber = 2;  // KCV was calculating wrong in V1 it was always 000
+        public const short DataVersionNumber = 3;               // number was incremented, there was a bug
+        public const short MinCompatibleDataVersionNumber = 3;  // v2: KCV was calculating wrong in V1 it was always 000
+                                                                // v3: switched from zero padding for unvalidated data to PKCS7
 
         public CryptoContainerFlags Flags { get; private set; }
         public byte[] Salt { get; private set; }
@@ -116,6 +118,9 @@ namespace EasyCrypto
         }
 
         public ValidationResult ReadAndValidateDataForDecryption()
+            => ReadAndValidateDataForDecryption(false);
+
+        private ValidationResult ReadAndValidateDataForDecryption(bool skipKeyCheck)
         {
             var result = new ValidationResult();
 
@@ -161,22 +166,27 @@ namespace EasyCrypto
             
             InData.Position = HeaderSize + additionalDataLength;
             HeaderTotalSize = (int)InData.Position;
-            bool kcvPass = KeyCheckValueValidator.ValidateKeyCheckValueInternal(Key, KeyCheckValue);
-            if (!kcvPass)
+            if (!skipKeyCheck)
             {
-                result.SetException(DataFormatValidationException.DataValidationErrors.KeyCheckValueValidationError);
-                return result;
+                bool kcvPass = KeyCheckValueValidator.ValidateKeyCheckValueInternal(Key, KeyCheckValue);
+                if (!kcvPass)
+                {
+                    result.SetException(DataFormatValidationException.DataValidationErrors.KeyCheckValueValidationError);
+                    return result;
+                }
             }
 
             result.KeyIsValid = true;
 
-            bool macIsValid = MessageAuthenticationCodeValidator.ValidateMessageAuthenticationCodeInternal(Key, MessageAuthenticationCode, InData, HeaderSize);
-            if (!macIsValid)
+            if (!skipKeyCheck)
             {
-                result.SetException(DataFormatValidationException.DataValidationErrors.DataIntegrityValidationError);
-                return result;
+                bool macIsValid = MessageAuthenticationCodeValidator.ValidateMessageAuthenticationCodeInternal(Key, MessageAuthenticationCode, InData, HeaderSize);
+                if (!macIsValid)
+                {
+                    result.SetException(DataFormatValidationException.DataValidationErrors.DataIntegrityValidationError);
+                    return result;
+                }
             }
-
             result.DataIntegrityIsValid = true;
             return result;
         }
@@ -190,5 +200,57 @@ namespace EasyCrypto
         private int GetHeaderInt32(int startIndex) => BitConverter.ToInt32(_headerData, startIndex);
 
         internal byte[] CalculateKey() => new PasswordHasher().HashPassword(_password, Salt);
+        
+        internal static byte[] ReadAdditionalData(Stream encryptedData)
+        {
+            long position = encryptedData.Position;
+            ValidateCryptoContainer(encryptedData);
+            encryptedData.Position = 123;
+            byte[] temp = new byte[4];
+            encryptedData.Read(temp, 0, 4);
+            int additionalDataLength = BitConverter.ToInt32(temp, 0);
+            if (additionalDataLength == 0)
+            {
+                return new byte[0];
+            }
+
+            temp = new byte[additionalDataLength];
+            encryptedData.Read(temp, 0, temp.Length);
+            encryptedData.Position = position;
+            return temp;
+        }
+
+        internal static void WriteAdditionalData(Stream encryptedData, byte[] dataBytes, Stream destination)
+        {
+            long position = encryptedData.Position;
+            ValidateCryptoContainer(encryptedData);
+            encryptedData.Position = 0;
+
+            byte[] header = new byte[HeaderSize - 4];
+            encryptedData.Read(header, 0, header.Length);
+            destination.Write(header, 0, header.Length);
+            destination.Write(BitConverter.GetBytes(dataBytes.Length), 0, 4);
+            destination.Write(dataBytes, 0, dataBytes.Length);
+
+            byte[] buffer = new byte[4 * 1024];
+            int read;
+            while ((read = encryptedData.Read(buffer, 0, buffer.Length)) > 0)
+            {
+                destination.Write(buffer, 0, read);
+            }
+        }
+
+        private static void ValidateCryptoContainer(Stream encryptedData)
+        {
+            encryptedData.Position = 0;
+            var container = CreateForDecryption(new CryptoRequest
+            {
+                InData = encryptedData,
+                Key = new byte[32],
+                IV = new byte[16]
+            });
+            var validationResult = container.ReadAndValidateDataForDecryption(true);
+            if (!validationResult.IsValid) throw validationResult.ExceptionToThrow;
+        }
     }
 }

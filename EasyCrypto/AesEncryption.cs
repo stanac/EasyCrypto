@@ -94,7 +94,7 @@ namespace EasyCrypto
         /// <param name="destination">Stream to which to write decrypted data</param>
         public static void DecryptWithPassword(Stream dataToDecrypt, string password, Stream destination)
             => DecryptWithEmbeddedIv(dataToDecrypt, null, destination, password);
-
+        
         #endregion
 
         #region methods with embedded iv
@@ -255,7 +255,7 @@ namespace EasyCrypto
                 aes.BlockSize = 128;
                 if (request.SkipValidations)
                 {
-                    aes.Padding = PaddingMode.Zeros;
+                    aes.Padding = PaddingMode.PKCS7;
                 }
                 using (var encryptor = aes.CreateEncryptor())
                 {
@@ -305,13 +305,9 @@ namespace EasyCrypto
                 aes.Padding = PaddingMode.ISO10126;
                 if (request.SkipValidations)
                 {
-                    aes.Padding = PaddingMode.Zeros;
+                    aes.Padding = PaddingMode.PKCS7;
                 }
                 aes.BlockSize = 128;
-                if (request.SkipValidations)
-                {
-                    aes.Padding = PaddingMode.Zeros;
-                }
                 using (var decryptor = aes.CreateDecryptor())
                 {
                     CryptoStream cs = new CryptoStream(request.OutData, decryptor, CryptoStreamMode.Write);

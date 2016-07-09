@@ -31,8 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>bin\Release\EasyCrypto.XML</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-35|AnyCPU'">
@@ -65,7 +64,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActualPasswordGeneratorOptions.cs" />
+    <Compile Include="AdditionalData.cs" />
     <Compile Include="AesEncryption.cs" />
+    <Compile Include="AesEncryptionAdditionalData.cs" />
     <Compile Include="CryptoContainer.cs" />
     <Compile Include="CryptoContainerFlags.cs" />
     <Compile Include="CryptoRandom.cs" />

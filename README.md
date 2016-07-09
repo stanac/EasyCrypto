@@ -2,6 +2,9 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/6py1gx536fn0tu2j?svg=true)](https://ci.appveyor.com/project/ProjectMona/easycrypto)
 
+Primary goal of this library is to enable users with little or no cryptography knowledge to encrypt and decrypt data in an easy and
+safe manner as well work with passwords and random values.
+
 EasyCrypto is .NET library that helps with
 - Encryption and decryption of streams, byte arrays and strings
 - Password generating, hashing and validating
@@ -86,6 +89,30 @@ static ValidationResult ValidateEncryptedDataWithPassword(Stream encryptedData, 
 
 ---
 
+### Static class AesEncryptionAdditionalData
+
+From v2 this class can be used for adding additional data to encrypted package. Added additional data is
+encrypted with hard-coded key and IV, so it's not realy secure. It can be used for embedding password hint
+into the package or any other data that can fit into Dictionary<string, string>. Note that additional data
+is Dictionary<string, string> and **entries where key or value is null or empty will be ignored**. This
+might be a chance for improvement. Also note that encrypted data with embedded additional data can be
+normally decrypted as encrypted data without embedded additional data. Here are available methods:
+
+```cs
+// methods for adding additional data
+static string AddAdditionalData(string encryptedData, Dictionary<string, string> additionalData)
+static byte[] AddAdditionalData(byte[] encryptedData, Dictionary<string, string> additionalData)
+static void AddAdditionalData(Stream encryptedData, Dictionary<string, string> additionalData, Stream destination)
+
+// methods for reading additional data
+static Dictionary<string, string> ReadAdditionalData(string encryptedData)
+static Dictionary<string, string> ReadAdditionalData(byte[] encryptedData) 
+static Dictionary<string, string> ReadAdditionalData(Stream encryptedData)
+```
+
+
+---
+
 ### Class CryptoRandom : IDisposable
 
 Every method in CryptoRandom class has static equivalent method which is called [MethodName]Static.
@@ -140,6 +167,8 @@ using (var pg = new PasswordGenerator())
     )
 }
 ```
+
+---
 
 ### Class PasswordHasher
 This class can be used for hashing and validating passwords, see constructors and methods:

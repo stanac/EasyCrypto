@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 
 namespace EasyCrypto
 {
@@ -13,5 +14,6 @@ namespace EasyCrypto
         public bool SkipValidations { get; set; }
         public byte[] Key { get; set; }
         public string Password { get; set; }
+        public Dictionary<string, string> AdditionalData { get; set; }
     }
 }
