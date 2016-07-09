@@ -1,0 +1,304 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+	<!--[if lt IE 9]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+    <title>AesEncryptionAdditionalData - EasyCrypto Documentation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+    <link type="text/css" rel="stylesheet" href="../main.css"/>
+    <script type="text/javascript" src="../js/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.scrollTo-min.js"></script>
+    <script type="text/javascript" src="../js/navigation.js"></script>
+    <script type="text/javascript" src="../js/example.js"></script>
+  </head>
+  <body>
+  	<header><h1>EasyCrypto : API Documentation</h1>
+	</header>
+<nav id="namespaces">
+	<h2 class="fixed">Namespaces</h2>
+	<div class="scroll">
+		<ul>
+			<li>
+          <a href="../EasyCrypto/index.htm" class="current">EasyCrypto</a>
+      </li>
+			<li>
+          <a href="../EasyCrypto.Exceptions/index.htm">EasyCrypto.Exceptions</a>
+      </li>
+			<li>
+          <a href="../EasyCrypto.Validation/index.htm">EasyCrypto.Validation</a>
+      </li>
+		</ul>
+	</div>
+</nav><nav id="types">
+  <h2 class="fixed">Types in EasyCrypto</h2>
+	<div class="scroll">
+		<ul>
+				<li>
+            <a href="../EasyCrypto/AesEncryption.htm">AesEncryption</a>
+        </li>
+				<li>
+            <a href="../EasyCrypto/AesEncryptionAdditionalData.htm" class="current">AesEncryptionAdditionalData</a>
+        </li>
+				<li>
+            <a href="../EasyCrypto/CryptoRandom.htm">CryptoRandom</a>
+        </li>
+				<li>
+            <a href="../EasyCrypto/DataTools.htm">DataTools</a>
+        </li>
+				<li>
+            <a href="../EasyCrypto/PasswordGenerationOptions.htm">PasswordGenerationOptions</a>
+        </li>
+				<li>
+            <a href="../EasyCrypto/PasswordGenerator.htm">PasswordGenerator</a>
+        </li>
+				<li>
+            <a href="../EasyCrypto/PasswordHasher.htm">PasswordHasher</a>
+        </li>
+				<li>
+            <a href="../EasyCrypto/ValidationResult.htm">ValidationResult</a>
+        </li>
+		</ul>
+	</div>
+</nav>
+	<article>
+    <header>
+		<p class="class"><strong>Type</strong> AesEncryptionAdditionalData</p>
+	</header>
+	<section>
+		<header>
+		<p><strong>Namespace</strong> EasyCrypto</p>
+		</header>
+    <div class="sub-header">
+			<div id="summary">Class used for embedding and reading additional data from already encrypted data.
+Additional data is not protected, but it isn't added in plain text either. 
+			</div>
+		
+		
+			<h3 class="section">Methods</h3>
+			<ul>
+				<li><a href="../EasyCrypto/AesEncryptionAdditionalData.htm#AddAdditionalData">AddAdditionalData</a></li>
+				<li><a href="../EasyCrypto/AesEncryptionAdditionalData.htm#AddAdditionalData">AddAdditionalData</a></li>
+				<li><a href="../EasyCrypto/AesEncryptionAdditionalData.htm#AddAdditionalData">AddAdditionalData</a></li>
+				<li><a href="../EasyCrypto/AesEncryptionAdditionalData.htm#ReadAdditionalData">ReadAdditionalData</a></li>
+				<li><a href="../EasyCrypto/AesEncryptionAdditionalData.htm#ReadAdditionalData">ReadAdditionalData</a></li>
+				<li><a href="../EasyCrypto/AesEncryptionAdditionalData.htm#ReadAdditionalData">ReadAdditionalData</a></li>
+			</ul>
+		
+		
+	</div>
+	
+	
+	<h3 class="section">Public static methods</h3>
+
+	<div id="AddAdditionalData" class="method">
+		<h4>
+			<span title="System.void">void</span> <strong>AddAdditionalData</strong>(<span title="System.IO.Stream">Stream</span> encryptedData, <span title="System.Collections.Generic.Dictionary<string, string>">Dictionary&lt;string, string&gt;</span> additionalData, <span title="System.IO.Stream">Stream</span> destination)
+		</h4>
+		<div class="content">Adds additional data to encrypted data. Additional data is not protected, but it isn't added in plain text either. 
+
+
+			<div class="parameters">
+				<h5>Parameters</h5>
+				<dl>
+						<dt>
+							<code><span title="System.IO.Stream">Stream</span></code> encryptedData
+						</dt>
+						<dd>The encrypted data to which to add additional data. 
+						</dd>
+						<dt>
+							<code><span title="System.Collections.Generic.Dictionary<string, string>">Dictionary&lt;string, string&gt;</span></code> additionalData
+						</dt>
+						<dd>The additional data to add. Dictionary items where key or value is null or empty will be ignored/ 
+						</dd>
+						<dt>
+							<code><span title="System.IO.Stream">Stream</span></code> destination
+						</dt>
+						<dd>Stream to which to write encrypted data with added additional data 
+						</dd>
+				</dl>
+			</div>
+
+
+		</div>
+	</div>
+	<div id="AddAdditionalData" class="method">
+		<h4>
+			<span title="System.Byte[]">Byte[]</span> <strong>AddAdditionalData</strong>(<span title="System.Byte[]">Byte[]</span> encryptedData, <span title="System.Collections.Generic.Dictionary<string, string>">Dictionary&lt;string, string&gt;</span> additionalData)
+		</h4>
+		<div class="content">Adds additional data to encrypted data. Additional data is not protected, but it isn't added in plain text either. 
+
+
+			<div class="parameters">
+				<h5>Parameters</h5>
+				<dl>
+						<dt>
+							<code><span title="System.Byte[]">Byte[]</span></code> encryptedData
+						</dt>
+						<dd>The encrypted data to which to add additional data. 
+						</dd>
+						<dt>
+							<code><span title="System.Collections.Generic.Dictionary<string, string>">Dictionary&lt;string, string&gt;</span></code> additionalData
+						</dt>
+						<dd>The additional data to add. Dictionary items where key or value is null or empty will be ignored/ 
+						</dd>
+				</dl>
+			</div>
+
+			<div class="return">
+
+				<h5>Returns</h5>
+				<dl>
+					<dt>
+						<code><span title="System.Byte[]">Byte[]</span></code>
+					</dt>
+					<dd>Encrypted data with added additional data 
+					</dd>
+				</dl>
+			</div>
+
+		</div>
+	</div>
+	<div id="AddAdditionalData" class="method">
+		<h4>
+			<span title="System.string">string</span> <strong>AddAdditionalData</strong>(<span title="System.string">string</span> encryptedData, <span title="System.Collections.Generic.Dictionary<string, string>">Dictionary&lt;string, string&gt;</span> additionalData)
+		</h4>
+		<div class="content">Adds additional data to encrypted data. Additional data is not protected, but it isn't added in plain text either. 
+
+
+			<div class="parameters">
+				<h5>Parameters</h5>
+				<dl>
+						<dt>
+							<code><span title="System.string">string</span></code> encryptedData
+						</dt>
+						<dd>The encrypted data to which to add additional data. 
+						</dd>
+						<dt>
+							<code><span title="System.Collections.Generic.Dictionary<string, string>">Dictionary&lt;string, string&gt;</span></code> additionalData
+						</dt>
+						<dd>The additional data to add. Dictionary items where key or value is null or empty will be ignored/ 
+						</dd>
+				</dl>
+			</div>
+
+			<div class="return">
+
+				<h5>Returns</h5>
+				<dl>
+					<dt>
+						<code><span title="System.string">string</span></code>
+					</dt>
+					<dd>Encrypted data with added additional data 
+					</dd>
+				</dl>
+			</div>
+
+		</div>
+	</div>
+	<div id="ReadAdditionalData" class="method">
+		<h4>
+			<span title="System.Collections.Generic.Dictionary<string, string>">Dictionary&lt;string, string&gt;</span> <strong>ReadAdditionalData</strong>(<span title="System.IO.Stream">Stream</span> encryptedData)
+		</h4>
+		<div class="content">Reads the additional data from encrypted data if present. 
+
+
+			<div class="parameters">
+				<h5>Parameters</h5>
+				<dl>
+						<dt>
+							<code><span title="System.IO.Stream">Stream</span></code> encryptedData
+						</dt>
+						<dd>The encrypted data. 
+						</dd>
+				</dl>
+			</div>
+
+			<div class="return">
+
+				<h5>Returns</h5>
+				<dl>
+					<dt>
+						<code><span title="System.Collections.Generic.Dictionary<string, string>">Dictionary&lt;string, string&gt;</span></code>
+					</dt>
+					<dd>Additional data 
+					</dd>
+				</dl>
+			</div>
+
+		</div>
+	</div>
+	<div id="ReadAdditionalData" class="method">
+		<h4>
+			<span title="System.Collections.Generic.Dictionary<string, string>">Dictionary&lt;string, string&gt;</span> <strong>ReadAdditionalData</strong>(<span title="System.Byte[]">Byte[]</span> encryptedData)
+		</h4>
+		<div class="content">Reads the additional data from encrypted data if present. 
+
+
+			<div class="parameters">
+				<h5>Parameters</h5>
+				<dl>
+						<dt>
+							<code><span title="System.Byte[]">Byte[]</span></code> encryptedData
+						</dt>
+						<dd>The encrypted data. 
+						</dd>
+				</dl>
+			</div>
+
+			<div class="return">
+
+				<h5>Returns</h5>
+				<dl>
+					<dt>
+						<code><span title="System.Collections.Generic.Dictionary<string, string>">Dictionary&lt;string, string&gt;</span></code>
+					</dt>
+					<dd>Additional data 
+					</dd>
+				</dl>
+			</div>
+
+		</div>
+	</div>
+	<div id="ReadAdditionalData" class="method">
+		<h4>
+			<span title="System.Collections.Generic.Dictionary<string, string>">Dictionary&lt;string, string&gt;</span> <strong>ReadAdditionalData</strong>(<span title="System.string">string</span> encryptedData)
+		</h4>
+		<div class="content">Reads the additional data from encrypted data if present. 
+
+
+			<div class="parameters">
+				<h5>Parameters</h5>
+				<dl>
+						<dt>
+							<code><span title="System.string">string</span></code> encryptedData
+						</dt>
+						<dd>The encrypted data. 
+						</dd>
+				</dl>
+			</div>
+
+			<div class="return">
+
+				<h5>Returns</h5>
+				<dl>
+					<dt>
+						<code><span title="System.Collections.Generic.Dictionary<string, string>">Dictionary&lt;string, string&gt;</span></code>
+					</dt>
+					<dd>Additional data 
+					</dd>
+				</dl>
+			</div>
+
+		</div>
+	</div>
+	
+	</section>
+	</article><footer>
+	<span id="version">Built from v2.0.6034.31029 of EasyCrypto</span>
+	<span id="docu-link">
+		Generated by <a href="http://docu.jagregory.com">docu</a>
+	</span>
+</footer>
+  </body>
+</html>
