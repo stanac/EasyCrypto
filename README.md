@@ -201,5 +201,5 @@ bool ValidatePasswordWithEmbeddedSalt(string password, string hashAndEmbeddedSal
 - ~~Validating keys and encrypted data integrity in AesEncryption (refactor and open up closed APIs)~~ DONE in v1.1.0
 - Performance improvements on CryptoRandom (with buffer)
 - Make it compatible with .NET Core 1
-- Extract interfaces so you can replace one or more class implementations (v2, might introduce breaking changes)
+- Extract interfaces so you can replace one or more class implementations (vNext, might introduce breaking changes)
 - Asymmetric (public key) encryption 
