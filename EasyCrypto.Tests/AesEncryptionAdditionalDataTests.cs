@@ -95,6 +95,17 @@ namespace EasyCrypto.Tests
             }
         }
 
+        [Fact]
+        public void DataCanBeValidatedWithAdditionalData()
+        {
+            string password = Guid.NewGuid().ToString();
+            string plainText = PasswordGenerator.GenerateStatic();
+            string encrypted = AesEncryption.EncryptWithPassword(plainText, password);
+            string encryptedWithAdditionalData = AesEncryptionAdditionalData.AddAdditionalData(encrypted, additionalData);
+            var validationResult = AesEncryption.ValidateEncryptedDataWithPassword(encrypted, password);
+            Assert.True(validationResult.IsValid);
+        }
+
         private void AssertAdditionalData(Dictionary<string, string> data)
         {
             Assert.Equal(additionalData.Count, data.Count);
