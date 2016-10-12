@@ -5,7 +5,7 @@
 Primary goal of this library is to enable users with little or no cryptography knowledge to encrypt and decrypt data in an easy and
 safe manner as well work with passwords and random values.
 
-EasyCrypto is .NET library that helps with
+EasyCrypto is .NET (and since v 3.0 .NET Core) library that helps with
 - Encryption and decryption of streams, byte arrays and strings
 - Password generating, hashing and validating
 - Generating crypto secure random bytes, integers and doubles
@@ -16,7 +16,7 @@ result of the encryption is embedded with [KCV](https://en.wikipedia.org/wiki/Ke
 and [MAC](https://en.wikipedia.org/wiki/Message_authentication_code). MAC is calculated using HMACSHA384.
 - CryptoRandom and PasswordGenerator is using [RNGCryptoServiceProvider](https://msdn.microsoft.com/en-us/library/system.security.cryptography.rngcryptoserviceprovider.aspx)
 - Hashing of password is done with [Rfc2898DeriveBytes](msdn.microsoft.com/en-us/library/system.security.cryptography.rfc2898derivebytes.aspx)
-with default hash and salt size of 256 bits and 25K iterations.
+with default hash and salt size of 256 bits and 25K iterations (by default).
 - Asymmetric (public key) encryption is currently not supported.
 
 ---

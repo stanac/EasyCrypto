@@ -3,6 +3,9 @@ before_build:
 branches:
   only:
     - master
+build:
+  project: EasyCrypto.sln
+  verbosity: minimal
 image: Visual Studio 2015
 configuration: Release
 test:
