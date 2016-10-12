@@ -1,10 +1,9 @@
 before_build:
+  - cmd: ren EasyCrypto.Core.sln EasyCrypto.Core._sln
   - nuget restore
 branches:
   only:
     - master
-before_build:
-- cmd: ren EasyCrypto.Core.sln EasyCrypto.Core._sln
 build:
   project: EasyCrypto.sln
   verbosity: minimal
