@@ -8,7 +8,6 @@ namespace EasyCrypto.Exceptions
     /// This will occur when data that is being decrypted is changed before decrypting.
     /// </summary>
     /// <seealso cref="System.Security.Cryptography.CryptographicException" />
-    [Serializable]
     public class DataIntegrityValidationException : CryptographicException
     {
         /// <summary>
@@ -26,13 +25,6 @@ namespace EasyCrypto.Exceptions
         /// <param name="message">The message.</param>
         /// <param name="inner">The inner.</param>
         public DataIntegrityValidationException(string message, Exception inner) : base(message, inner) { }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DataIntegrityValidationException"/> class.
-        /// </summary>
-        /// <param name="info">The object that holds the serialized object data.</param>
-        /// <param name="context">The contextual information about the source or destination.</param>
-        protected DataIntegrityValidationException(
-          System.Runtime.Serialization.SerializationInfo info,
-          System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+        
     }
 }

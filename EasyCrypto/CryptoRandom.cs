@@ -3,13 +3,22 @@ using System.Security.Cryptography;
 
 namespace EasyCrypto
 {
+#if !core
     /// <summary>
     /// Cryptographic level RNG using <see cref="RNGCryptoServiceProvider"/>.
     /// </summary>
+#else
+    /// <summary>
+    /// Cryptographic level RNG using <see cref="RandomNumberGenerator"/>.
+    /// </summary>
+#endif
     public class CryptoRandom : IDisposable
     {
+#if !core
         private readonly RNGCryptoServiceProvider _rng = new RNGCryptoServiceProvider();
-
+#else
+        private readonly RandomNumberGenerator _rng = RandomNumberGenerator.Create();
+#endif
         /// <summary>
         /// Returns new random bytes.
         /// </summary>

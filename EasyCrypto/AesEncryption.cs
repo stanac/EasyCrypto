@@ -247,16 +247,12 @@ namespace EasyCrypto
                 container.WriteEmptyHeaderData();
             }
 
-            using (var aes = new AesManaged())
+            using (var aes = GetAes())
             {
                 aes.IV = request.IV;
                 aes.Key = request.Key;
-                aes.Padding = PaddingMode.ISO10126;
+                aes.Padding = PaddingMode.PKCS7;
                 aes.BlockSize = 128;
-                if (request.SkipValidations)
-                {
-                    aes.Padding = PaddingMode.PKCS7;
-                }
                 using (var encryptor = aes.CreateEncryptor())
                 {
                     CryptoStream cs = new CryptoStream(request.OutData, encryptor, CryptoStreamMode.Write);
@@ -298,15 +294,11 @@ namespace EasyCrypto
             if (request.Key == null || request.Key.Length != 32) throw new ArgumentException("Key must be 32 bytes long.");
             if (request.IV == null || request.IV.Length != 16) throw new ArgumentException($"IV must be 16 bytes in length");
 
-            using (var aes = new AesManaged())
+            using (var aes = GetAes())
             {
                 aes.IV = request.IV;
                 aes.Key = request.Key;
-                aes.Padding = PaddingMode.ISO10126;
-                if (request.SkipValidations)
-                {
-                    aes.Padding = PaddingMode.PKCS7;
-                }
+                aes.Padding = PaddingMode.PKCS7;
                 aes.BlockSize = 128;
                 using (var decryptor = aes.CreateDecryptor())
                 {
@@ -443,5 +435,11 @@ namespace EasyCrypto
             }
             return result;
         }
+
+#if core
+        private static Aes GetAes() => Aes.Create();
+#else
+        private static AesManaged GetAes() => new AesManaged();
+#endif
     }
 }

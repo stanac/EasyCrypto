@@ -91,7 +91,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EasyCrypto\EasyCrypto.csproj">
+    <ProjectReference Include="..\EasyCrypto.csproj">
       <Project>{5a127651-7cd6-49f5-a952-47c5b6221236}</Project>
       <Name>EasyCrypto</Name>
     </ProjectReference>

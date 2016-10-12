@@ -63,25 +63,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActualPasswordGeneratorOptions.cs" />
-    <Compile Include="AdditionalData.cs" />
-    <Compile Include="AesEncryption.cs" />
-    <Compile Include="AesEncryptionAdditionalData.cs" />
-    <Compile Include="CryptoContainer.cs" />
-    <Compile Include="CryptoContainerFlags.cs" />
-    <Compile Include="CryptoRandom.cs" />
-    <Compile Include="CryptoRequest.cs" />
-    <Compile Include="DataTools.cs" />
-    <Compile Include="Exceptions\DataFormatValidationException.cs" />
-    <Compile Include="Exceptions\DataIntegrityValidationException.cs" />
-    <Compile Include="Exceptions\KeyCheckValueValidationException.cs" />
-    <Compile Include="PasswordGenerationOptions.cs" />
-    <Compile Include="PasswordGenerator.cs" />
-    <Compile Include="PasswordHasher.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ValidationResult.cs" />
-    <Compile Include="Validation\KeyCheckValueValidator.cs" />
-    <Compile Include="Validation\MessageAuthenticationCodeValidator.cs" />
+    <Compile Include="EasyCrypto\ActualPasswordGeneratorOptions.cs" />
+    <Compile Include="EasyCrypto\AdditionalData.cs" />
+    <Compile Include="EasyCrypto\AesEncryption.cs" />
+    <Compile Include="EasyCrypto\AesEncryptionAdditionalData.cs" />
+    <Compile Include="EasyCrypto\CryptoContainer.cs" />
+    <Compile Include="EasyCrypto\CryptoContainerFlags.cs" />
+    <Compile Include="EasyCrypto\CryptoRandom.cs" />
+    <Compile Include="EasyCrypto\CryptoRequest.cs" />
+    <Compile Include="EasyCrypto\DataTools.cs" />
+    <Compile Include="EasyCrypto\Exceptions\DataFormatValidationException.cs" />
+    <Compile Include="EasyCrypto\Exceptions\DataIntegrityValidationException.cs" />
+    <Compile Include="EasyCrypto\Exceptions\KeyCheckValueValidationException.cs" />
+    <Compile Include="EasyCrypto\PasswordGenerationOptions.cs" />
+    <Compile Include="EasyCrypto\PasswordGenerator.cs" />
+    <Compile Include="EasyCrypto\PasswordHasher.cs" />
+    <Compile Include="EasyCrypto\Properties\AssemblyInfo.cs" />
+    <Compile Include="EasyCrypto\ValidationResult.cs" />
+    <Compile Include="EasyCrypto\Validation\KeyCheckValueValidator.cs" />
+    <Compile Include="EasyCrypto\Validation\MessageAuthenticationCodeValidator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

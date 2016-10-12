@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyCrypto", "EasyCrypto\EasyCrypto.csproj", "{5A127651-7CD6-49F5-A952-47C5B6221236}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyCrypto", "EasyCrypto.csproj", "{5A127651-7CD6-49F5-A952-47C5B6221236}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyCrypto.Tests", "EasyCrypto.Tests\EasyCrypto.Tests.csproj", "{EC4E0917-6352-4817-9097-26AEBE73F674}"
 EndProject
