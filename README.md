@@ -1,6 +1,6 @@
 # EasyCrypto
 
-[![Build status](https://ci.appveyor.com/api/projects/status/6py1gx536fn0tu2j?svg=true)](https://ci.appveyor.com/project/ProjectMona/easycrypto)
+[![Build status](https://ci.appveyor.com/api/projects/status/6py1gx536fn0tu2j/branch/master?svg=true)](https://ci.appveyor.com/project/stanac/easycrypto/branch/master)
 
 Primary goal of this library is to enable users with little or no cryptography knowledge to encrypt and decrypt data in an easy and
 safe manner as well work with passwords and random values.
