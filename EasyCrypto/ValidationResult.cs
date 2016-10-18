@@ -72,6 +72,12 @@ namespace EasyCrypto
         /// </value>
         public string ErrorMessage { get; set; }
 
+        /// <summary>
+        /// Gets or sets the type of the error.
+        /// </summary>
+        /// <value>
+        /// The type of the error.
+        /// </value>
         public DataValidationErrors? ErrorType { get; set; }
 
         /// <summary>

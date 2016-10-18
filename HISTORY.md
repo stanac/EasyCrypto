@@ -1,4 +1,7 @@
-﻿## v 3.0
+﻿## v 3.1
+- Updated data format version
+
+## v 3.0
 - Support for .NET Core
 
 ## v 2.0
