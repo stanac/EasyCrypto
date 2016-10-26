@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,62 @@ namespace EasyCrypto.Tests
         //    await AssertFileEncryption(1024 * 1024 * 1024, true);
         //    await AssertFileEncryption(1024 * 1024 * 1024, false);
         //}
+
+        public async Task EncryptedFileWithPasswordCanBeDecrypted()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                await AssertFileEncryptionWithPassword(1024, true);
+                await AssertFileEncryptionWithPassword(1024, false);
+            }
+        }
+
+        //[Fact]
+        //public async Task GigabyteEncryptedFileWithPasswordCanBeDecrypted()
+        //{
+        //    string file = $"D:\\testtime - {Guid.NewGuid()}.txt";
+        //    File.Create(file);
+        //    Stopwatch sw = new Stopwatch();
+        //    sw.Start();
+        //    await AssertFileEncryptionWithPassword(370 * 1024 * 1024, true);
+        //    sw.Stop();
+        //    File.AppendAllText(file, $"elapsed {sw.Elapsed.TotalMinutes}:{sw.Elapsed.Seconds}");
+        //    sw.Restart();
+        //    await AssertFileEncryptionWithPassword(370 * 1024 * 1024, false);
+        //    Console.WriteLine($"not async gigabyte write {sw.Elapsed}");
+        //    sw.Stop();
+        //}
+
+        private async Task AssertFileEncryptionWithPassword(int fileLength, bool async)
+        {
+            string pass = PasswordGenerator.GenerateStatic();
+
+            string plainTextFile = WriteToTempFile(fileLength);
+            string encryptedFile = Path.GetRandomFileName();
+            string decryptedFile = Path.GetRandomFileName();
+
+            if (async)
+            {
+                await AesFileEncrytion.EncryptWithPasswordAsync(plainTextFile, encryptedFile, pass, true);
+                await AesFileEncrytion.DecryptWithPasswordAsync(encryptedFile, decryptedFile, pass, true);
+            }
+            else
+            {
+                AesFileEncrytion.EncryptWithPassword(plainTextFile, encryptedFile, pass, true);
+                AesFileEncrytion.DecryptWithPassword(encryptedFile, decryptedFile, pass, true);
+            }
+
+            try
+            {
+                AssertFileContent(plainTextFile, decryptedFile);
+            }
+            finally
+            {
+                File.Delete(plainTextFile);
+                File.Delete(encryptedFile);
+                File.Delete(decryptedFile);
+            }
+        }
 
         private async Task AssertFileEncryption(int fileLength, bool async)
         {

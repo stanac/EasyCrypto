@@ -85,6 +85,76 @@ namespace EasyCrypto
             }
         }
 
+        /// <summary>
+        /// Encrypts the with password asynchronously.
+        /// </summary>
+        /// <param name="sourceFilePath">The source file path to encrypt.</param>
+        /// <param name="destinationFilePath">The destination file path to write to encrypted data.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="overwriteExistingFile">if set to <c>false</c> exception will be thrown if destination file already exists.</param>
+        public static void EncryptWithPassword(string sourceFilePath, string destinationFilePath, string password, bool overwriteExistingFile)
+        {
+            ValidateFileDestionation(destinationFilePath, overwriteExistingFile);
+            using (Stream source = new FileStream(sourceFilePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (Stream destination = new FileStream(destinationFilePath, FileMode.Create, FileAccess.ReadWrite, FileShare.None))
+            {
+                AesEncryption.EncryptWithPassword(source, password, destination);
+            }
+        }
+
+        /// <summary>
+        /// Encrypts the with password asynchronously.
+        /// </summary>
+        /// <param name="sourceFilePath">The source file path to encrypt.</param>
+        /// <param name="destinationFilePath">The destination file path to write to encrypted data.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="overwriteExistingFile">if set to <c>false</c> exception will be thrown if destination file already exists.</param>
+        /// <returns>Task to await</returns>
+        public static async Task EncryptWithPasswordAsync(string sourceFilePath, string destinationFilePath, string password, bool overwriteExistingFile)
+        {
+            ValidateFileDestionation(destinationFilePath, overwriteExistingFile);
+            using (Stream source = new FileStream(sourceFilePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (Stream destination = new FileStream(destinationFilePath, FileMode.Create, FileAccess.ReadWrite, FileShare.None))
+            {
+                await AesEncryption.EncryptWithPasswordAsync(source, password, destination);
+            }
+        }
+
+        /// <summary>
+        /// Decrypts the with password.
+        /// </summary>
+        /// <param name="sourceFilePath">The source file path to decrypt.</param>
+        /// <param name="destinationFilePath">The destination file path to write to decrypted data.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="overwriteExistingFile">if set to <c>true</c> [overwrite existing file].</param>
+        public static void DecryptWithPassword(string sourceFilePath, string destinationFilePath, string password, bool overwriteExistingFile)
+        {
+            ValidateFileDestionation(destinationFilePath, overwriteExistingFile);
+            using (Stream source = new FileStream(sourceFilePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (Stream destination = new FileStream(destinationFilePath, FileMode.Create, FileAccess.ReadWrite, FileShare.None))
+            {
+                AesEncryption.DecryptWithPassword(source, password, destination);
+            }
+        }
+
+        /// <summary>
+        /// Decrypts the with password asynchronously.
+        /// </summary>
+        /// <param name="sourceFilePath">The source file path to decrypt.</param>
+        /// <param name="destinationFilePath">The destination file path to write to decrypted data.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="overwriteExistingFile">if set to <c>true</c> [overwrite existing file].</param>
+        /// <returns>Task to await</returns>
+        public static async Task DecryptWithPasswordAsync(string sourceFilePath, string destinationFilePath, string password, bool overwriteExistingFile)
+        {
+            ValidateFileDestionation(destinationFilePath, overwriteExistingFile);
+            using (Stream source = new FileStream(sourceFilePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (Stream destination = new FileStream(destinationFilePath, FileMode.Create, FileAccess.ReadWrite, FileShare.None))
+            {
+                await AesEncryption.DecryptWithPasswordAsync(source, password, destination);
+            }
+        }
+
         private static void ValidateFileDestionation( string destinationFilePath, bool overwriteExistingFile)
         {
             if (!overwriteExistingFile && File.Exists(destinationFilePath))
