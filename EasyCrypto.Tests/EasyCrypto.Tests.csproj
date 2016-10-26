@@ -80,6 +80,7 @@
     <Compile Include="AesEncryptionAdditionalDataTests.cs" />
     <Compile Include="AesEncryptionTests.cs" />
     <Compile Include="AesEncryptionValidationTests.cs" />
+    <Compile Include="AesFileEncryptionTests.cs" />
     <Compile Include="DataToolsTests.cs" />
     <Compile Include="KeyCheckValueValidatorTests.cs" />
     <Compile Include="MessageAuthenticationCodeValidatorTests.cs" />

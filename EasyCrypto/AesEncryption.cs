@@ -2,6 +2,7 @@
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EasyCrypto
 {
@@ -219,6 +220,24 @@ namespace EasyCrypto
             });
 
         /// <summary>
+        /// Encrypts data from stream to stream asynchronously.
+        /// </summary>
+        /// <param name="dataToEncrypt">Stream with data to decrypt.</param>
+        /// <param name="key">Key that will be used for encryption/decryption, must be 16, 24 or 32 bytes long.</param>
+        /// <param name="iv">Initialization vector, must be 16 bytes</param>
+        /// <param name="destination">Stream to which encrypted data will be wrote.</param>
+        /// <returns>Task to await</returns>
+        public static Task EncryptAsync(Stream dataToEncrypt, byte[] key, byte[] iv, Stream destination)
+            => EncryptAsync(new CryptoRequest
+            {
+                SkipValidations = false,
+                InData = dataToEncrypt,
+                OutData = destination,
+                Key = key,
+                IV = iv
+            });
+
+        /// <summary>
         /// Decrypts data from stream to stream.
         /// </summary>
         /// <param name="dataToDecrypt">Stream with data to encrypt.</param>
@@ -235,37 +254,41 @@ namespace EasyCrypto
                 SkipValidations = false
             });
 
+        /// <summary>
+        /// Decrypts data from stream to stream asynchronously.
+        /// </summary>
+        /// <param name="dataToDecrypt">Stream with data to encrypt.</param>
+        /// <param name="key">Key that will be used for encryption/decryption, must be 16, 24 or 32 bytes long.</param>
+        /// <param name="iv">Initialization vector, must be 16 bytes</param>
+        /// <param name="destination">Stream to which decrypted data will be wrote.</param>
+        /// /// <returns>Task to await</returns>
+        public static Task DecryptAsync(Stream dataToDecrypt, byte[] key, byte[] iv, Stream destination)
+            => DecryptAsync(new CryptoRequest
+            {
+                IV = iv,
+                Key = key,
+                InData = dataToDecrypt,
+                OutData = destination,
+                SkipValidations = false
+            });
+
         internal static void Encrypt(CryptoRequest request)
         {
-            if (request.Key.Length != 32) throw new ArgumentException("Key must be 32 bytes long.");
-            if (request.IV == null || request.IV.Length != 16) throw new ArgumentException("IV must be 16 bytes in length");
-
-            CryptoContainer container = null;
-            if (!request.SkipValidations)
-            {
-                container = CryptoContainer.CreateForEncryption(request);
-                container.WriteEmptyHeaderData();
-            }
+            CryptoContainer container = request.ValidateEncryption();
 
             using (var aes = GetAes())
+            using (var encryptor = GetEncryptorAndSetAes(aes, request))
             {
-                aes.IV = request.IV;
-                aes.Key = request.Key;
-                aes.Padding = PaddingMode.PKCS7;
-                aes.BlockSize = 128;
-                using (var encryptor = aes.CreateEncryptor())
+                CryptoStream cs = new CryptoStream(request.OutData, encryptor, CryptoStreamMode.Write);
+                int bufferSize = aes.BlockSize;
+                byte[] buffer = new byte[bufferSize];
+                int read = 0;
+                while ((read = request.InData.Read(buffer, 0, bufferSize)) > 0)
                 {
-                    CryptoStream cs = new CryptoStream(request.OutData, encryptor, CryptoStreamMode.Write);
-                    int bufferSize = aes.BlockSize;
-                    byte[] buffer = new byte[bufferSize];
-                    int read = 0;
-                    while ((read = request.InData.Read(buffer, 0, bufferSize)) > 0)
-                    {
-                        cs.Write(buffer, 0, read);
-                        cs.Flush();
-                    }
-                    cs.FlushFinalBlock();
+                    cs.Write(buffer, 0, read);
+                    cs.Flush();
                 }
+                cs.FlushFinalBlock();
             }
             if (!request.SkipValidations)
             {
@@ -273,46 +296,67 @@ namespace EasyCrypto
             }
         }
 
-        internal static void Decrypt(CryptoRequest request)
+        internal static async Task EncryptAsync(CryptoRequest request)
         {
-            CryptoContainer container = null;
-            if (!request.SkipValidations)
-            {
-                container = CryptoContainer.CreateForDecryption(request);
-                var validationResult = container.ReadAndValidateDataForDecryption();
-                if (!validationResult.IsValid)
-                {
-                    throw validationResult.ExceptionToThrow ?? new Exception("Unknown error");
-                }
-                request.IV = container.GetIV();
-                if (request.Password != null)
-                {
-                    request.Key = container.CalculateKey();
-                }
-            }
-
-            if (request.Key == null || request.Key.Length != 32) throw new ArgumentException("Key must be 32 bytes long.");
-            if (request.IV == null || request.IV.Length != 16) throw new ArgumentException($"IV must be 16 bytes in length");
+            CryptoContainer container = request.ValidateEncryption();
 
             using (var aes = GetAes())
+            using (var encryptor = GetEncryptorAndSetAes(aes, request))
             {
-                aes.IV = request.IV;
-                aes.Key = request.Key;
-                aes.Padding = PaddingMode.PKCS7;
-                aes.BlockSize = 128;
-                using (var decryptor = aes.CreateDecryptor())
+                CryptoStream cs = new CryptoStream(request.OutData, encryptor, CryptoStreamMode.Write);
+                int bufferSize = aes.BlockSize;
+                byte[] buffer = new byte[bufferSize];
+                int read = 0;
+                while ((read = await request.InData.ReadAsync(buffer, 0, bufferSize)) > 0)
                 {
-                    CryptoStream cs = new CryptoStream(request.OutData, decryptor, CryptoStreamMode.Write);
-                    int bufferSize = aes.BlockSize;
-                    byte[] buffer = new byte[bufferSize];
-                    int read = 0;
-                    while ((read = request.InData.Read(buffer, 0, bufferSize)) > 0)
-                    {
-                        cs.Write(buffer, 0, read);
-                        cs.Flush();
-                    }
-                    cs.FlushFinalBlock();
+                    await cs.WriteAsync(buffer, 0, read);
+                    await cs.FlushAsync();
                 }
+                cs.FlushFinalBlock();
+            }
+            if (!request.SkipValidations)
+            {
+                await container.WriteChecksAndEmbeddedDataAsync();
+            }
+        }
+
+        internal static void Decrypt(CryptoRequest request)
+        {
+            CryptoContainer container = request.ValidateDecrypt(request);
+
+            using (var aes = GetAes())
+            using (ICryptoTransform decryptor = GetDecryptorAndSetAes(aes, request))
+            {
+                CryptoStream cs = new CryptoStream(request.OutData, decryptor, CryptoStreamMode.Write);
+                int bufferSize = aes.BlockSize;
+                byte[] buffer = new byte[bufferSize];
+                int read = 0;
+                while ((read = request.InData.Read(buffer, 0, bufferSize)) > 0)
+                {
+                    cs.Write(buffer, 0, read);
+                    cs.Flush();
+                }
+                cs.FlushFinalBlock();
+            }
+        }
+
+        internal static async Task DecryptAsync(CryptoRequest request)
+        {
+            CryptoContainer container = request.ValidateDecrypt(request);
+
+            using (var aes = GetAes())
+            using (ICryptoTransform decryptor = GetDecryptorAndSetAes(aes, request))
+            {
+                CryptoStream cs = new CryptoStream(request.OutData, decryptor, CryptoStreamMode.Write);
+                int bufferSize = aes.BlockSize;
+                byte[] buffer = new byte[bufferSize];
+                int read = 0;
+                while ((read = await request.InData.ReadAsync(buffer, 0, bufferSize)) > 0)
+                {
+                    await cs.WriteAsync(buffer, 0, read);
+                    await cs.FlushAsync();
+                }
+                cs.FlushFinalBlock();
             }
         }
 
@@ -441,5 +485,32 @@ namespace EasyCrypto
 #else
         private static AesManaged GetAes() => new AesManaged();
 #endif
+
+#if core
+        private static ICryptoTransform GetEncryptorAndSetAes(Aes aes, CryptoRequest request)
+#else
+        private static ICryptoTransform GetEncryptorAndSetAes(AesManaged aes, CryptoRequest request)
+#endif
+        {
+            aes.IV = request.IV;
+            aes.Key = request.Key;
+            aes.Padding = PaddingMode.PKCS7;
+            aes.BlockSize = 128;
+
+            return aes.CreateEncryptor();
+        }
+
+#if core
+        private static ICryptoTransform GetDecryptorAndSetAes(Aes aes)
+#else
+        private static ICryptoTransform GetDecryptorAndSetAes(AesManaged aes, CryptoRequest request)
+#endif
+        {
+            aes.IV = request.IV;
+            aes.Key = request.Key;
+            aes.Padding = PaddingMode.PKCS7;
+            aes.BlockSize = 128;
+            return aes.CreateDecryptor();
+        }
     }
 }

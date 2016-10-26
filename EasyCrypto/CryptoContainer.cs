@@ -3,6 +3,7 @@ using EasyCrypto.Validation;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace EasyCrypto
 {
@@ -114,6 +115,25 @@ namespace EasyCrypto
             var mac = MessageAuthenticationCodeValidator.CalculateMessageAuthenticationCode(Key, OutData, HeaderSize);
             Debug.Assert(currentPosition == OutData.Position, "Stream position is changed after generating MAC");
             OutData.Write(mac, 0, 48);
+            OutData.Position = 0;
+        }
+
+        public async Task WriteChecksAndEmbeddedDataAsync()
+        {
+            OutData.Position = 0;
+            await OutData.WriteAsync(BitConverter.GetBytes(MagicNumber), 0, 4);
+            await OutData.WriteAsync(BitConverter.GetBytes(DataVersionNumber), 0, 2);
+            await OutData.WriteAsync(BitConverter.GetBytes(MinCompatibleDataVersionNumber), 0, 2);
+            await OutData.WriteAsync(IV, 0, 16);
+            await OutData.WriteAsync(Salt, 0, 32);
+
+            var kcv = KeyCheckValueValidator.GenerateKeyCheckValue(Key);
+            OutData.Write(kcv, 0, 19);
+
+            long currentPosition = OutData.Position;
+            var mac = MessageAuthenticationCodeValidator.CalculateMessageAuthenticationCode(Key, OutData, HeaderSize);
+            Debug.Assert(currentPosition == OutData.Position, "Stream position is changed after generating MAC");
+            await OutData.WriteAsync(mac, 0, 48);
             OutData.Position = 0;
         }
 
