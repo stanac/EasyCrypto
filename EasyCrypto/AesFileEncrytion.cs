@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace EasyCrypto
 {
+    /// <summary>
+    /// File encryption abstraction
+    /// </summary>
     public static class AesFileEncrytion
     {
         /// <summary>
