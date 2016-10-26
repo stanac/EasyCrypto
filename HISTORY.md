@@ -1,4 +1,11 @@
-﻿## v 3.1
+﻿## v 3.2.1
+- Fixed Core build nuget
+
+## v 3.2
+- Added AesFileEncryption class
+- Added Async methods in AesEncryption class
+
+## v 3.1
 - Updated data format version
 
 ## v 3.0

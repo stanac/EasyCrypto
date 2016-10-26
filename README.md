@@ -31,7 +31,7 @@ For changes see [history](https://github.com/stanac/EasyCrypto/blob/master/HISTO
 Install-Package EasyCrypto
 ```
 
-## Examples of usage
+## Useful methods
 
 ---
 
@@ -86,6 +86,25 @@ static ValidationResult ValidateEncryptedDataWithPassword(string encryptedData, 
 static ValidationResult ValidateEncryptedDataWithPassword(byte[] encryptedData, string password)
 static ValidationResult ValidateEncryptedDataWithPassword(Stream encryptedData, string password)
 ```
+---
+
+### Static class AesFileEncryption
+
+From v3.2 we have API for file encryption in order to avoid out of memory exceptions
+
+```cs
+// methods for encryption of files
+void Encrypt(string sourceFilePath, string destinationFilePath, byte[] key, byte[] iv, bool overwriteExistingFile)
+async Task EncryptAsync(string sourceFilePath, string destinationFilePath, byte[] key, byte[] iv, bool overwriteExistingFile)
+void EncryptWithPassword(string sourceFilePath, string destinationFilePath, string password, bool overwriteExistingFile)
+async Task EncryptWithPasswordAsync(string sourceFilePath, string destinationFilePath, string password, bool overwriteExistingFile)
+
+// methods for decryption of files
+void Decrypt(string sourceFilePath, string destinationFilePath, byte[] key, byte[] iv, bool overwriteExistingFile)
+async Task DecryptAsync(string sourceFilePath, string destinationFilePath, byte[] key, byte[] iv, bool overwriteExistingFile)
+void DecryptWithPassword(string sourceFilePath, string destinationFilePath, string password, bool overwriteExistingFile)
+async Task DecryptWithPasswordAsync(string sourceFilePath, string destinationFilePath, string password, bool overwriteExistingFile)
+``` 
 
 ---
 
@@ -109,6 +128,7 @@ static Dictionary<string, string> ReadAdditionalData(string encryptedData)
 static Dictionary<string, string> ReadAdditionalData(byte[] encryptedData) 
 static Dictionary<string, string> ReadAdditionalData(Stream encryptedData)
 ```
+
 
 
 ---
