@@ -41,6 +41,9 @@
             <a href="../EasyCrypto/AesEncryptionAdditionalData.htm">AesEncryptionAdditionalData</a>
         </li>
 				<li>
+            <a href="../EasyCrypto/AesFileEncrytion.htm">AesFileEncrytion</a>
+        </li>
+				<li>
             <a href="../EasyCrypto/CryptoRandom.htm">CryptoRandom</a>
         </li>
 				<li>
@@ -78,22 +81,22 @@
 			<ul>
 				<li><a href="../EasyCrypto/AesEncryption.htm#Decrypt">Decrypt</a></li>
 				<li><a href="../EasyCrypto/AesEncryption.htm#Decrypt">Decrypt</a></li>
+				<li><a href="../EasyCrypto/AesEncryption.htm#DecryptAsync">DecryptAsync</a></li>
 				<li><a href="../EasyCrypto/AesEncryption.htm#DecryptWithEmbeddedIv">DecryptWithEmbeddedIv</a></li>
 				<li><a href="../EasyCrypto/AesEncryption.htm#DecryptWithEmbeddedIv">DecryptWithEmbeddedIv</a></li>
 				<li><a href="../EasyCrypto/AesEncryption.htm#DecryptWithPassword">DecryptWithPassword</a></li>
 				<li><a href="../EasyCrypto/AesEncryption.htm#DecryptWithPassword">DecryptWithPassword</a></li>
 				<li><a href="../EasyCrypto/AesEncryption.htm#DecryptWithPassword">DecryptWithPassword</a></li>
+				<li><a href="../EasyCrypto/AesEncryption.htm#DecryptWithPasswordAsync">DecryptWithPasswordAsync</a></li>
 				<li><a href="../EasyCrypto/AesEncryption.htm#Encrypt">Encrypt</a></li>
 				<li><a href="../EasyCrypto/AesEncryption.htm#Encrypt">Encrypt</a></li>
 				<li><a href="../EasyCrypto/AesEncryption.htm#EncryptAndEmbedIv">EncryptAndEmbedIv</a></li>
 				<li><a href="../EasyCrypto/AesEncryption.htm#EncryptAndEmbedIv">EncryptAndEmbedIv</a></li>
+				<li><a href="../EasyCrypto/AesEncryption.htm#EncryptAsync">EncryptAsync</a></li>
 				<li><a href="../EasyCrypto/AesEncryption.htm#EncryptWithPassword">EncryptWithPassword</a></li>
 				<li><a href="../EasyCrypto/AesEncryption.htm#EncryptWithPassword">EncryptWithPassword</a></li>
 				<li><a href="../EasyCrypto/AesEncryption.htm#EncryptWithPassword">EncryptWithPassword</a></li>
-				<li><a href="../EasyCrypto/AesEncryption.htm#Equals">Equals</a></li>
-				<li><a href="../EasyCrypto/AesEncryption.htm#GetHashCode">GetHashCode</a></li>
-				<li><a href="../EasyCrypto/AesEncryption.htm#GetType">GetType</a></li>
-				<li><a href="../EasyCrypto/AesEncryption.htm#ToString">ToString</a></li>
+				<li><a href="../EasyCrypto/AesEncryption.htm#EncryptWithPasswordAsync">EncryptWithPasswordAsync</a></li>
 				<li><a href="../EasyCrypto/AesEncryption.htm#ValidateEncryptedData">ValidateEncryptedData</a></li>
 				<li><a href="../EasyCrypto/AesEncryption.htm#ValidateEncryptedData">ValidateEncryptedData</a></li>
 				<li><a href="../EasyCrypto/AesEncryption.htm#ValidateEncryptedDataWithEmbededIv">ValidateEncryptedDataWithEmbededIv</a></li>
@@ -106,52 +109,6 @@
 		
 	</div>
 	
-	<h3 class="section">Public instance methods</h3>
-
-	<div id="Equals" class="method">
-		<h4>
-			<span title="System.bool">bool</span> <strong>Equals</strong>(<span title="System.object">object</span> obj)
-		</h4>
-		<div class="content">
-
-
-
-
-		</div>
-	</div>
-	<div id="GetHashCode" class="method">
-		<h4>
-			<span title="System.int">int</span> <strong>GetHashCode</strong>()
-		</h4>
-		<div class="content">
-
-
-
-
-		</div>
-	</div>
-	<div id="GetType" class="method">
-		<h4>
-			<span title="System.Type">Type</span> <strong>GetType</strong>()
-		</h4>
-		<div class="content">
-
-
-
-
-		</div>
-	</div>
-	<div id="ToString" class="method">
-		<h4>
-			<span title="System.string">string</span> <strong>ToString</strong>()
-		</h4>
-		<div class="content">
-
-
-
-
-		</div>
-	</div>
 	
 	<h3 class="section">Public static methods</h3>
 
@@ -220,25 +177,35 @@
 
 		</div>
 	</div>
-	<div id="DecryptWithEmbeddedIv" class="method">
+	<div id="DecryptAsync" class="method">
 		<h4>
-			<span title="System.Byte[]">Byte[]</span> <strong>DecryptWithEmbeddedIv</strong>(<span title="System.Byte[]">Byte[]</span> dataToDecrypt, <span title="System.Byte[]">Byte[]</span> key)
+			<span title="System.Threading.Tasks.Task">Task</span> <strong>DecryptAsync</strong>(<span title="System.IO.Stream">Stream</span> dataToDecrypt, <span title="System.Byte[]">Byte[]</span> key, <span title="System.Byte[]">Byte[]</span> iv, <span title="System.IO.Stream">Stream</span> destination)
 		</h4>
-		<div class="content">Decrypts bytes with embedded IV encrypted with  <a href="../EasyCrypto/AesEncryption.htm#EncryptAndEmbedIv">EncryptAndEmbedIv</a> 
+		<div class="content">Decrypts data from stream to stream asynchronously. 
 
 
 			<div class="parameters">
 				<h5>Parameters</h5>
 				<dl>
 						<dt>
-							<code><span title="System.Byte[]">Byte[]</span></code> dataToDecrypt
+							<code><span title="System.IO.Stream">Stream</span></code> dataToDecrypt
 						</dt>
-						<dd>Bytes, data with embedded IV, to decrypt 
+						<dd>Stream with data to encrypt. 
 						</dd>
 						<dt>
 							<code><span title="System.Byte[]">Byte[]</span></code> key
 						</dt>
 						<dd>Key that will be used for encryption/decryption, must be 16, 24 or 32 bytes long. 
+						</dd>
+						<dt>
+							<code><span title="System.Byte[]">Byte[]</span></code> iv
+						</dt>
+						<dd>Initialization vector, must be 16 bytes 
+						</dd>
+						<dt>
+							<code><span title="System.IO.Stream">Stream</span></code> destination
+						</dt>
+						<dd>Stream to which decrypted data will be wrote. 
 						</dd>
 				</dl>
 			</div>
@@ -248,9 +215,9 @@
 				<h5>Returns</h5>
 				<dl>
 					<dt>
-						<code><span title="System.Byte[]">Byte[]</span></code>
+						<code><span title="System.Threading.Tasks.Task">Task</span></code>
 					</dt>
-					<dd>Byte array, encrypted data 
+					<dd>Task to await 
 					</dd>
 				</dl>
 			</div>
@@ -289,6 +256,43 @@ Data is read from stream and decrypted data is wrote to stream.
 
 		</div>
 	</div>
+	<div id="DecryptWithEmbeddedIv" class="method">
+		<h4>
+			<span title="System.Byte[]">Byte[]</span> <strong>DecryptWithEmbeddedIv</strong>(<span title="System.Byte[]">Byte[]</span> dataToDecrypt, <span title="System.Byte[]">Byte[]</span> key)
+		</h4>
+		<div class="content">Decrypts bytes with embedded IV encrypted with  <a href="../EasyCrypto/AesEncryption.htm#EncryptAndEmbedIv">EncryptAndEmbedIv</a> 
+
+
+			<div class="parameters">
+				<h5>Parameters</h5>
+				<dl>
+						<dt>
+							<code><span title="System.Byte[]">Byte[]</span></code> dataToDecrypt
+						</dt>
+						<dd>Bytes, data with embedded IV, to decrypt 
+						</dd>
+						<dt>
+							<code><span title="System.Byte[]">Byte[]</span></code> key
+						</dt>
+						<dd>Key that will be used for encryption/decryption, must be 16, 24 or 32 bytes long. 
+						</dd>
+				</dl>
+			</div>
+
+			<div class="return">
+
+				<h5>Returns</h5>
+				<dl>
+					<dt>
+						<code><span title="System.Byte[]">Byte[]</span></code>
+					</dt>
+					<dd>Byte array, encrypted data 
+					</dd>
+				</dl>
+			</div>
+
+		</div>
+	</div>
 	<div id="DecryptWithPassword" class="method">
 		<h4>
 			<span title="System.void">void</span> <strong>DecryptWithPassword</strong>(<span title="System.IO.Stream">Stream</span> dataToDecrypt, <span title="System.string">string</span> password, <span title="System.IO.Stream">Stream</span> destination)
@@ -318,6 +322,43 @@ Result can be lated decrypted with  <a href="../EasyCrypto/AesEncryption.htm#Dec
 				</dl>
 			</div>
 
+
+		</div>
+	</div>
+	<div id="DecryptWithPassword" class="method">
+		<h4>
+			<span title="System.string">string</span> <strong>DecryptWithPassword</strong>(<span title="System.string">string</span> dataToDecrypt, <span title="System.string">string</span> password)
+		</h4>
+		<div class="content">Decrypts string with embedded salt and IV that are encrypted with  <a href="../EasyCrypto/AesEncryption.htm#EncryptWithPassword">EncryptWithPassword</a> 
+
+
+			<div class="parameters">
+				<h5>Parameters</h5>
+				<dl>
+						<dt>
+							<code><span title="System.string">string</span></code> dataToDecrypt
+						</dt>
+						<dd>string to decrypt 
+						</dd>
+						<dt>
+							<code><span title="System.string">string</span></code> password
+						</dt>
+						<dd>Password that is used for generating key for encryption/decryption 
+						</dd>
+				</dl>
+			</div>
+
+			<div class="return">
+
+				<h5>Returns</h5>
+				<dl>
+					<dt>
+						<code><span title="System.string">string</span></code>
+					</dt>
+					<dd>Decrypted string 
+					</dd>
+				</dl>
+			</div>
 
 		</div>
 	</div>
@@ -356,25 +397,31 @@ Result can be lated decrypted with  <a href="../EasyCrypto/AesEncryption.htm#Dec
 
 		</div>
 	</div>
-	<div id="DecryptWithPassword" class="method">
+	<div id="DecryptWithPasswordAsync" class="method">
 		<h4>
-			<span title="System.string">string</span> <strong>DecryptWithPassword</strong>(<span title="System.string">string</span> dataToDecrypt, <span title="System.string">string</span> password)
+			<span title="System.Threading.Tasks.Task">Task</span> <strong>DecryptWithPasswordAsync</strong>(<span title="System.IO.Stream">Stream</span> dataToDecrypt, <span title="System.string">string</span> password, <span title="System.IO.Stream">Stream</span> destination)
 		</h4>
-		<div class="content">Decrypts string with embedded salt and IV that are encrypted with  <a href="../EasyCrypto/AesEncryption.htm#EncryptWithPassword">EncryptWithPassword</a> 
+		<div class="content">Reads data from stream (parameter dataToEncrypt) and writes decrypted data to stream (parameter destination) asynchronously.
+Result can be lated decrypted with  <a href="../EasyCrypto/AesEncryption.htm#DecryptWithPassword">DecryptWithPassword</a> IV and salt will are read from input data (parameter dataToDecrypt). 
 
 
 			<div class="parameters">
 				<h5>Parameters</h5>
 				<dl>
 						<dt>
-							<code><span title="System.string">string</span></code> dataToDecrypt
+							<code><span title="System.IO.Stream">Stream</span></code> dataToDecrypt
 						</dt>
-						<dd>string to decrypt 
+						<dd>Stream containing data to decrypt 
 						</dd>
 						<dt>
 							<code><span title="System.string">string</span></code> password
 						</dt>
 						<dd>Password that is used for generating key for encryption/decryption 
+						</dd>
+						<dt>
+							<code><span title="System.IO.Stream">Stream</span></code> destination
+						</dt>
+						<dd>Stream to which to write decrypted data 
 						</dd>
 				</dl>
 			</div>
@@ -384,9 +431,9 @@ Result can be lated decrypted with  <a href="../EasyCrypto/AesEncryption.htm#Dec
 				<h5>Returns</h5>
 				<dl>
 					<dt>
-						<code><span title="System.string">string</span></code>
+						<code><span title="System.Threading.Tasks.Task">Task</span></code>
 					</dt>
-					<dd>Decrypted string 
+					<dd>Task to await 
 					</dd>
 				</dl>
 			</div>
@@ -527,27 +574,35 @@ IV size is 16 bytes (128 bits).
 
 		</div>
 	</div>
-	<div id="EncryptWithPassword" class="method">
+	<div id="EncryptAsync" class="method">
 		<h4>
-			<span title="System.string">string</span> <strong>EncryptWithPassword</strong>(<span title="System.string">string</span> dataToEncrypt, <span title="System.string">string</span> password)
+			<span title="System.Threading.Tasks.Task">Task</span> <strong>EncryptAsync</strong>(<span title="System.IO.Stream">Stream</span> dataToEncrypt, <span title="System.Byte[]">Byte[]</span> key, <span title="System.Byte[]">Byte[]</span> iv, <span title="System.IO.Stream">Stream</span> destination)
 		</h4>
-		<div class="content">Encrypts string and returns string. Salt and IV will be embedded to encrypted string.
-Can later be decrypted with  <a href="../EasyCrypto/AesEncryption.htm#DecryptWithPassword">DecryptWithPassword</a> IV and salt are generated by  <a href="../EasyCrypto/CryptoRandom.htm">CryptoRandom</a>  which is using System.Security.Cryptography.Rfc2898DeriveBytes.
-IV size is 16 bytes (128 bits) and key size will be 32 bytes (256 bits). 
+		<div class="content">Encrypts data from stream to stream asynchronously. 
 
 
 			<div class="parameters">
 				<h5>Parameters</h5>
 				<dl>
 						<dt>
-							<code><span title="System.string">string</span></code> dataToEncrypt
+							<code><span title="System.IO.Stream">Stream</span></code> dataToEncrypt
 						</dt>
-						<dd>String to encrypt 
+						<dd>Stream with data to decrypt. 
 						</dd>
 						<dt>
-							<code><span title="System.string">string</span></code> password
+							<code><span title="System.Byte[]">Byte[]</span></code> key
 						</dt>
-						<dd>Password that is used for generating key for encryption/decryption 
+						<dd>Key that will be used for encryption/decryption, must be 16, 24 or 32 bytes long. 
+						</dd>
+						<dt>
+							<code><span title="System.Byte[]">Byte[]</span></code> iv
+						</dt>
+						<dd>Initialization vector, must be 16 bytes 
+						</dd>
+						<dt>
+							<code><span title="System.IO.Stream">Stream</span></code> destination
+						</dt>
+						<dd>Stream to which encrypted data will be wrote. 
 						</dd>
 				</dl>
 			</div>
@@ -557,12 +612,47 @@ IV size is 16 bytes (128 bits) and key size will be 32 bytes (256 bits).
 				<h5>Returns</h5>
 				<dl>
 					<dt>
-						<code><span title="System.string">string</span></code>
+						<code><span title="System.Threading.Tasks.Task">Task</span></code>
 					</dt>
-					<dd>Encrypted string 
+					<dd>Task to await 
 					</dd>
 				</dl>
 			</div>
+
+		</div>
+	</div>
+	<div id="EncryptWithPassword" class="method">
+		<h4>
+			<span title="System.void">void</span> <strong>EncryptWithPassword</strong>(<span title="System.IO.Stream">Stream</span> dataToEncrypt, <span title="System.string">string</span> password, <span title="System.IO.Stream">Stream</span> destination)
+		</h4>
+		<div class="content">Reads data from stream (parameter dataToEncrypt) and writes encrypted data to stream (parameter destination).
+Can be later decrypted using  <a href="../EasyCrypto/AesEncryption.htm#DecryptWithPassword">DecryptWithPassword</a>.
+Salt and IV will be embedded to resulting stream.
+IV and salt are generated by  <a href="../EasyCrypto/CryptoRandom.htm">CryptoRandom</a>  which is using System.Security.Cryptography.Rfc2898DeriveBytes.
+IV size is 16 bytes (128 bits) and key size will be 32 bytes (256 bits). 
+
+
+			<div class="parameters">
+				<h5>Parameters</h5>
+				<dl>
+						<dt>
+							<code><span title="System.IO.Stream">Stream</span></code> dataToEncrypt
+						</dt>
+						<dd>Stream containing data to encrypt 
+						</dd>
+						<dt>
+							<code><span title="System.string">string</span></code> password
+						</dt>
+						<dd>Password that is used for generating key for encryption/decryption 
+						</dd>
+						<dt>
+							<code><span title="System.IO.Stream">Stream</span></code> destination
+						</dt>
+						<dd>Stream to which to write encrypted data 
+						</dd>
+				</dl>
+			</div>
+
 
 		</div>
 	</div>
@@ -607,9 +697,48 @@ IV size is 16 bytes (128 bits) and key size will be 32 bytes (256 bits).
 	</div>
 	<div id="EncryptWithPassword" class="method">
 		<h4>
-			<span title="System.void">void</span> <strong>EncryptWithPassword</strong>(<span title="System.IO.Stream">Stream</span> dataToEncrypt, <span title="System.string">string</span> password, <span title="System.IO.Stream">Stream</span> destination)
+			<span title="System.string">string</span> <strong>EncryptWithPassword</strong>(<span title="System.string">string</span> dataToEncrypt, <span title="System.string">string</span> password)
 		</h4>
-		<div class="content">Reads data from stream (parameter dataToEncrypt) and writes encrypted data to stream (parameter destination).
+		<div class="content">Encrypts string and returns string. Salt and IV will be embedded to encrypted string.
+Can later be decrypted with  <a href="../EasyCrypto/AesEncryption.htm#DecryptWithPassword">DecryptWithPassword</a> IV and salt are generated by  <a href="../EasyCrypto/CryptoRandom.htm">CryptoRandom</a>  which is using System.Security.Cryptography.Rfc2898DeriveBytes.
+IV size is 16 bytes (128 bits) and key size will be 32 bytes (256 bits). 
+
+
+			<div class="parameters">
+				<h5>Parameters</h5>
+				<dl>
+						<dt>
+							<code><span title="System.string">string</span></code> dataToEncrypt
+						</dt>
+						<dd>String to encrypt 
+						</dd>
+						<dt>
+							<code><span title="System.string">string</span></code> password
+						</dt>
+						<dd>Password that is used for generating key for encryption/decryption 
+						</dd>
+				</dl>
+			</div>
+
+			<div class="return">
+
+				<h5>Returns</h5>
+				<dl>
+					<dt>
+						<code><span title="System.string">string</span></code>
+					</dt>
+					<dd>Encrypted string 
+					</dd>
+				</dl>
+			</div>
+
+		</div>
+	</div>
+	<div id="EncryptWithPasswordAsync" class="method">
+		<h4>
+			<span title="System.Threading.Tasks.Task">Task</span> <strong>EncryptWithPasswordAsync</strong>(<span title="System.IO.Stream">Stream</span> dataToEncrypt, <span title="System.string">string</span> password, <span title="System.IO.Stream">Stream</span> destination)
+		</h4>
+		<div class="content">Reads data from stream (parameter dataToEncrypt) and writes encrypted data to stream (parameter destination) asynchronously.
 Can be later decrypted using  <a href="../EasyCrypto/AesEncryption.htm#DecryptWithPassword">DecryptWithPassword</a>.
 Salt and IV will be embedded to resulting stream.
 IV and salt are generated by  <a href="../EasyCrypto/CryptoRandom.htm">CryptoRandom</a>  which is using System.Security.Cryptography.Rfc2898DeriveBytes.
@@ -637,45 +766,14 @@ IV size is 16 bytes (128 bits) and key size will be 32 bytes (256 bits).
 				</dl>
 			</div>
 
-
-		</div>
-	</div>
-	<div id="ValidateEncryptedData" class="method">
-		<h4>
-			<a href="../EasyCrypto/ValidationResult.htm">ValidationResult</a> <strong>ValidateEncryptedData</strong>(<span title="System.Byte[]">Byte[]</span> encryptedData, <span title="System.Byte[]">Byte[]</span> key, <span title="System.Byte[]">Byte[]</span> iv)
-		</h4>
-		<div class="content">Validates the encrypted data. 
-
-
-			<div class="parameters">
-				<h5>Parameters</h5>
-				<dl>
-						<dt>
-							<code><span title="System.Byte[]">Byte[]</span></code> encryptedData
-						</dt>
-						<dd>The encrypted data 
-						</dd>
-						<dt>
-							<code><span title="System.Byte[]">Byte[]</span></code> key
-						</dt>
-						<dd>The key 
-						</dd>
-						<dt>
-							<code><span title="System.Byte[]">Byte[]</span></code> iv
-						</dt>
-						<dd>The IV 
-						</dd>
-				</dl>
-			</div>
-
 			<div class="return">
 
 				<h5>Returns</h5>
 				<dl>
 					<dt>
-						<code><a href="../EasyCrypto/ValidationResult.htm">ValidationResult</a></code>
+						<code><span title="System.Threading.Tasks.Task">Task</span></code>
 					</dt>
-					<dd>ValidationResult 
+					<dd>Task to await 
 					</dd>
 				</dl>
 			</div>
@@ -724,9 +822,9 @@ IV size is 16 bytes (128 bits) and key size will be 32 bytes (256 bits).
 
 		</div>
 	</div>
-	<div id="ValidateEncryptedDataWithEmbededIv" class="method">
+	<div id="ValidateEncryptedData" class="method">
 		<h4>
-			<a href="../EasyCrypto/ValidationResult.htm">ValidationResult</a> <strong>ValidateEncryptedDataWithEmbededIv</strong>(<span title="System.Byte[]">Byte[]</span> encryptedData, <span title="System.Byte[]">Byte[]</span> key)
+			<a href="../EasyCrypto/ValidationResult.htm">ValidationResult</a> <strong>ValidateEncryptedData</strong>(<span title="System.Byte[]">Byte[]</span> encryptedData, <span title="System.Byte[]">Byte[]</span> key, <span title="System.Byte[]">Byte[]</span> iv)
 		</h4>
 		<div class="content">Validates the encrypted data. 
 
@@ -742,7 +840,12 @@ IV size is 16 bytes (128 bits) and key size will be 32 bytes (256 bits).
 						<dt>
 							<code><span title="System.Byte[]">Byte[]</span></code> key
 						</dt>
-						<dd>Key used for encryption 
+						<dd>The key 
+						</dd>
+						<dt>
+							<code><span title="System.Byte[]">Byte[]</span></code> iv
+						</dt>
+						<dd>The IV 
 						</dd>
 				</dl>
 			</div>
@@ -798,9 +901,9 @@ IV size is 16 bytes (128 bits) and key size will be 32 bytes (256 bits).
 
 		</div>
 	</div>
-	<div id="ValidateEncryptedDataWithPassword" class="method">
+	<div id="ValidateEncryptedDataWithEmbededIv" class="method">
 		<h4>
-			<a href="../EasyCrypto/ValidationResult.htm">ValidationResult</a> <strong>ValidateEncryptedDataWithPassword</strong>(<span title="System.string">string</span> encryptedData, <span title="System.string">string</span> password)
+			<a href="../EasyCrypto/ValidationResult.htm">ValidationResult</a> <strong>ValidateEncryptedDataWithEmbededIv</strong>(<span title="System.Byte[]">Byte[]</span> encryptedData, <span title="System.Byte[]">Byte[]</span> key)
 		</h4>
 		<div class="content">Validates the encrypted data. 
 
@@ -809,7 +912,44 @@ IV size is 16 bytes (128 bits) and key size will be 32 bytes (256 bits).
 				<h5>Parameters</h5>
 				<dl>
 						<dt>
-							<code><span title="System.string">string</span></code> encryptedData
+							<code><span title="System.Byte[]">Byte[]</span></code> encryptedData
+						</dt>
+						<dd>The encrypted data 
+						</dd>
+						<dt>
+							<code><span title="System.Byte[]">Byte[]</span></code> key
+						</dt>
+						<dd>Key used for encryption 
+						</dd>
+				</dl>
+			</div>
+
+			<div class="return">
+
+				<h5>Returns</h5>
+				<dl>
+					<dt>
+						<code><a href="../EasyCrypto/ValidationResult.htm">ValidationResult</a></code>
+					</dt>
+					<dd>ValidationResult 
+					</dd>
+				</dl>
+			</div>
+
+		</div>
+	</div>
+	<div id="ValidateEncryptedDataWithPassword" class="method">
+		<h4>
+			<a href="../EasyCrypto/ValidationResult.htm">ValidationResult</a> <strong>ValidateEncryptedDataWithPassword</strong>(<span title="System.IO.Stream">Stream</span> encryptedData, <span title="System.string">string</span> password)
+		</h4>
+		<div class="content">Validates the encrypted data. 
+
+
+			<div class="parameters">
+				<h5>Parameters</h5>
+				<dl>
+						<dt>
+							<code><span title="System.IO.Stream">Stream</span></code> encryptedData
 						</dt>
 						<dd>The encrypted data 
 						</dd>
@@ -874,7 +1014,7 @@ IV size is 16 bytes (128 bits) and key size will be 32 bytes (256 bits).
 	</div>
 	<div id="ValidateEncryptedDataWithPassword" class="method">
 		<h4>
-			<a href="../EasyCrypto/ValidationResult.htm">ValidationResult</a> <strong>ValidateEncryptedDataWithPassword</strong>(<span title="System.IO.Stream">Stream</span> encryptedData, <span title="System.string">string</span> password)
+			<a href="../EasyCrypto/ValidationResult.htm">ValidationResult</a> <strong>ValidateEncryptedDataWithPassword</strong>(<span title="System.string">string</span> encryptedData, <span title="System.string">string</span> password)
 		</h4>
 		<div class="content">Validates the encrypted data. 
 
@@ -883,7 +1023,7 @@ IV size is 16 bytes (128 bits) and key size will be 32 bytes (256 bits).
 				<h5>Parameters</h5>
 				<dl>
 						<dt>
-							<code><span title="System.IO.Stream">Stream</span></code> encryptedData
+							<code><span title="System.string">string</span></code> encryptedData
 						</dt>
 						<dd>The encrypted data 
 						</dd>
@@ -912,7 +1052,7 @@ IV size is 16 bytes (128 bits) and key size will be 32 bytes (256 bits).
 	
 	</section>
 	</article><footer>
-	<span id="version">Built from v2.0.6034.31029 of EasyCrypto</span>
+	<span id="version">Built from v2.0.6143.39283 of EasyCrypto</span>
 	<span id="docu-link">
 		Generated by <a href="http://docu.jagregory.com">docu</a>
 	</span>
