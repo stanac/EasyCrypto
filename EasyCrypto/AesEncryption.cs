@@ -561,7 +561,7 @@ namespace EasyCrypto
         }
 
 #if core
-        private static ICryptoTransform GetDecryptorAndSetAes(Aes aes)
+        private static ICryptoTransform GetDecryptorAndSetAes(Aes aes, CryptoRequest request)
 #else
         private static ICryptoTransform GetDecryptorAndSetAes(AesManaged aes, CryptoRequest request)
 #endif
