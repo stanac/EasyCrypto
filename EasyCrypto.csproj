@@ -63,7 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AesFileEncrytion.cs" />
+    <Compile Include="EasyCrypto\AesFileEncrytion.cs" />
     <Compile Include="EasyCrypto\ActualPasswordGeneratorOptions.cs" />
     <Compile Include="EasyCrypto\AdditionalData.cs" />
     <Compile Include="EasyCrypto\AesEncryption.cs" />
