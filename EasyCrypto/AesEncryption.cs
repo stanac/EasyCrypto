@@ -554,8 +554,8 @@ namespace EasyCrypto
         {
             aes.IV = request.IV;
             aes.Key = request.Key;
-            aes.Padding = PaddingMode.PKCS7;
-            aes.BlockSize = 128;
+            // aes.Padding = PaddingMode.PKCS7;
+            // aes.BlockSize = 128;
 
             return aes.CreateEncryptor();
         }
@@ -568,8 +568,8 @@ namespace EasyCrypto
         {
             aes.IV = request.IV;
             aes.Key = request.Key;
-            aes.Padding = PaddingMode.PKCS7;
-            aes.BlockSize = 128;
+            // aes.Padding = PaddingMode.PKCS7;
+            // aes.BlockSize = 128;
             return aes.CreateDecryptor();
         }
     }
