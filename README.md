@@ -6,7 +6,7 @@ Primary goal of this library is to enable users with little or no cryptography k
 safe manner as well work with passwords and random values.
 
 EasyCrypto is .NET (and since v 3.0 .NET Core) library that helps with
-- Encryption and decryption of streams, byte arrays and strings
+- Encryption and decryption of streams, byte arrays, strings and files
 - Password generating, hashing and validating
 - Generating crypto secure random bytes, integers and doubles
 
@@ -218,8 +218,8 @@ bool ValidatePasswordWithEmbeddedSalt(string password, string hashAndEmbeddedSal
 ---
 
 #### Future improvements
-- ~~Validating keys and encrypted data integrity in AesEncryption (refactor and open up closed APIs)~~ DONE in v1.1.0
-- Performance improvements on CryptoRandom (with buffer)
-- Make it compatible with .NET Core 1
-- Extract interfaces so you can replace one or more class implementations (vNext, might introduce breaking changes)
-- Asymmetric (public key) encryption 
+- [x] Validating keys and encrypted data integrity in AesEncryption (refactor and open up closed APIs) - DONE in v1.1.0
+- [ ] Performance improvements on CryptoRandom (with buffer)
+- [x] Make it compatible with .NET Core 1
+- [ ] Extract interfaces so you can replace one or more class implementations (vNext, might introduce breaking changes)
+- [ ] Asymmetric (public key) encryption 
