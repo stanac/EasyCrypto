@@ -86,6 +86,7 @@
     <Compile Include="MessageAuthenticationCodeValidatorTests.cs" />
     <Compile Include="PasswordGeneratorTests.cs" />
     <Compile Include="PasswordHasherTests.cs" />
+    <Compile Include="ProgressReportTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

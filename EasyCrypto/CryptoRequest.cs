@@ -16,6 +16,7 @@ namespace EasyCrypto
         public byte[] Key { get; set; }
         public string Password { get; set; }
         public Dictionary<string, string> AdditionalData { get; set; }
+        public ReportAndCancellationToken Token { get; set; }
 
         public CryptoContainer ValidateEncryption()
         {

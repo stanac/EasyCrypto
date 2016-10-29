@@ -68,6 +68,7 @@
     <Compile Include="EasyCrypto\AdditionalData.cs" />
     <Compile Include="EasyCrypto\AesEncryption.cs" />
     <Compile Include="EasyCrypto\AesEncryptionAdditionalData.cs" />
+    <Compile Include="EasyCrypto\ReportAndCancellationToken.cs" />
     <Compile Include="EasyCrypto\CryptoContainer.cs" />
     <Compile Include="EasyCrypto\CryptoContainerFlags.cs" />
     <Compile Include="EasyCrypto\CryptoRandom.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="EasyCrypto\PasswordGenerator.cs" />
     <Compile Include="EasyCrypto\PasswordHasher.cs" />
     <Compile Include="EasyCrypto\Properties\AssemblyInfo.cs" />
+    <Compile Include="EasyCrypto\ProgressReportIntensity.cs" />
     <Compile Include="EasyCrypto\ValidationResult.cs" />
     <Compile Include="EasyCrypto\Validation\KeyCheckValueValidator.cs" />
     <Compile Include="EasyCrypto\Validation\MessageAuthenticationCodeValidator.cs" />
