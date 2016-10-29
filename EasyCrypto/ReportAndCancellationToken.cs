@@ -13,6 +13,14 @@ namespace EasyCrypto
         private int _lastReportedInt = -1;
 
         /// <summary>
+        /// Gets a value indicating whether operation can report progress.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if operation can report progress; otherwise, <c>false</c>.
+        /// </value>
+        public bool? CanReportProgress { get; internal set; }
+
+        /// <summary>
         /// Gets a value indicating whether operation is canceled.
         /// </summary>
         /// <value>
@@ -40,6 +48,7 @@ namespace EasyCrypto
 
         internal void ReportProgressInternal(int iterationsTaken)
         {
+            if (!(CanReportProgress ?? false)) return;
             if (ReportProgress == null) return;
             if (!ShouldReportProgress(iterationsTaken)) return;
 

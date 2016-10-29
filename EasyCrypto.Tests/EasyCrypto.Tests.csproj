@@ -77,16 +77,36 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AesEncryptionAdditionalDataTests.cs" />
-    <Compile Include="AesEncryptionTests.cs" />
-    <Compile Include="AesEncryptionValidationTests.cs" />
-    <Compile Include="AesFileEncryptionTests.cs" />
-    <Compile Include="DataToolsTests.cs" />
-    <Compile Include="KeyCheckValueValidatorTests.cs" />
-    <Compile Include="MessageAuthenticationCodeValidatorTests.cs" />
-    <Compile Include="PasswordGeneratorTests.cs" />
-    <Compile Include="PasswordHasherTests.cs" />
-    <Compile Include="ProgressReportTests.cs" />
+    <Compile Include="..\EasyCrypto.Core.Tests\AesEncryptionAdditionalDataTests.cs">
+      <Link>AesEncryptionAdditionalDataTests.cs</Link>
+    </Compile>
+    <Compile Include="..\EasyCrypto.Core.Tests\AesEncryptionTests.cs">
+      <Link>AesEncryptionTests.cs</Link>
+    </Compile>
+    <Compile Include="..\EasyCrypto.Core.Tests\AesEncryptionValidationTests.cs">
+      <Link>AesEncryptionValidationTests.cs</Link>
+    </Compile>
+    <Compile Include="..\EasyCrypto.Core.Tests\AesFileEncryptionTests.cs">
+      <Link>AesFileEncryptionTests.cs</Link>
+    </Compile>
+    <Compile Include="..\EasyCrypto.Core.Tests\DataToolsTests.cs">
+      <Link>DataToolsTests.cs</Link>
+    </Compile>
+    <Compile Include="..\EasyCrypto.Core.Tests\KeyCheckValueValidatorTests.cs">
+      <Link>KeyCheckValueValidatorTests.cs</Link>
+    </Compile>
+    <Compile Include="..\EasyCrypto.Core.Tests\MessageAuthenticationCodeValidatorTests.cs">
+      <Link>MessageAuthenticationCodeValidatorTests.cs</Link>
+    </Compile>
+    <Compile Include="..\EasyCrypto.Core.Tests\PasswordGeneratorTests.cs">
+      <Link>PasswordGeneratorTests.cs</Link>
+    </Compile>
+    <Compile Include="..\EasyCrypto.Core.Tests\PasswordHasherTests.cs">
+      <Link>PasswordHasherTests.cs</Link>
+    </Compile>
+    <Compile Include="..\EasyCrypto.Core.Tests\ProgressReportTests.cs">
+      <Link>ProgressReportTests.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
