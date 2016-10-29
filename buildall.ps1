@@ -57,3 +57,6 @@ $BuildArgs = @{
  
 # Start the build
 Start-Process @BuildArgs
+
+# create nuget
+cmd.exe /c "nuget pack EasyCrypto.nuspec"
