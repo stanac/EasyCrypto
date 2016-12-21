@@ -9,6 +9,9 @@ build:
   verbosity: minimal
 image: Visual Studio 2015
 configuration: Release
-test:
-  assemblies: 
-    - EasyCrypto.Tests.dll
+environment:
+  COVERALL_TOKEN:
+    secure: uMctBj4FhiVMESGH8OoY/Uf+6ohWcuVvPP17TqG92kAGQmqVk0ilujeeiaQjw0m0
+test_script:
+- ps: >-
+    .\runtests.ps1
