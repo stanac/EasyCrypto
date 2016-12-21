@@ -1,0 +1,34 @@
+﻿<Window x:Class="SampleApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SampleApp"
+        xmlns:uc="clr-namespace:SampleApp.UserControls"
+        mc:Ignorable="d"
+        ResizeMode="CanMinimize"
+        SizeToContent="Height"
+        Title="EasyCrypto sample app" Height="auto" Width="525">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Encrypt/Decrypt text">
+                <uc:EncryptDecryptText />
+            </TabItem>
+            <TabItem Header="Encrypt/Decrypt file">
+                <uc:EncryptDecryptFile />
+            </TabItem>
+            <TabItem Header="Password">
+                <uc:Password />
+            </TabItem>
+            <TabItem Header="Crypto random">
+                <uc:Random />
+            </TabItem>
+        </TabControl>
+        <Button HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Content="?"
+                Padding="10, 0"
+                Click="helpButtonClick"
+                Margin="1"/>
+    </Grid>
+</Window>
