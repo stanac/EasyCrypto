@@ -8,7 +8,7 @@ build:
   project: EasyCrypto.sln
   verbosity: minimal
 image: Visual Studio 2015
-configuration: Release
+configuration: Debug
 environment:
   COVERALL_TOKEN:
     secure: uMctBj4FhiVMESGH8OoY/Uf+6ohWcuVvPP17TqG92kAGQmqVk0ilujeeiaQjw0m0
