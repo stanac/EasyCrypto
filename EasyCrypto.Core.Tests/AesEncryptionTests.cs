@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace EasyCrypto.Tests
@@ -66,7 +68,47 @@ namespace EasyCrypto.Tests
         [Fact]
         public void EncryptedDataCanBeDecryptedWithKey32()
             => TestEncryptDecrypt(32);
-        
+
+        [Fact]
+        public async Task EncryptedWithPasswordAsyncCanBeDecrypted()
+        {
+            string password = Guid.NewGuid().ToString();
+
+            string tempPlainPath = Path.GetTempFileName();
+            string tempEncPath = Path.GetTempFileName();
+            string tempDecPath = Path.GetTempFileName();
+
+            byte[] plain = System.Text.Encoding.ASCII.GetBytes(Guid.NewGuid().ToString());
+            using (Stream plainStream = new FileStream(tempPlainPath, FileMode.Create))
+            {
+                plainStream.Write(plain, 0, plain.Length);
+                plainStream.Flush();
+            }
+
+            using (Stream plainStream = new FileStream(tempPlainPath, FileMode.Open))
+            using (Stream encryptedStream = new FileStream(tempEncPath, FileMode.Create))
+            {
+                await AesEncryption.EncryptWithPasswordAsync(plainStream, password, encryptedStream);
+                encryptedStream.Flush();
+            }
+
+            using (Stream encryptedStream = new FileStream(tempEncPath, FileMode.Open))
+            using (Stream decryptedStream = new FileStream(tempDecPath, FileMode.Create))
+            {
+                await AesEncryption.DecryptWithPasswordAsync(encryptedStream, password, decryptedStream);
+                decryptedStream.Flush();
+            }
+
+            string text1 = File.ReadAllText(tempPlainPath);
+            string text2 = File.ReadAllText(tempDecPath);
+
+            File.Delete(tempDecPath);
+            File.Delete(tempEncPath);
+            File.Delete(tempPlainPath);
+
+            Assert.Equal(text1, text2);
+        }
+
         private void TestEncryptDecrypt(uint keySize)
         {
             using (var cr = new CryptoRandom())
