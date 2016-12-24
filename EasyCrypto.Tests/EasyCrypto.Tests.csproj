@@ -89,6 +89,9 @@
     <Compile Include="..\EasyCrypto.Core.Tests\AesFileEncryptionTests.cs">
       <Link>AesFileEncryptionTests.cs</Link>
     </Compile>
+    <Compile Include="..\EasyCrypto.Core.Tests\CryptoRandomTests.cs">
+      <Link>CryptoRandomTests.cs</Link>
+    </Compile>
     <Compile Include="..\EasyCrypto.Core.Tests\DataToolsTests.cs">
       <Link>DataToolsTests.cs</Link>
     </Compile>
