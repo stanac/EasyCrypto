@@ -28,6 +28,7 @@ namespace EasyCrypto.Tests
         //    await AssertFileEncryption(1024 * 1024 * 1024, false);
         //}
 
+        [Fact]
         public async Task EncryptedFileWithPasswordCanBeDecrypted()
         {
             for (int i = 0; i < 5; i++)
@@ -52,7 +53,7 @@ namespace EasyCrypto.Tests
         //    Console.WriteLine($"not async gigabyte write {sw.Elapsed}");
         //    sw.Stop();
         //}
-
+        
         private async Task AssertFileEncryptionWithPassword(int fileLength, bool async)
         {
             string pass = PasswordGenerator.GenerateStatic();
