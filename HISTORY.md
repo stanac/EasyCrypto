@@ -1,4 +1,7 @@
-﻿## v 3.2.1
+﻿## v 4.0.0
+- Simplified package to target only `netstandard1.6`
+
+## v 3.2.1
 - Fixed Core build nuget
 
 ## v 3.2

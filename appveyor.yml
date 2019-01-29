@@ -1,13 +1,12 @@
 before_build:
-  - cmd: ren EasyCrypto.Core.sln EasyCrypto.Core._sln
-  - nuget restore
+  - dotnet restore
 branches:
   only:
     - master
 build:
   project: EasyCrypto.sln
   verbosity: minimal
-image: Visual Studio 2015
+image: Visual Studio 2017
 configuration: Debug
 environment:
   COVERALL_TOKEN:

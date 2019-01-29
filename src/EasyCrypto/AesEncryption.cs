@@ -634,17 +634,9 @@ namespace EasyCrypto
             return result;
         }
 
-#if core
         private static Aes GetAes() => Aes.Create();
-#else
-        private static AesManaged GetAes() => new AesManaged();
-#endif
 
-#if core
         private static ICryptoTransform GetEncryptorAndSetAes(Aes aes, CryptoRequest request)
-#else
-        private static ICryptoTransform GetEncryptorAndSetAes(AesManaged aes, CryptoRequest request)
-#endif
         {
             aes.IV = request.IV;
             aes.Key = request.Key;
@@ -654,11 +646,7 @@ namespace EasyCrypto
             return aes.CreateEncryptor();
         }
 
-#if core
         private static ICryptoTransform GetDecryptorAndSetAes(Aes aes, CryptoRequest request)
-#else
-        private static ICryptoTransform GetDecryptorAndSetAes(AesManaged aes, CryptoRequest request)
-#endif
         {
             aes.IV = request.IV;
             aes.Key = request.Key;

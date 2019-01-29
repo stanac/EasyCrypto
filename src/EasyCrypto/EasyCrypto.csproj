@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <Version>4.0.0</Version>
+    <Description>EasyCrypto is .NET Standard (1.6+) library that helps with
+- Encryption and decryption of streams, byte arrays, files and strings
+- Password generating, hashing and validating
+- Generating crypto secure random bytes, integers and doubles</Description>
+    <Authors>stanac</Authors>
+  </PropertyGroup>
+
+</Project>
