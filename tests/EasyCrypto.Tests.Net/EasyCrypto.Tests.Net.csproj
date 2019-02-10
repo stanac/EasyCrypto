@@ -69,6 +69,7 @@
     <Compile Include="PasswordHasherTests.cs" />
     <Compile Include="ProgressReportTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TokenGeneratorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\EasyCrypto\EasyCrypto.csproj">

@@ -1,4 +1,7 @@
-﻿## v 4.0.0
+﻿## v 4.1.0
+- Added TokenGenerator class
+
+## v 4.0.0
 - Simplified package to target only `netstandard1.6`
 
 ## v 3.2.1

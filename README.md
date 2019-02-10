@@ -12,6 +12,7 @@ EasyCrypto is .NET (and since v 3.0 .NET Core) library that helps with
 - Encryption and decryption of streams, byte arrays, strings and files
 - Password generating, hashing and validating
 - Generating crypto secure random bytes, integers and doubles
+- Generating crypto secure random string tokens
 
 Implementation details:
 - For encryption AES265 is used, IVs are 128 bits large and every 
@@ -24,8 +25,6 @@ with default hash and salt size of 256 bits and 25K iterations (by default).
 
 ---
 
-**For full API see the [pages](https://stanac.github.io/EasyCrypto/).**
-
 For changes see [history](https://github.com/stanac/EasyCrypto/blob/master/HISTORY.md).
 
 ## Install from nuget
@@ -34,7 +33,7 @@ For changes see [history](https://github.com/stanac/EasyCrypto/blob/master/HISTO
 Install-Package EasyCrypto
 ```
 
-## Useful methods
+## Docs
 
 ---
 
@@ -170,7 +169,7 @@ void Dispose()
 ### Class PasswordGenerator : IDisposable
 
 PasswordGenerator has static methods in the same manner as CryptoRanom, following examples will
-show only calls to instance methods. For all available options check [PasswordGenerationOptions class](https://stanac.github.io/EasyCrypto/EasyCrypto/PasswordGenerationOptions.htm).
+show only calls to instance methods.
 
 ```cs
 using (var pg = new PasswordGenerator())
@@ -216,6 +215,29 @@ bool ValidatePasswordWithEmbeddedSalt(string password, byte[] hashAndEmbeddedSal
 
 string HashPasswordAndGenerateEmbeddedSaltAsString(string password)
 bool ValidatePasswordWithEmbeddedSalt(string password, string hashAndEmbeddedSalt)
+```
+
+---
+
+### Class TokenGenerator
+
+This class can used for generating random string tokens for e.g. password reset, email address confirmation, etc...
+
+```cs
+// default chars used for token generation
+const string DefaultAllowedChars = "qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM";
+
+// constructors:
+
+TokenGenerator() // default constructor; uses DefaultAllowedChars
+TokenGenerator(string allowedChars) // Constructor that allows defining allowed characters to be used for token generation
+// allowedChars parameter must have at least 10 distinct characters, white space characters are ignored
+
+// method:
+
+// Generates random string token of desiered length
+// Parameter length must be greater than 0
+string GenerateToken(int length)
 ```
 
 ---
