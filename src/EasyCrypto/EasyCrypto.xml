@@ -1053,6 +1053,21 @@
             <param name="length">Token length must be greater than 0.</param>
             <returns>Generated random token with specified length.</returns>
         </member>
+        <member name="M:EasyCrypto.TokenGenerator.HashToken(System.String)">
+            <summary>
+            Hashes token
+            </summary>
+            <param name="token">Token to hash</param>
+            <returns>Hashed token with embedded salt</returns>
+        </member>
+        <member name="M:EasyCrypto.TokenGenerator.ValidateTokenHash(System.String,System.String)">
+            <summary>
+            Validates token hash
+            </summary>
+            <param name="token">Token to validate</param>
+            <param name="hash">Hash to validate token against</param>
+            <returns></returns>
+        </member>
         <member name="T:EasyCrypto.ValidationResult">
             <summary>
             Results of validating encrypted data

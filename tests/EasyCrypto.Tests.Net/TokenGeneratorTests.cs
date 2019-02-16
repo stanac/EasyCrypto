@@ -26,5 +26,25 @@ namespace EasyCrypto.Tests
 
             Assert.True(numberOfUniqueChars > 20); // we cannot actually test this in correct way because it's random
         }
+
+        [Fact]
+        public void ValidHashedToken_Validate_ReturnsTrue()
+        {
+            var tokenGen = new TokenGenerator();
+            string token = tokenGen.GenerateToken(30);
+            string hash = tokenGen.HashToken(token);
+            bool isValid = tokenGen.ValidateTokenHash(token, hash);
+            Assert.True(isValid);
+        }
+
+        [Fact]
+        public void NotValidHashedToken_Validate_ReturnsFalse()
+        {
+            var tokenGen = new TokenGenerator();
+            string token = tokenGen.GenerateToken(30);
+            string hash = tokenGen.HashToken(token + "-");
+            bool isValid = tokenGen.ValidateTokenHash(token, hash);
+            Assert.False(isValid);
+        }
     }
 }

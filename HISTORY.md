@@ -1,5 +1,8 @@
-﻿## v 4.1.0
-- Added TokenGenerator class
+﻿## v 4.2.0
+- Added methods `HashToken` and `ValidateTokenHash` to `TokenGenerator` class
+
+## v 4.1.0
+- Added `TokenGenerator` class
 
 ## v 4.0.0
 - Simplified package to target only `netstandard1.6`

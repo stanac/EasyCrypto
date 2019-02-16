@@ -221,7 +221,8 @@ bool ValidatePasswordWithEmbeddedSalt(string password, string hashAndEmbeddedSal
 
 ### Class TokenGenerator
 
-This class can used for generating random string tokens for e.g. password reset, email address confirmation, etc...
+This class can used for generating random string tokens for e.g. password reset, email address confirmation, etc... It also provides methods for 
+hashing tokens and validating token hashes (it's not recommended to store plain text tokens in db)
 
 ```cs
 // default chars used for token generation
@@ -233,11 +234,17 @@ TokenGenerator() // default constructor; uses DefaultAllowedChars
 TokenGenerator(string allowedChars) // Constructor that allows defining allowed characters to be used for token generation
 // allowedChars parameter must have at least 10 distinct characters, white space characters are ignored
 
-// method:
+// methods:
 
-// Generates random string token of desiered length
+// Generates random string token of desired length
 // Parameter length must be greater than 0
 string GenerateToken(int length)
+
+// Hashes token (with random salt) so you don't have to store plain text token
+string HashToken(string token)
+
+// Validates token hash that is created by calling HashToken(string)
+bool ValidateTokenHash(string token, string hash)
 ```
 
 ---

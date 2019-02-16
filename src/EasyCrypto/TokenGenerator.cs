@@ -12,6 +12,7 @@ namespace EasyCrypto
     public class TokenGenerator
     {
         private static readonly CryptoRandom _rand = new CryptoRandom();
+        private static readonly PasswordHasher _hasher = new PasswordHasher(16, 500);
 
         public const string DefaultAllowedChars = "qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM";
         
@@ -71,6 +72,35 @@ namespace EasyCrypto
             }
 
             return new string(chars);
+        }
+
+        /// <summary>
+        /// Hashes token
+        /// </summary>
+        /// <param name="token">Token to hash</param>
+        /// <returns>Hashed token with embedded salt</returns>
+        public string HashToken(string token)
+        {
+            return "00" + _hasher.HashPasswordAndGenerateEmbeddedSaltAsString(token).BeautifyBase64();
+        }
+
+        /// <summary>
+        /// Validates token hash
+        /// </summary>
+        /// <param name="token">Token to validate</param>
+        /// <param name="hash">Hash to validate token against</param>
+        /// <returns></returns>
+        public bool ValidateTokenHash(string token, string hash)
+        {
+            string version = hash.Substring(0, 2);
+            hash = hash.Substring(2);
+
+            if (version == "00")
+            {
+                return _hasher.ValidatePasswordWithEmbeddedSalt(token, hash.UglifyBase64());
+            }
+
+            throw new InvalidOperationException("Unknown hash version, please update reference of EasyCrypto.");
         }
     }
 }
