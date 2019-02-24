@@ -1026,6 +1026,110 @@
             The intensity of reporting.
             </value>
         </member>
+        <member name="T:EasyCrypto.RsaEncryption">
+            <summary>
+            Class for generating key pairs and encrypting and decrypting
+            </summary>
+        </member>
+        <member name="M:EasyCrypto.RsaEncryption.GenerateKeyPairs">
+            <summary>
+            Generates RSA key pair with 2048 bits
+            </summary>
+            <returns>Generated key pairs</returns>
+        </member>
+        <member name="M:EasyCrypto.RsaEncryption.GenerateKeyPairs(EasyCrypto.RsaKeySizes)">
+            <summary>
+            Generates RSA key pair of desired size
+            </summary>
+            <param name="keySize">Size of the key</param>
+            <returns>Generated key pair</returns>
+        </member>
+        <member name="M:EasyCrypto.RsaEncryption.Encrypt(System.Byte[],System.String)">
+            <summary>
+            Encrypts array of bytes (if public key is used for encryption than private key needs to be used for decryption and vice versa)
+            Size of data cannot be longer than the key used
+            </summary>
+            <param name="data">Data to encrypt, cannot be larger than the key used</param>
+            <param name="key">Key to use for encryption</param>
+            <returns>Encrypted data as byte array</returns>
+        </member>
+        <member name="M:EasyCrypto.RsaEncryption.Encrypt(System.String,System.String)">
+            <summary>
+            Encrypts string (if public key is used for encryption than private key needs to be used for decryption and vice versa)
+            Size of data cannot be longer than the key used
+            </summary>
+            <param name="data">Data to encrypt, cannot be larger than the key used</param>
+            <param name="key">Key to use for encryption</param>
+            <returns>Encrypted data as string</returns>
+        </member>
+        <member name="M:EasyCrypto.RsaEncryption.Decrypt(System.Byte[],System.String)">
+            <summary>
+            Decrypts array of bytes (if public key is used for encryption than private key needs to be used for decryption and vice versa)
+            </summary>
+            <param name="data">Data to decrypt</param>
+            <param name="key">Key to use for decryption</param>
+            <returns>Decrypted data</returns>
+        </member>
+        <member name="M:EasyCrypto.RsaEncryption.Decrypt(System.String,System.String)">
+            <summary>
+            Decrypts string (if public key is used for encryption than private key needs to be used for decryption and vice versa)
+            </summary>
+            <param name="data">Data to decrypt</param>
+            <param name="key">Key to use for decryption</param>
+            <returns>Decrypted data</returns>
+        </member>
+        <member name="T:EasyCrypto.RsaKeyPair">
+            <summary>
+            RSA key pairs
+            </summary>
+        </member>
+        <member name="P:EasyCrypto.RsaKeyPair.PublicKey">
+            <summary>
+            Public key
+            </summary>
+        </member>
+        <member name="P:EasyCrypto.RsaKeyPair.PrivateKey">
+            <summary>
+            Private key
+            </summary>
+        </member>
+        <member name="T:EasyCrypto.RsaKeySizes">
+            <summary>
+            Allowed sizes of RSA keys
+            </summary>
+        </member>
+        <member name="F:EasyCrypto.RsaKeySizes.Rsa2048">
+            <summary>
+            2048 bits
+            </summary>
+        </member>
+        <member name="F:EasyCrypto.RsaKeySizes.Rsa4096">
+            <summary>
+            4096 bits
+            </summary>
+        </member>
+        <member name="F:EasyCrypto.RsaKeySizes.Rsa8192">
+            <summary>
+            8192 bits
+            </summary>
+        </member>
+        <member name="F:EasyCrypto.RsaKeySizes.Rsa16384">
+            <summary>
+            16384 bits
+            </summary>
+        </member>
+        <member name="T:EasyCrypto.RsaKeySizesExtensions">
+            <summary>
+            Extension methods for <see cref="T:EasyCrypto.RsaKeySizes"/>
+            </summary>
+        </member>
+        <member name="M:EasyCrypto.RsaKeySizesExtensions.GetIntegerKeySize(EasyCrypto.RsaKeySizes)">
+            <summary>
+            Maps <see cref="T:EasyCrypto.RsaKeySizes"/> to integers
+            </summary>
+            <param name="size">Enum value</param>
+            <returns>Integer value</returns>
+        </member>
         <member name="T:EasyCrypto.TokenGenerator">
             <summary>
             Utility for generating string tokens for different purposes (e.g. password reset, email address confirmation, ...)

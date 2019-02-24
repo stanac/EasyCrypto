@@ -16,13 +16,13 @@ EasyCrypto is .NETStandard (1.6+) library that helps with
 - Generating crypto secure random string tokens
 
 Implementation details:
-- For encryption AES265 is used, IVs are 128 bits large and every 
+- For symetric encryption AES265 is used, IVs are 128 bits large and every 
 result of the encryption is embedded with [KCV](https://en.wikipedia.org/wiki/Key_checksum_value) (just first three bytes)
 and [MAC](https://en.wikipedia.org/wiki/Message_authentication_code). MAC is calculated using HMACSHA384.
 - CryptoRandom and PasswordGenerator is using [RNGCryptoServiceProvider](https://msdn.microsoft.com/en-us/library/system.security.cryptography.rngcryptoserviceprovider.aspx)
 - Hashing of password is done with [Rfc2898DeriveBytes](msdn.microsoft.com/en-us/library/system.security.cryptography.rfc2898derivebytes.aspx)
 with default hash and salt size of 256 bits and 25K iterations (by default).
-- Asymmetric (public key) encryption is currently not supported.
+- Asymmetric (public key) encryption is using RSA with 2048 bits keys (by default).
 
 ---
 
@@ -44,7 +44,7 @@ AesEncryption class can work with streams, byte arrays and strings.
 
 Available methods:
 
-```cs
+```csharp
 static void Encrypt(Stream dataToEncrypt, byte[] key, byte[] iv, Stream destination)
 static void Decrypt(Stream dataToDecrypt, byte[] key, byte[] iv, Stream destination)
 
@@ -95,7 +95,7 @@ static ValidationResult ValidateEncryptedDataWithPassword(Stream encryptedData, 
 
 From v3.2 we have API for file encryption in order to avoid out of memory exceptions
 
-```cs
+```csharp
 // methods for encryption of files
 void Encrypt(string sourceFilePath, string destinationFilePath, byte[] key, byte[] iv, bool overwriteExistingFile)
 async Task EncryptAsync(string sourceFilePath, string destinationFilePath, byte[] key, byte[] iv, bool overwriteExistingFile)
@@ -120,7 +120,7 @@ is Dictionary<string, string> and **entries where key or value is null or empty 
 might be a chance for improvement. Also note that encrypted data with embedded additional data can be
 normally decrypted as encrypted data without embedded additional data. Here are available methods:
 
-```cs
+```csharp
 // methods for adding additional data
 static string AddAdditionalData(string encryptedData, Dictionary<string, string> additionalData)
 static byte[] AddAdditionalData(byte[] encryptedData, Dictionary<string, string> additionalData)
@@ -144,7 +144,7 @@ instance methods of one instance instead of calling static methods.
 
 Available methods:
 
-```cs
+```csharp
 static byte[] NextBytesStatic(uint length)
 byte[] NextBytes(uint length)
 
@@ -169,10 +169,10 @@ void Dispose()
 
 ### Class PasswordGenerator : IDisposable
 
-PasswordGenerator has static methods in the same manner as CryptoRanom, following examples will
+PasswordGenerator has static methods in the same manner as CryptoRandom, following examples will
 show only calls to instance methods.
 
-```cs
+```csharp
 using (var pg = new PasswordGenerator())
 {
     string pass1 = pg.Generate(); // 16 chars, includes symbols, numbers, lower and upper case letters
@@ -195,7 +195,7 @@ using (var pg = new PasswordGenerator())
 
 ### Class PasswordHasher
 This class can be used for hashing and validating passwords, see constructors and methods:
-```cs
+```csharp
 // constructors:
 
 PasswordHasher() // 32 bytes of salt, 32 bytes of hash and 25000 hash iterations
@@ -225,7 +225,7 @@ bool ValidatePasswordWithEmbeddedSalt(string password, string hashAndEmbeddedSal
 This class can used for generating random string tokens for e.g. password reset, email address confirmation, etc... It also provides methods for 
 hashing tokens and validating token hashes (it's not recommended to store plain text tokens in db)
 
-```cs
+```csharp
 // default chars used for token generation
 const string DefaultAllowedChars = "qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM";
 
@@ -250,11 +250,48 @@ bool ValidateTokenHash(string token, string hash)
 
 ---
 
+### Static Class RsaEncryption
+
+This class can be used for asymmetric encryption. Public key can be used for encryption and private key for decryption.
+It's not recommended to store private keys in plain text on disk. Data that is passed to encryption methods must be 
+smaller than the key size used.
+
+```csharp
+// Methods for generating key pairs
+static RsaKeyPair GenerateKeyPairs() => GenerateKeyPairs(RsaKeySizes.Rsa2048);
+static RsaKeyPair GenerateKeyPairs(RsaKeySizes keySize)
+
+// encryption methods
+static byte[] Encrypt(byte[] data, RsaPublicKey key)
+static string Encrypt(string data, RsaPublicKey key)
+
+// decryption methods
+static byte[] Decrypt(byte[] data, RsaPrivateKey key)
+static string Decrypt(string data, RsaPrivateKey key)
+```
+
+Example for usage of RsaEncryption:
+
+```csharp
+[Fact]
+public void String_EncryptDecrypt_GivesEqualString()
+{
+    var keys = RsaEncryption.GenerateKeyPairs();
+
+    var plainText = Guid.NewGuid().ToString();
+    string encrypted = RsaEncryption.Encrypt(plainText, keys.PublicKey);
+    string decrypted = RsaEncryption.Decrypt(encrypted, keys.PrivateKey);
+    
+    Assert.Equal(plainText, decrypted);
+}
+```
+
+---
+
 #### Future improvements
 - [x] Validating keys and encrypted data integrity in AesEncryption (refactor and open up closed APIs) - DONE in v1.1.0
 - [x] Make it compatible with .NET Core 1
 - [x] Add support for cancellation and progress report token
 - [x] Add abstraction for event based async encryption/decryption in background thread
 - [ ] Performance improvements on CryptoRandom (with buffer)
-- [ ] Extract interfaces so you can replace one or more class implementations (vNext, might introduce breaking changes)
-- [ ] Asymmetric (public key) encryption 
+- [ ] Extract interfaces so you can replace one or more class implementations

@@ -57,19 +57,49 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AesEncryptionAdditionalDataTests.cs" />
-    <Compile Include="AesEncryptionTests.cs" />
-    <Compile Include="AesEncryptionValidationTests.cs" />
-    <Compile Include="AesFileEncryptionTests.cs" />
-    <Compile Include="CryptoRandomTests.cs" />
-    <Compile Include="DataToolsTests.cs" />
-    <Compile Include="KeyCheckValueValidatorTests.cs" />
-    <Compile Include="MessageAuthenticationCodeValidatorTests.cs" />
-    <Compile Include="PasswordGeneratorTests.cs" />
-    <Compile Include="PasswordHasherTests.cs" />
-    <Compile Include="ProgressReportTests.cs" />
+    <Compile Include="..\EasyCrypto.Tests\AesEncryptionAdditionalDataTests.cs">
+      <Link>AesEncryptionAdditionalDataTests.cs</Link>
+    </Compile>
+    <Compile Include="..\EasyCrypto.Tests\AesEncryptionTests.cs">
+      <Link>AesEncryptionTests.cs</Link>
+    </Compile>
+    <Compile Include="..\EasyCrypto.Tests\AesEncryptionValidationTests.cs">
+      <Link>AesEncryptionValidationTests.cs</Link>
+    </Compile>
+    <Compile Include="..\EasyCrypto.Tests\AesFileEncryptionTests.cs">
+      <Link>AesFileEncryptionTests.cs</Link>
+    </Compile>
+    <Compile Include="..\EasyCrypto.Tests\CryptoRandomTests.cs">
+      <Link>CryptoRandomTests.cs</Link>
+    </Compile>
+    <Compile Include="..\EasyCrypto.Tests\DataToolsTests.cs">
+      <Link>DataToolsTests.cs</Link>
+    </Compile>
+    <Compile Include="..\EasyCrypto.Tests\KeyCheckValueValidatorTests.cs">
+      <Link>KeyCheckValueValidatorTests.cs</Link>
+    </Compile>
+    <Compile Include="..\EasyCrypto.Tests\MessageAuthenticationCodeValidatorTests.cs">
+      <Link>MessageAuthenticationCodeValidatorTests.cs</Link>
+    </Compile>
+    <Compile Include="..\EasyCrypto.Tests\PasswordGeneratorTests.cs">
+      <Link>PasswordGeneratorTests.cs</Link>
+    </Compile>
+    <Compile Include="..\EasyCrypto.Tests\PasswordHasherTests.cs">
+      <Link>PasswordHasherTests.cs</Link>
+    </Compile>
+    <Compile Include="..\EasyCrypto.Tests\ProgressReportTests.cs">
+      <Link>ProgressReportTests.cs</Link>
+    </Compile>
+    <Compile Include="..\EasyCrypto.Tests\RsaEncryptionTests.cs">
+      <Link>RsaEncryptionTests.cs</Link>
+    </Compile>
+    <Compile Include="..\EasyCrypto.Tests\RsaKeyEncoderTests.cs">
+      <Link>RsaKeyEncoderTests.cs</Link>
+    </Compile>
+    <Compile Include="..\EasyCrypto.Tests\TokenGeneratorTests.cs">
+      <Link>TokenGeneratorTests.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TokenGeneratorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\EasyCrypto\EasyCrypto.csproj">

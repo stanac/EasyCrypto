@@ -1,4 +1,7 @@
-﻿## v 4.2.0
+﻿## v4.3.0
+- RsaEncryption class and other RSA relevant classes
+
+## v 4.2.0
 - Added methods `HashToken` and `ValidateTokenHash` to `TokenGenerator` class
 
 ## v 4.1.0

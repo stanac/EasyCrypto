@@ -9,9 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyCrypto", "src\EasyCrypt
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{87B2E37E-B472-41A3-8051-EAA0BDFCB958}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyCrypto.Tests", "tests\EasyCrypto.Tests\EasyCrypto.Tests.csproj", "{3C82DF35-3ADB-4D8D-A8FF-75C4B28755CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyCrypto.Tests", "tests\EasyCrypto.Tests\EasyCrypto.Tests.csproj", "{3C82DF35-3ADB-4D8D-A8FF-75C4B28755CE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyCrypto.Tests.Net", "tests\EasyCrypto.Tests.Net\EasyCrypto.Tests.Net.csproj", "{7CCE0393-D1AA-4FF4-A505-4CF79A76DED4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "md", "md", "{C16C83EB-E229-4E44-A3E3-F034A0B5A2A3}"
+	ProjectSection(SolutionItems) = preProject
+		HISTORY.md = HISTORY.md
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
