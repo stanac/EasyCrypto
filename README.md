@@ -36,7 +36,6 @@ Install-Package EasyCrypto
 
 ## Docs
 
----
 Table of Content:
 - [AesEncryption](#static-class-aesencryption)
 - [AesFileEncryption](#static-class-aesfileencryption)
