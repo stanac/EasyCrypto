@@ -30,13 +30,15 @@ For changes see [history](https://github.com/stanac/EasyCrypto/blob/master/HISTO
 
 ## Install from nuget
 
+[nuget.org link](https://www.nuget.org/packages/EasyCrypto/)
+
 ```
 Install-Package EasyCrypto
 ```
 
 ## Docs
 
-Table of Content:
+Table of contents:
 - [AesEncryption](#static-class-aesencryption)
 - [AesFileEncryption](#static-class-aesfileencryption)
 - [AesEncryptionAdditionalData](#static-class-aesencryptionadditionaldata)
