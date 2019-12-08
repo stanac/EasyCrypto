@@ -37,6 +37,18 @@ Install-Package EasyCrypto
 ## Docs
 
 ---
+Table of Content:
+- [AesEncryption](#static-class-aesencryption)
+- [AesFileEncryption](#static-class-aesfileencryption)
+- [AesEncryptionAdditionalData](#static-class-aesencryptionadditionaldata)
+- [CryptoRandom](#class-cryptorandom--idisposable)
+- [PasswordGenerator](#class-passwordgenerator--idisposable)
+- [PasswordHasher](#class-passwordhasher)
+- [TokenGenerator](#class-tokengenerator)
+- [IdGenerator](#class-idgenerator)
+- [RsaEncryption](#static-class-rsaencryption)
+
+---
 
 ### Static class AesEncryption
 
