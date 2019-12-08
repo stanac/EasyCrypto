@@ -13,7 +13,7 @@ EasyCrypto is .NETStandard (1.6+) library that helps with
 - Encryption and decryption of streams, byte arrays, strings and files
 - Password generating, hashing and validating
 - Generating crypto secure random bytes, integers and doubles
-- Generating crypto secure random string tokens
+- Generating crypto secure random string tokens and string identifiers
 
 Implementation details:
 - For symetric encryption AES265 is used, IVs are 128 bits large and every 
