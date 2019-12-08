@@ -1,4 +1,7 @@
-﻿## v4.3.0
+﻿## v4.4.0
+- IdGenerator class added
+
+## v4.3.0
 - RsaEncryption class and other RSA relevant classes
 
 ## v 4.2.0

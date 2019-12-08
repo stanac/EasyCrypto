@@ -75,6 +75,9 @@
     <Compile Include="..\EasyCrypto.Tests\DataToolsTests.cs">
       <Link>DataToolsTests.cs</Link>
     </Compile>
+    <Compile Include="..\EasyCrypto.Tests\IdGeneratorTests.cs">
+      <Link>IdGeneratorTests.cs</Link>
+    </Compile>
     <Compile Include="..\EasyCrypto.Tests\KeyCheckValueValidatorTests.cs">
       <Link>KeyCheckValueValidatorTests.cs</Link>
     </Compile>

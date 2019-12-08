@@ -2,16 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
-    <Version>4.3.0</Version>
+    <Version>4.4.0</Version>
     <Description>EasyCrypto is .NET Standard (1.6+) library that helps with
 - Encryption and decryption of streams, byte arrays, files and strings
 - Password generating, hashing and validating
-- Generating crypto secure random bytes, integers and doubles</Description>
+- Generating crypto secure random bytes, integers, doubles, string tokens and string identifiers</Description>
     <Authors>stanac</Authors>
     <PackageLicenseUrl>https://github.com/stanac/EasyCrypto/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/stanac/EasyCrypto/</PackageProjectUrl>
-    <AssemblyVersion>4.3.0.0</AssemblyVersion>
-    <FileVersion>4.3.0.0</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
