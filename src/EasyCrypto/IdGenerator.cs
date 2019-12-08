@@ -83,23 +83,24 @@ namespace EasyCrypto
         public string NewId() => NewId(DateTime.UtcNow);
 
         /// <summary>
-        /// Generates new id
+        /// Generates new id using specified time
+        /// Warning: when using this override, make sure to specify very precise time, including milliseconds
         /// </summary>
-        /// <param name="currentTime">Current time</param>
+        /// <param name="time">Time to use in id generation</param>
         /// <returns>String, generated id</returns>
-        public string NewId(DateTime currentTime)
+        public string NewId(DateTime time)
         {
             if (AddHyphens)
             {
                 if (FixedPart.Length > 0)
                 {
-                    return $"{GetTimePart(currentTime)}-{FixedPart}-{GetRandomPart()}";
+                    return $"{GetTimePart(time)}-{FixedPart}-{GetRandomPart()}";
                 }
 
-                return $"{GetTimePart(currentTime)}-{GetRandomPart()}";
+                return $"{GetTimePart(time)}-{GetRandomPart()}";
             }
 
-            return GetTimePart(currentTime) + FixedPart + GetRandomPart();
+            return GetTimePart(time) + FixedPart + GetRandomPart();
         }
 
         private string GetTimePart(DateTime t)
