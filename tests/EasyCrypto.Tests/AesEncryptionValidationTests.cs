@@ -85,7 +85,7 @@ namespace EasyCrypto.Tests
                     ValidationResult result = AesEncryption.ValidateEncryptedData(encrypted, key, iv);
                     Assert.False(result.IsValid);
                     Assert.False(result.KeyIsValid);
-                    Assert.Equal(result.ErrorType.Value, DataValidationErrors.KeyCheckValueValidationError);
+                    Assert.Equal(DataValidationErrors.KeyCheckValueValidationError, result.ErrorType.Value);
                 }
             }
         }
@@ -106,7 +106,7 @@ namespace EasyCrypto.Tests
                     ValidationResult result = AesEncryption.ValidateEncryptedDataWithEmbededIv(encrypted, key);
                     Assert.False(result.IsValid);
                     Assert.False(result.KeyIsValid);
-                    Assert.Equal(result.ErrorType.Value, DataValidationErrors.KeyCheckValueValidationError);
+                    Assert.Equal(DataValidationErrors.KeyCheckValueValidationError, result.ErrorType.Value);
                 }
             }
         }
@@ -127,7 +127,7 @@ namespace EasyCrypto.Tests
                     ValidationResult result = AesEncryption.ValidateEncryptedDataWithPassword(encrypted, password);
                     Assert.False(result.IsValid);
                     Assert.False(result.KeyIsValid);
-                    Assert.Equal(result.ErrorType.Value, DataValidationErrors.KeyCheckValueValidationError);
+                    Assert.Equal(DataValidationErrors.KeyCheckValueValidationError, result.ErrorType.Value);
                 }
             }
         }
@@ -149,7 +149,7 @@ namespace EasyCrypto.Tests
                     ValidationResult result = AesEncryption.ValidateEncryptedData(encrypted, key, iv);
                     Assert.False(result.IsValid);
                     Assert.False(result.KeyIsValid);
-                    Assert.Equal(result.ErrorType.Value, DataValidationErrors.KeyCheckValueValidationError);
+                    Assert.Equal(DataValidationErrors.KeyCheckValueValidationError, result.ErrorType.Value);
                 }
             }
         }
@@ -175,7 +175,7 @@ namespace EasyCrypto.Tests
                     ValidationResult result = AesEncryption.ValidateEncryptedData(encrypted, key, iv);
                     Assert.False(result.IsValid);
                     Assert.False(result.DataIntegrityIsValid);
-                    Assert.Equal(result.ErrorType.Value, DataValidationErrors.DataIntegrityValidationError);
+                    Assert.Equal(DataValidationErrors.DataIntegrityValidationError, result.ErrorType.Value);
                 }
             }
         }
@@ -197,7 +197,7 @@ namespace EasyCrypto.Tests
                     ValidationResult result = AesEncryption.ValidateEncryptedData(encrypted, key, iv);
                     Assert.False(result.IsValid);
                     Assert.False(result.DataIntegrityIsValid);
-                    Assert.Equal(result.ErrorType.Value, DataValidationErrors.DataIntegrityValidationError);
+                    Assert.Equal(DataValidationErrors.DataIntegrityValidationError, result.ErrorType.Value);
                 }
             }
         }

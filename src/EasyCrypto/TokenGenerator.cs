@@ -14,6 +14,9 @@ namespace EasyCrypto
         private static readonly CryptoRandom _rand = new CryptoRandom();
         private static readonly PasswordHasher _hasher = new PasswordHasher(16, 500);
 
+        /// <summary>
+        /// Characters allowed in generated token by default
+        /// </summary>
         public const string DefaultAllowedChars = "qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM";
         
         private readonly string _allowedChars;

@@ -1221,6 +1221,39 @@
             <param name="size">Enum value</param>
             <returns>Integer value</returns>
         </member>
+        <member name="T:EasyCrypto.RsaPrivateKey">
+            <summary>
+            RSA private key
+            </summary>
+        </member>
+        <member name="M:EasyCrypto.RsaPrivateKey.#ctor(System.String)">
+            <summary>
+            Constructor accepting string key
+            </summary>
+            <param name="key">Key value</param>
+        </member>
+        <member name="M:EasyCrypto.RsaPrivateKey.#ctor(System.Security.Cryptography.RSAParameters)">
+            <summary>
+            Constructor accepting <see cref="T:System.Security.Cryptography.RSAParameters"/>
+            </summary>
+            <param name="parameters"></param>
+        </member>
+        <member name="P:EasyCrypto.RsaPrivateKey.KeySize">
+            <summary>
+            Key size in bytes
+            </summary>
+        </member>
+        <member name="P:EasyCrypto.RsaPrivateKey.Key">
+            <summary>
+            Key in form of string
+            </summary>
+        </member>
+        <member name="M:EasyCrypto.RsaPrivateKey.GetParameters">
+            <summary>
+            Gets key in form of <see cref="T:System.Security.Cryptography.RSAParameters"/>
+            </summary>
+            <returns>RSAParameters</returns>
+        </member>
         <member name="T:EasyCrypto.RsaPublicKey">
             <summary>
             RSA public key
@@ -1244,9 +1277,30 @@
             </summary>
             <param name="parameters">RSA parameters</param>
         </member>
+        <member name="P:EasyCrypto.RsaPublicKey.KeySize">
+            <summary>
+            Key size in bytes
+            </summary>
+        </member>
+        <member name="P:EasyCrypto.RsaPublicKey.Key">
+            <summary>
+            Key in form of string
+            </summary>
+        </member>
+        <member name="M:EasyCrypto.RsaPublicKey.GetParameters">
+            <summary>
+            Gets key in form of <see cref="T:System.Security.Cryptography.RSAParameters"/>
+            </summary>
+            <returns>RSAParameters</returns>
+        </member>
         <member name="T:EasyCrypto.TokenGenerator">
             <summary>
             Utility for generating string tokens for different purposes (e.g. password reset, email address confirmation, ...)
+            </summary>
+        </member>
+        <member name="F:EasyCrypto.TokenGenerator.DefaultAllowedChars">
+            <summary>
+            Characters allowed in generated token by default
             </summary>
         </member>
         <member name="M:EasyCrypto.TokenGenerator.#ctor">

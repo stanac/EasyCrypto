@@ -49,10 +49,20 @@ namespace EasyCrypto
             Key = RsaKeyEncoder.Encode(parameters);
         }
 
+        /// <summary>
+        /// Key size in bytes
+        /// </summary>
         public int KeySize => GetParameters().Modulus.Length * 8;
 
+        /// <summary>
+        /// Key in form of string
+        /// </summary>
         public string Key { get; }
 
+        /// <summary>
+        /// Gets key in form of <see cref="RSAParameters"/>
+        /// </summary>
+        /// <returns>RSAParameters</returns>
         public RSAParameters GetParameters() => RsaKeyEncoder.Decode(Key);
     }
 }

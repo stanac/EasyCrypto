@@ -8,9 +8,9 @@
 - Password generating, hashing and validating
 - Generating crypto secure random bytes, integers, doubles, string tokens and string identifiers</Description>
     <Authors>stanac</Authors>
-    <PackageLicenseUrl>https://github.com/stanac/EasyCrypto/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/stanac/EasyCrypto/</PackageProjectUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -18,5 +18,12 @@
     <DebugType>embedded</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>

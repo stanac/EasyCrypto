@@ -3,11 +3,11 @@ using System;
 
 namespace EasyCrypto.Banchmarks
 {
-    class Program
+    static class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            var summary = BenchmarkRunner.Run<CryptoRandomBanchmarks>();
+            BenchmarkRunner.Run<CryptoRandomBanchmarks>();
         }
     }
 }
