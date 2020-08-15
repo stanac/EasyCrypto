@@ -23,9 +23,13 @@ jobs:
       with:
         dotnet-version: 3.1.301
     - name: Install dependencies
-      run: dotnet restore
+      run: |
+        cd tests\EasyCrypto.Tests
+        dotnet restore
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: |
+        cd tests\EasyCrypto.Tests
+        dotnet build --configuration Release --no-restore
     - name: Test
       run: |
         cd tests\EasyCrypto.Tests
