@@ -1,6 +1,6 @@
 # EasyCrypto
 
-[![Build status](https://ci.appveyor.com/api/projects/status/6py1gx536fn0tu2j/branch/master?svg=true)](https://ci.appveyor.com/project/stanac/easycrypto/branch/master)
+ [![.NET Core](https://github.com/stanac/EasyCrypto/workflows/.NET%20Core/badge.svg)](https://github.com/stanac/EasyCrypto/actions?query=workflow%3A%22.NET+Core%22)
  [![Coverage Status](https://img.shields.io/coveralls/stanac/EasyCrypto/master.svg?maxAge=900)](https://coveralls.io/github/stanac/EasyCrypto?&branch=master)
  [![NuGet](https://img.shields.io/nuget/v/EasyCrypto.svg)](https://www.nuget.org/packages/EasyCrypto/)
  [![downloads](https://img.shields.io/nuget/dt/EasyCrypto.svg?style=flat)](https://www.nuget.org/packages/EasyCrypto/)
