@@ -26,7 +26,6 @@ namespace EasyCrypto
          *          ----- end of header ----- (sum: 127)
          *          xx bytes     - additional header data (0 for version 1)
          *          xx bytes     - data
-         *          
          */
 
         private readonly string _password;
@@ -242,7 +241,6 @@ namespace EasyCrypto
 
         internal static void WriteAdditionalData(Stream encryptedData, byte[] dataBytes, Stream destination)
         {
-            long position = encryptedData.Position;
             ValidateCryptoContainer(encryptedData);
             encryptedData.Position = 0;
 

@@ -16,6 +16,7 @@ namespace EasyCrypto
         private static readonly byte[] EmptyBytes = new byte[0];
 
         public AdditionalData() { }
+
         public AdditionalData(Dictionary<string, string> data)
         {
             Data = data ?? new Dictionary<string, string>();

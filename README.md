@@ -174,8 +174,6 @@ double NextDouble()
 void FillIntArrayWithRandomValues(int[] arrayToFill, int minInclusive, int maxExclusive)
 
 void Dispose()
-
-// note: there is room for performance improvement in this class, we don't use any buffer at the moment
 ```
 
 ---
@@ -403,13 +401,3 @@ public void String_EncryptDecrypt_GivesEqualString()
     Assert.Equal(plainText, decrypted);
 }
 ```
-
----
-
-#### Future improvements
-- [x] Validating keys and encrypted data integrity in AesEncryption (refactor and open up closed APIs) - DONE in v1.1.0
-- [x] Make it compatible with .NET Core 1
-- [x] Add support for cancellation and progress report token
-- [x] Add abstraction for event based async encryption/decryption in background thread
-- [ ] Performance improvements on CryptoRandom (with buffer)
-- [ ] Extract interfaces so you can replace one or more class implementations

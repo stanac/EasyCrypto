@@ -23,7 +23,7 @@ namespace EasyCrypto
             {
                 if (_cache.Length < data.Length)
                 {
-                    byte[] temp = new byte[data.Length * 3];
+                    byte[] temp = new byte[data.Length * 8];
                     _generateData(temp);
 
                     Buffer.BlockCopy(_cache, 0, data, 0, _cache.Length);
