@@ -27,15 +27,15 @@ jobs:
         cd tests
         cd EasyCrypto.Tests
         dotnet restore
-        cd..
-        cd..
+        cd ..
+        cd ..
     - name: Build
       run: |
         cd tests
         cd EasyCrypto.Tests
         dotnet build --configuration Release --no-restore
-        cd..
-        cd..
+        cd ..
+        cd ..
     - name: Test
       run: |
         cd tests
