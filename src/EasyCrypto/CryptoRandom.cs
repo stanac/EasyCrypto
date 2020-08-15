@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 
 namespace EasyCrypto
@@ -9,6 +10,32 @@ namespace EasyCrypto
     public class CryptoRandom : IDisposable
     {
         private readonly RandomNumberGenerator _rng = RandomNumberGenerator.Create();
+        private readonly bool _useBuffer;
+        private readonly SlidingBuffer _buffer;
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public CryptoRandom()
+            : this (false)
+        {
+
+        }
+
+        /// <summary>
+        /// Constructor with support for buffering
+        /// </summary>
+        /// <param name="useBuffer">If true less calls to underlying RNG will be placed,
+        /// should improved performance in case when single instance of <see cref="CryptoRandom"/>
+        /// is used multiple times, default value is false</param>
+        public CryptoRandom(bool useBuffer)
+        {
+            if (useBuffer)
+            {
+                _useBuffer = true;
+                _buffer = new SlidingBuffer(_rng.GetBytes);
+            }
+        }
 
         /// <summary>
         /// Returns new random bytes.
@@ -31,7 +58,7 @@ namespace EasyCrypto
         public byte[] NextBytes(uint length)
         {
             var array = new byte[length];
-            _rng.GetBytes(array);
+            GetRngBytes(array);
             return array;
         }
 
@@ -117,7 +144,7 @@ namespace EasyCrypto
             if (minInclusive >= maxExclusive) throw new ArgumentException($"{nameof(minInclusive)} must be less than {nameof(maxExclusive)}.");
 
             byte[] randomBytes = new byte[arrayToFill.Length * sizeof(int)];
-            _rng.GetBytes(randomBytes);
+            GetRngBytes(randomBytes);
             for (int i = 0; i < arrayToFill.Length; i++)
             {
                 int temp = BitConverter.ToInt32(randomBytes, i * sizeof(int));
@@ -137,6 +164,18 @@ namespace EasyCrypto
         public void Dispose()
         {
             _rng.Dispose();
+        }
+
+        private void GetRngBytes(byte[] arrayToFill)
+        {
+            if (_useBuffer)
+            {
+                _buffer.GetData(arrayToFill);
+            }
+            else
+            {
+                _rng.GetBytes(arrayToFill);
+            }
         }
     }
 }

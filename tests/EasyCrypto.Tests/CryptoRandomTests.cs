@@ -1,10 +1,6 @@
-﻿using EasyCrypto;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -59,6 +55,45 @@ namespace EasyCrypto.Tests
                 int a = CryptoRandom.NextIntStatic(max);
                 Assert.True(a < max);
             }
+        }
+
+        [Fact]
+        public void NextInt_WithBuffer_DoesntBreakGeneratesUniqueValues()
+        {
+            var data = Enumerable.Range(1, 2000).ToList();
+            data = RandomizeList(data);
+
+            ParallelOptions o = new ParallelOptions
+            {
+                MaxDegreeOfParallelism = data.Count
+            };
+
+            var rng = new CryptoRandom(true);
+
+            Parallel.ForEach(data, d => rng.NextBytes((uint)d));
+
+            var l = data.GroupBy(x => x).OrderBy(x => x.Count()).ToList();
+            int maxRepats = l.First().Count();
+
+            Assert.True(maxRepats < 20);
+        }
+
+        private List<T> RandomizeList<T>(List<T> list)
+        {
+            var temp = list.ToList();
+            List<T> result = new List<T>();
+
+            var rng = new CryptoRandom();
+
+            while (temp.Any())
+            { 
+                int index = rng.NextInt(temp.Count);
+
+                result.Add(temp[index]);
+                temp.RemoveAt(index);
+            }
+
+            return result;
         }
     }
 }

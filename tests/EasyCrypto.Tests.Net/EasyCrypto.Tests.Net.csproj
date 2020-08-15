@@ -99,6 +99,9 @@
     <Compile Include="..\EasyCrypto.Tests\RsaKeyEncoderTests.cs">
       <Link>RsaKeyEncoderTests.cs</Link>
     </Compile>
+    <Compile Include="..\EasyCrypto.Tests\SlidingBufferTests.cs">
+      <Link>SlidingBufferTests.cs</Link>
+    </Compile>
     <Compile Include="..\EasyCrypto.Tests\TokenGeneratorTests.cs">
       <Link>TokenGeneratorTests.cs</Link>
     </Compile>

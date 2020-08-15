@@ -430,6 +430,19 @@
             Cryptographic level RNG using <see cref="T:System.Security.Cryptography.RandomNumberGenerator"/>.
             </summary>
         </member>
+        <member name="M:EasyCrypto.CryptoRandom.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:EasyCrypto.CryptoRandom.#ctor(System.Boolean)">
+            <summary>
+            Constructor with support for buffering
+            </summary>
+            <param name="useBuffer">If true less calls to underlying RNG will be placed,
+            should improved performance in case when single instance of <see cref="T:EasyCrypto.CryptoRandom"/>
+            is used multiple times, default value is false</param>
+        </member>
         <member name="M:EasyCrypto.CryptoRandom.NextBytesStatic(System.UInt32)">
             <summary>
             Returns new random bytes.
@@ -666,6 +679,72 @@
             </summary>
             <param name="message">The message.</param>
             <param name="inner">The inner.</param>
+        </member>
+        <member name="T:EasyCrypto.IdGenerator">
+            <summary>
+            Id generator that has two mandatory parts (time base part, random part) and
+            one optional part (fixed part), 
+            generated id templateId without hyphens is {timePart}{fixedPart}{randomPart}
+            generated id templateId wit hyphens is {timePart}-{fixedPart}-{randomPart}
+            </summary>
+        </member>
+        <member name="P:EasyCrypto.IdGenerator.Default">
+            <summary>
+            Default instance of Id generator with FastRandom = true, FixedPart = "", RandomPartLength = 6 and AddHyphens = false
+            </summary>
+        </member>
+        <member name="P:EasyCrypto.IdGenerator.FixedPart">
+            <summary>
+            Fixed part that is set in the middle of the generated Id
+            </summary>
+        </member>
+        <member name="P:EasyCrypto.IdGenerator.FastRandom">
+            <summary>
+            If true, System.Random is used for random part, if false EasyCrypto.CryptoRandom is used
+            </summary>
+        </member>
+        <member name="P:EasyCrypto.IdGenerator.RandomPartLength">
+            <summary>
+            Length of random part, default value is 6, must not be less than 4 or greater than 100
+            </summary>
+        </member>
+        <member name="P:EasyCrypto.IdGenerator.AddHyphens">
+            <summary>
+            If true hyphens (-) are added between parts
+            </summary>
+        </member>
+        <member name="M:EasyCrypto.IdGenerator.#ctor">
+            <summary>
+            Default constructor, FixedPart = "", FastRandom = true
+            </summary>
+        </member>
+        <member name="M:EasyCrypto.IdGenerator.#ctor(System.Boolean)">
+            <summary>
+            Constructor to accept boolean value telling the generator to use or not to use fast random
+            </summary>
+            <param name="fastRandom">If true System.Random is used, otherwise EasyCrypto.CryptoRandom is used</param>
+        </member>
+        <member name="M:EasyCrypto.IdGenerator.#ctor(System.String,System.Boolean)">
+            <summary>
+            Constructor to accept boolean value telling the generator to use or not to use fast random and
+            fixed part of generated id
+            </summary>
+            <param name="fixedPart">Fixed part to set in middle of generated id</param>
+            <param name="fastRandom">If true System.Random is used, otherwise EasyCrypto.CryptoRandom is used</param>
+        </member>
+        <member name="M:EasyCrypto.IdGenerator.NewId">
+            <summary>
+            Generates new id string where for time part current UTC time is used
+            </summary>
+            <returns>String, generated id</returns>
+        </member>
+        <member name="M:EasyCrypto.IdGenerator.NewId(System.DateTime)">
+            <summary>
+            Generates new id using specified time
+            Warning: when using this override, make sure to specify very precise time, including milliseconds
+            </summary>
+            <param name="time">Time to use in id generation</param>
+            <returns>String, generated id</returns>
         </member>
         <member name="T:EasyCrypto.PasswordGenerationOptions">
             <summary>
@@ -1039,30 +1118,30 @@
         </member>
         <member name="M:EasyCrypto.RsaEncryption.GenerateKeyPairs(EasyCrypto.RsaKeySizes)">
             <summary>
-            Generates RSA key pair of desired size
+            Generates RSA key pair of desired size (note that keys larger than 4096 bits will have high impact on performance)
             </summary>
             <param name="keySize">Size of the key</param>
             <returns>Generated key pair</returns>
         </member>
-        <member name="M:EasyCrypto.RsaEncryption.Encrypt(System.Byte[],System.String)">
+        <member name="M:EasyCrypto.RsaEncryption.Encrypt(System.Byte[],EasyCrypto.RsaPublicKey)">
             <summary>
-            Encrypts array of bytes (if public key is used for encryption than private key needs to be used for decryption and vice versa)
+            Encrypts array of bytes
             Size of data cannot be longer than the key used
             </summary>
             <param name="data">Data to encrypt, cannot be larger than the key used</param>
             <param name="key">Key to use for encryption</param>
             <returns>Encrypted data as byte array</returns>
         </member>
-        <member name="M:EasyCrypto.RsaEncryption.Encrypt(System.String,System.String)">
+        <member name="M:EasyCrypto.RsaEncryption.Encrypt(System.String,EasyCrypto.RsaPublicKey)">
             <summary>
-            Encrypts string (if public key is used for encryption than private key needs to be used for decryption and vice versa)
+            Encrypts string
             Size of data cannot be longer than the key used
             </summary>
             <param name="data">Data to encrypt, cannot be larger than the key used</param>
             <param name="key">Key to use for encryption</param>
             <returns>Encrypted data as string</returns>
         </member>
-        <member name="M:EasyCrypto.RsaEncryption.Decrypt(System.Byte[],System.String)">
+        <member name="M:EasyCrypto.RsaEncryption.Decrypt(System.Byte[],EasyCrypto.RsaPrivateKey)">
             <summary>
             Decrypts array of bytes (if public key is used for encryption than private key needs to be used for decryption and vice versa)
             </summary>
@@ -1070,7 +1149,7 @@
             <param name="key">Key to use for decryption</param>
             <returns>Decrypted data</returns>
         </member>
-        <member name="M:EasyCrypto.RsaEncryption.Decrypt(System.String,System.String)">
+        <member name="M:EasyCrypto.RsaEncryption.Decrypt(System.String,EasyCrypto.RsaPrivateKey)">
             <summary>
             Decrypts string (if public key is used for encryption than private key needs to be used for decryption and vice versa)
             </summary>
@@ -1082,6 +1161,18 @@
             <summary>
             RSA key pairs
             </summary>
+        </member>
+        <member name="M:EasyCrypto.RsaKeyPair.#ctor(EasyCrypto.RsaPrivateKey)">
+            <summary>
+            Constructor accepts private key
+            </summary>
+            <param name="privateKey">Private key</param>
+        </member>
+        <member name="M:EasyCrypto.RsaKeyPair.#ctor(System.Security.Cryptography.RSAParameters)">
+            <summary>
+            Constructor, accepts RSAParameters
+            </summary>
+            <param name="rsaParams">RSA parameters</param>
         </member>
         <member name="P:EasyCrypto.RsaKeyPair.PublicKey">
             <summary>
@@ -1129,6 +1220,29 @@
             </summary>
             <param name="size">Enum value</param>
             <returns>Integer value</returns>
+        </member>
+        <member name="T:EasyCrypto.RsaPublicKey">
+            <summary>
+            RSA public key
+            </summary>
+        </member>
+        <member name="M:EasyCrypto.RsaPublicKey.#ctor(System.String)">
+            <summary>
+            Constructor, accepts encoded key, only stores public part of the key
+            </summary>
+            <param name="key">Encoded key</param>
+        </member>
+        <member name="M:EasyCrypto.RsaPublicKey.#ctor(EasyCrypto.RsaPrivateKey)">
+            <summary>
+            Constructor accepts private key, only stores public part of the key
+            </summary>
+            <param name="key">Private key</param>
+        </member>
+        <member name="M:EasyCrypto.RsaPublicKey.#ctor(System.Security.Cryptography.RSAParameters)">
+            <summary>
+            Constructor accepts parameters, only stores public part of the key
+            </summary>
+            <param name="parameters">RSA parameters</param>
         </member>
         <member name="T:EasyCrypto.TokenGenerator">
             <summary>
