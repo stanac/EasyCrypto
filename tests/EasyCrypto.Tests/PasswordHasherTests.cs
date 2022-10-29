@@ -1,4 +1,7 @@
-﻿using Xunit;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace EasyCrypto.Tests
 {
@@ -13,7 +16,7 @@ namespace EasyCrypto.Tests
             bool isValid = ph.ValidatePasswordWithEmbeddedSalt(password, hashAndSalt);
             Assert.True(isValid, "Password hash and validation failed");
         }
-
+        
         [Fact]
         public void ChangedHashedPasswordIsNotValid()
         {

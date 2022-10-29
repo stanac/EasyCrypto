@@ -10,7 +10,7 @@
         public int Length { get; set; }
         public string Upper { get; set; }
         public string Lower { get; set; }
-        public string Numbers { get; } = "0123456789";
+        public string Numbers => "0123456789";
         public string Symbols { get; set; }
         public int UpperLength { get; set; }
         public int LowerLength { get; set; }
