@@ -3,65 +3,64 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EasyCrypto.Tests
+namespace EasyCrypto.Tests;
+
+public class SlidingBufferTests
 {
-    public class SlidingBufferTests
+    private readonly SlidingBuffer _sut;
+
+    public SlidingBufferTests()
     {
-        private readonly SlidingBuffer _sut;
+        byte currentGenerated = 0;
 
-        public SlidingBufferTests()
+        _sut = new SlidingBuffer(t =>
         {
-            byte currentGenerated = 0;
-
-            _sut = new SlidingBuffer(t =>
+            for (int i = 0; i < t.Length; i++)
             {
-                for (int i = 0; i < t.Length; i++)
-                {
-                    t[i] = currentGenerated;
-                    unchecked { currentGenerated++; }
-                }
-            });
-        }
-
-        [Fact]
-        public void BufferCopiesDataInOrder()
-        {
-            List<byte[]> data = new List<byte[]>();
-            data.Add(new byte[4]);
-            data.Add(new byte[5]);
-            data.Add(new byte[6]);
-            data.Add(new byte[7]);
-            data.Add(new byte[8]);
-            data.Add(new byte[9]);
-
-            foreach (var d in data)
-            {
-                _sut.GetData(d);
+                t[i] = currentGenerated;
+                unchecked { currentGenerated++; }
             }
+        });
+    }
 
-            List<byte> joined = data.SelectMany(x => x).ToList();
-            int distinctCount = joined.Distinct().Count();
+    [Fact]
+    public void BufferCopiesDataInOrder()
+    {
+        List<byte[]> data = new List<byte[]>();
+        data.Add(new byte[4]);
+        data.Add(new byte[5]);
+        data.Add(new byte[6]);
+        data.Add(new byte[7]);
+        data.Add(new byte[8]);
+        data.Add(new byte[9]);
 
-            Assert.Equal(joined.Count, distinctCount);
-        }
-
-        [Fact]
-        public void ParallelBufferCopiesDataInOrder()
+        foreach (var d in data)
         {
-            List<byte[]> data = new List<byte[]>();
-            data.Add(new byte[4]);
-            data.Add(new byte[5]);
-            data.Add(new byte[6]);
-            data.Add(new byte[7]);
-            data.Add(new byte[8]);
-            data.Add(new byte[9]);
-
-            Parallel.ForEach(data, d => _sut.GetData(d));
-
-            List<byte> joined = data.SelectMany(x => x).ToList();
-            int distinctCount = joined.Distinct().Count();
-
-            Assert.Equal(joined.Count, distinctCount);
+            _sut.GetData(d);
         }
+
+        List<byte> joined = data.SelectMany(x => x).ToList();
+        int distinctCount = joined.Distinct().Count();
+
+        Assert.Equal(joined.Count, distinctCount);
+    }
+
+    [Fact]
+    public void ParallelBufferCopiesDataInOrder()
+    {
+        List<byte[]> data = new List<byte[]>();
+        data.Add(new byte[4]);
+        data.Add(new byte[5]);
+        data.Add(new byte[6]);
+        data.Add(new byte[7]);
+        data.Add(new byte[8]);
+        data.Add(new byte[9]);
+
+        Parallel.ForEach(data, d => _sut.GetData(d));
+
+        List<byte> joined = data.SelectMany(x => x).ToList();
+        int distinctCount = joined.Distinct().Count();
+
+        Assert.Equal(joined.Count, distinctCount);
     }
 }
