@@ -6,7 +6,7 @@ namespace EasyCrypto
     {
         private readonly object _sync = new object();
         private readonly Action<byte[]> _generateData;
-        private byte[] _cache = new byte[0];
+        private byte[] _cache = Array.Empty<byte>();
 
         public SlidingBuffer(Action<byte[]> generateData)
         {

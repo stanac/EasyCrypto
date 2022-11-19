@@ -1,8 +1,9 @@
 ﻿using BenchmarkDotNet.Attributes;
 
-namespace EasyCrypto.Banchmarks
+namespace EasyCrypto.Benchmarks
 {
-    public class CryptoRandomBanchmarks
+    [MemoryDiagnoser]
+    public class CryptoRandomBenchmarks
     {
         private readonly CryptoRandom crWithBuffer = new CryptoRandom(true);
         private readonly CryptoRandom crWithoutBuffer = new CryptoRandom(false);

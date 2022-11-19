@@ -10,9 +10,6 @@ namespace EasyCrypto
     /// </summary>
     public class IdGenerator
     {
-        private static readonly Random _rand = new Random(GetSeed());
-        private static readonly CryptoRandom _cryptoRand = new CryptoRandom();
-        
         /// <summary>
         /// Default instance of Id generator with FastRandom = true, FixedPart = "", RandomPartLength = 6 and AddHyphens = false
         /// </summary>
@@ -38,8 +35,8 @@ namespace EasyCrypto
             get => _randomPartLength;
             set
             {
-                if (value < 4) throw new ArgumentOutOfRangeException("Random part length cannot be less than 4");
-                if (value > 100) throw new ArgumentOutOfRangeException("Random part length cannot be greater than 100");
+                if (value < 4) throw new ArgumentOutOfRangeException(nameof(value), "Random part length cannot be less than 4");
+                if (value > 100) throw new ArgumentOutOfRangeException(nameof(value), "Random part length cannot be greater than 100");
                 _randomPartLength = value;
             }
         }
@@ -118,7 +115,7 @@ namespace EasyCrypto
             {
                 for (int i = 0; i < ret.Length; i++)
                 {
-                    index = _rand.Next(SystemStringBase55Converter.Charset.Length);
+                    index = ThreadSafeRandom.Default.Next(SystemStringBase55Converter.Charset.Length);
                     ret[i] = SystemStringBase55Converter.Charset[index];
                 }
             }
@@ -126,29 +123,12 @@ namespace EasyCrypto
             {
                 for (int i = 0; i < ret.Length; i++)
                 {
-                    index = _cryptoRand.NextInt(SystemStringBase55Converter.Charset.Length);
+                    index = CryptoRandom.Default.NextInt(SystemStringBase55Converter.Charset.Length);
                     ret[i] = SystemStringBase55Converter.Charset[index];
                 }
             }
 
             return new string(ret);
-        }
-
-        private static int GetSeed()
-        {
-            int result = 0;
-            byte[] g = Guid.NewGuid().ToByteArray();
-            unchecked
-            {
-                int i0 = BitConverter.ToInt32(g, 0);
-                int i1 = BitConverter.ToInt32(g, 4);
-                int i2 = BitConverter.ToInt32(g, 8);
-                int i3 = BitConverter.ToInt32(g, 12);
-
-                result = i0 + i1 * 3 + i2 * 7 + i3 * 11;
-                result = Math.Abs(result);
-            }
-            return result;
         }
     }
 }

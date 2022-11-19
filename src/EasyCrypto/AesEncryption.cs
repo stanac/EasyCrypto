@@ -225,8 +225,7 @@ namespace EasyCrypto
                 Token = token
             });
         }
-
-
+        
         private static Task DecryptWithEmbeddedIvAsync(Stream dataToDecrypt, byte[] key, Stream destination, string password, ReportAndCancellationToken token = null)
         {
             return DecryptAsync(new CryptoRequest
@@ -549,7 +548,17 @@ namespace EasyCrypto
         /// <param name="encryptedData">The encrypted data</param>
         /// <param name="key">Key used for encryption</param>
         /// <returns>ValidationResult</returns>
+        [Obsolete("Method name changed to ValidateEncryptedDataWithEmbeddedIv, this method will be removed in v5")]
         public static ValidationResult ValidateEncryptedDataWithEmbededIv(byte[] encryptedData, byte[] key)
+            => ValidateEncryptedDataWithEmbeddedIv(encryptedData, key);
+
+        /// <summary>
+        /// Validates the encrypted data.
+        /// </summary>
+        /// <param name="encryptedData">The encrypted data</param>
+        /// <param name="key">Key used for encryption</param>
+        /// <returns>ValidationResult</returns>
+        public static ValidationResult ValidateEncryptedDataWithEmbeddedIv(byte[] encryptedData, byte[] key)
             => HandleByteToStream(encryptedData, (stream) => ValidateEncryptedDataWithEmbededIv(stream, key));
 
         /// <summary>
@@ -558,7 +567,17 @@ namespace EasyCrypto
         /// <param name="encryptedData">The encrypted data</param>
         /// <param name="key">Key used for encryption</param>
         /// <returns>ValidationResult</returns>
+        [Obsolete("Method name changed to ValidateEncryptedDataWithEmbeddedIv, this method will be removed in v5")]
         public static ValidationResult ValidateEncryptedDataWithEmbededIv(Stream encryptedData, byte[] key)
+            => ValidateEncryptedDataWithEmbeddedIv(encryptedData, key);
+
+        /// <summary>
+        /// Validates the encrypted data.
+        /// </summary>
+        /// <param name="encryptedData">The encrypted data</param>
+        /// <param name="key">Key used for encryption</param>
+        /// <returns>ValidationResult</returns>
+        public static ValidationResult ValidateEncryptedDataWithEmbeddedIv(Stream encryptedData, byte[] key)
             => ValidateEncryptedData(new CryptoRequest
             {
                 InData = encryptedData,

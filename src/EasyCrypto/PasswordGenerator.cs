@@ -11,9 +11,15 @@ namespace EasyCrypto
         private readonly CryptoRandom _cr = new CryptoRandom();
 
         /// <summary>
+        /// Default instance
+        /// </summary>
+        public static PasswordGenerator Default { get; } = new PasswordGenerator();
+
+        /// <summary>
         /// Generates random password of 16 chars
         /// </summary>
         /// <returns>Random password</returns>
+        [Obsolete(ObsoleteMessage.Message)]
         public static string GenerateStatic() => GenerateStatic(PasswordGenerationOptions.Default);
 
         /// <summary>
@@ -21,6 +27,7 @@ namespace EasyCrypto
         /// </summary>
         /// <param name="length">Length of the password, default is 16, cannot be less than 4</param>
         /// <returns>Random password</returns>
+        [Obsolete(ObsoleteMessage.Message)]
         public static string GenerateStatic(uint length) => GenerateStatic(PasswordGenerationOptions.Default.SetLength(length));
 
         /// <summary>
@@ -28,6 +35,7 @@ namespace EasyCrypto
         /// </summary>
         /// <param name="options">Options used for generating passwords</param>
         /// <returns>Random password</returns>
+        [Obsolete(ObsoleteMessage.Message)]
         public static string GenerateStatic(PasswordGenerationOptions options)
         {
             using (var pg = new PasswordGenerator())
@@ -57,11 +65,12 @@ namespace EasyCrypto
         public string Generate(PasswordGenerationOptions options)
         {
             if (options == null) throw new ArgumentNullException(nameof(options));
-            string error = null;
-            if (!options.AreValid(out error))
+
+            if (!options.AreValid(out string error))
             {
                 throw new ArgumentException(error);
             }
+
             return GenerateInner(options.GetActuals());
         }
 

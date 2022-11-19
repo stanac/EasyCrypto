@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30320.27
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyCrypto", "src\EasyCrypto\EasyCrypto.csproj", "{76B63A21-465D-4C11-AAAF-F1BE764BC59E}"
 EndProject
@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{66AD058E-F02
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyCrypto.Tests", "tests\EasyCrypto.Tests\EasyCrypto.Tests.csproj", "{7711DB26-3E47-40BB-8C17-E12B12B42340}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyCrypto.Banchmarks", "tests\EasyCrypto.Banchmarks\EasyCrypto.Banchmarks.csproj", "{D533CEC0-9357-4882-A4D2-73BFA91C04C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyCrypto.Benchmarks", "tests\EasyCrypto.Banchmarks\EasyCrypto.Benchmarks.csproj", "{D533CEC0-9357-4882-A4D2-73BFA91C04C4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{00EE303B-0A0B-4889-B13C-967FC3071E3B}"
 EndProject

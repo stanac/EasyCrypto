@@ -30,7 +30,7 @@ namespace EasyCrypto
 
         private readonly string _password;
 
-        private byte[] _headerData;
+        private readonly byte[] _headerData;
         private const int HeaderSize = 127;
 
         public CryptoContainer() { }

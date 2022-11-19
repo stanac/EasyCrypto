@@ -1,12 +1,12 @@
 ﻿using BenchmarkDotNet.Running;
 
-namespace EasyCrypto.Banchmarks
+namespace EasyCrypto.Benchmarks
 {
     static class Program
     {
         static void Main()
         {
-            BenchmarkRunner.Run<CryptoRandomBanchmarks>();
+            BenchmarkRunner.Run<CryptoRandomBenchmarks>();
         }
     }
 }

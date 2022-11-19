@@ -13,6 +13,11 @@ namespace EasyCrypto
         private readonly SlidingBuffer _buffer;
 
         /// <summary>
+        /// Default instance
+        /// </summary>
+        public static CryptoRandom Default { get; } = new CryptoRandom(true);
+
+        /// <summary>
         /// Default constructor
         /// </summary>
         public CryptoRandom()
@@ -41,6 +46,7 @@ namespace EasyCrypto
         /// </summary>
         /// <param name="length">The number for bytes to return.</param>
         /// <returns>Byte array</returns>
+        [Obsolete(ObsoleteMessage.Message)]
         public static byte[] NextBytesStatic(uint length)
         {
             using (var cr = new CryptoRandom())
@@ -65,6 +71,7 @@ namespace EasyCrypto
         /// Generates random int &gt;= 0
         /// </summary>
         /// <returns>Random integer</returns>
+        [Obsolete(ObsoleteMessage.Message)]
         public static int NextIntStatic() => NextIntStatic(0, int.MaxValue);
 
         /// <summary>
@@ -72,6 +79,7 @@ namespace EasyCrypto
         /// </summary>
         /// <param name="maxExclusive">Maximum exclusive value to return</param>
         /// <returns>Random integer</returns>
+        [Obsolete(ObsoleteMessage.Message)]
         public static int NextIntStatic(int maxExclusive) => NextIntStatic(0, maxExclusive);
 
         /// <summary>
@@ -80,6 +88,7 @@ namespace EasyCrypto
         /// <param name="minInclusive">Minimum inclusive value to return</param>
         /// <param name="maxExclusive">Maximum exclusive value to return</param>
         /// <returns>Random integer</returns>
+        [Obsolete(ObsoleteMessage.Message)]
         public static int NextIntStatic(int minInclusive, int maxExclusive)
         {
             using (var cr = new CryptoRandom())
@@ -124,6 +133,7 @@ namespace EasyCrypto
         /// Return random double between 0 and 1
         /// </summary>
         /// <returns>Double between 0 and 1</returns>
+        [Obsolete(ObsoleteMessage.Message)]
         public static double NextDoubleStatic()
         {
             using (var cr = new CryptoRandom())

@@ -8,6 +8,7 @@ namespace EasyCrypto
     /// <summary>
     /// Password hasher and validator
     /// </summary>
+    [Obsolete("User PasswordHasherAndValidator, PasswordHasher will be removed in v5")]
     public class PasswordHasher
     {
         /// <summary>
@@ -54,7 +55,6 @@ namespace EasyCrypto
         /// <param name="hashAndSaltLengthsInBytes">Length of hash and salt in bytes,
         /// must be one of: 8, 16, 32, 64</param>
         /// <param name="hashIterations">Number of hash iterations</param>
-        /// <exception cref="System.ArgumentException"></exception>
         public PasswordHasher(uint hashAndSaltLengthsInBytes, uint hashIterations)
         {
             if (!(new[] { 8, 16, 32, 64 }.Contains((int)hashAndSaltLengthsInBytes)))
@@ -77,11 +77,6 @@ namespace EasyCrypto
         /// <returns>
         /// Byte[], hashed password
         /// </returns>
-        /// <exception cref="System.ArgumentException">
-        /// password cannot be null, empty or white space
-        /// or
-        /// salt cannot be null and must be in length equal to value set in constructor, default is 16 bytes
-        /// </exception>
         public byte[] HashPassword(string password, byte[] salt)
         {
             if (string.IsNullOrWhiteSpace(password))
@@ -123,6 +118,8 @@ namespace EasyCrypto
         /// </returns>
         public byte[] HashPasswordAndGenerateEmbeddedSalt(string password)
         {
+            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be null or whitespace.", nameof(password));
+
             byte[] salt;
             byte[] hash = HashPasswordAndGenerateSalt(password, out salt);
 
@@ -201,7 +198,7 @@ namespace EasyCrypto
         /// Generates the random salt.
         /// </summary>
         /// <returns></returns>
-        public byte[] GenerateRandomSalt() => CryptoRandom.NextBytesStatic(SaltLengthInBytes);
+        public byte[] GenerateRandomSalt() => CryptoRandom.Default.NextBytes(SaltLengthInBytes);
 
     }
 }
