@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EasyCrypto
+namespace EasyCrypto.Internal
 {
     [Flags]
     internal enum CryptoContainerFlags

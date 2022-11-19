@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using EasyCrypto.Internal;
+using Xunit;
 
 namespace EasyCrypto.Tests;
 

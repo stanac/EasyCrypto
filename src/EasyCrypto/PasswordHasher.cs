@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
+using EasyCrypto.Internal;
 
 namespace EasyCrypto
 {
@@ -157,7 +158,7 @@ namespace EasyCrypto
         public bool ValidatePassword(string password, byte[] hash, byte[] salt)
         {
             byte[] newHash = HashPassword(password, salt);
-            return DataTools.CompareByteArrays(hash, newHash);
+            return InternalDataTools.CompareByteArrays(hash, newHash);
         }
 
         /// <summary>

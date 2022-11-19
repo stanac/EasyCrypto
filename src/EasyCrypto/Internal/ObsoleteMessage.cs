@@ -1,4 +1,4 @@
-﻿namespace EasyCrypto
+﻿namespace EasyCrypto.Internal
 {
     internal static class ObsoleteMessage
     {

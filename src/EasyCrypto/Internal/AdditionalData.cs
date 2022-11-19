@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace EasyCrypto
+namespace EasyCrypto.Internal
 {
     /// <summary>
     /// Additional data to add to the encrypted, this data is not protected (but not saved in plain text either)

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace EasyCrypto
+namespace EasyCrypto.Internal
 {
     internal class CryptoRequest
     {

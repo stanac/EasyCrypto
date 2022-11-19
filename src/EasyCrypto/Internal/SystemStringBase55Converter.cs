@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace EasyCrypto
+namespace EasyCrypto.Internal
 {
     internal static class SystemStringBase55Converter
     {

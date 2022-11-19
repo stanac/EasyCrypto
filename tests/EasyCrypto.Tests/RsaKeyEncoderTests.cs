@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography;
+using EasyCrypto.Internal;
 using Xunit;
 
 namespace EasyCrypto.Tests;

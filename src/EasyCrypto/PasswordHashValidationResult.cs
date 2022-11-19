@@ -1,9 +1,9 @@
 ﻿namespace EasyCrypto
 {
-    public enum PasswordValidationResult
+    public enum PasswordHashValidationResult
     {
         Valid,
         NotValid,
-        ShouldRehash
+        ValidShouldRehash
     }
 }

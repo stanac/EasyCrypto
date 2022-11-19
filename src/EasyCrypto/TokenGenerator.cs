@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using EasyCrypto.Internal;
 
 namespace EasyCrypto
 {

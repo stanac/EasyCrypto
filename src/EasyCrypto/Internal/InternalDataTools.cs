@@ -1,14 +1,10 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
+using System;
 
-namespace EasyCrypto
+namespace EasyCrypto.Internal
 {
-    /// <summary>
-    /// Helper methods for work with byte arrays
-    /// </summary>
-    [Obsolete("This class will be marked as internal in v5")]
-    public static class DataTools
+    public static class InternalDataTools
     {
         /// <summary>
         /// Skips and take desired number of bytes.
@@ -24,7 +20,7 @@ namespace EasyCrypto
                 throw new ArgumentNullException(nameof(array));
 
             byte[] ret = new byte[take];
-            for (int i = skip, j = 0 ; i < skip + take; i++, j++)
+            for (int i = skip, j = 0; i < skip + take; i++, j++)
             {
                 ret[j] = array[i];
             }

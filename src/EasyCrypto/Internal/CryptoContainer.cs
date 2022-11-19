@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace EasyCrypto
+namespace EasyCrypto.Internal
 {
     /// <summary>
     /// Used internally to check for format and metadata (header data)
@@ -67,7 +67,7 @@ namespace EasyCrypto
             Key = request.Key;
             _password = request.Password;
         }
-        
+
         public static CryptoContainer CreateForEncryption(CryptoRequest request)
             => new CryptoContainer(request, true);
 
@@ -182,7 +182,7 @@ namespace EasyCrypto
             }
             result.DataFormatVersionIsValid = true;
             result.DataFormatVersionIsExact = dataVersion == DataVersionNumber;
-            
+
             InData.Position = HeaderSize + additionalDataLength;
             HeaderTotalSize = (int)InData.Position;
             if (!skipKeyCheck)
@@ -213,13 +213,13 @@ namespace EasyCrypto
         private bool EmbedSalt => Flags.HasFlag(CryptoContainerFlags.HasSalt);
 
         public byte[] GetIV() => GetHeaderBytes(8, 16);
-        
+
         private byte[] GetHeaderBytes(int startIndex, int length) => _headerData.SkipTake(startIndex, length);
         private short GetHeaderInt16(int startIndex) => BitConverter.ToInt16(_headerData, startIndex);
         private int GetHeaderInt32(int startIndex) => BitConverter.ToInt32(_headerData, startIndex);
 
         internal byte[] CalculateKey() => new PasswordHasher().HashPassword(_password, Salt);
-        
+
         internal static byte[] ReadAdditionalData(Stream encryptedData)
         {
             long position = encryptedData.Position;

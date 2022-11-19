@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace EasyCrypto
+namespace EasyCrypto.Internal
 {
     internal static class RsaKeyEncoder
     {
@@ -29,7 +29,7 @@ namespace EasyCrypto
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("00"); // version
-            
+
             var parms = GetParameters(p);
             foreach (var rsap in parms)
             {

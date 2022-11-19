@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EasyCrypto
+namespace EasyCrypto.Internal
 {
     internal class SlidingBuffer
     {

@@ -1,4 +1,4 @@
-﻿namespace EasyCrypto
+﻿namespace EasyCrypto.Internal
 {
     /// <summary>
     /// This options are actually used for generating passwords.
@@ -16,6 +16,6 @@
         public int LowerLength { get; set; }
         public int NumbersLength { get; set; }
         public int SymbolsLength { get; set; }
-        
+
     }
 }

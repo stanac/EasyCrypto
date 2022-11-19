@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using EasyCrypto.Internal;
 
 namespace EasyCrypto.Validation
 {
@@ -22,7 +23,7 @@ namespace EasyCrypto.Validation
         /// <param name="key">The key.</param>
         /// <returns>Byte array, the KCV</returns>
         public static byte[] GenerateKeyCheckValue(byte[] key)
-            => GenerateKeyCheckValue(key, CryptoRandom.NextBytesStatic(16));
+            => GenerateKeyCheckValue(key, CryptoRandom.Default.NextBytes(16));
 
         /// <summary>
         /// Generates the key check value.
@@ -32,7 +33,7 @@ namespace EasyCrypto.Validation
         /// <returns></returns>
         private static byte[] GenerateKeyCheckValue(byte[] key, byte[] iv)
         {
-            byte[] result = null;
+            byte[] result;
             using (Stream inStream = new MemoryStream())
             using (Stream outStream = new MemoryStream())
             {
@@ -50,7 +51,7 @@ namespace EasyCrypto.Validation
                 byte[] encryptedData = outStream.ToBytes();
                 result = encryptedData.SkipTake(0, _kcvLength);
             }
-            return DataTools.JoinByteArrays(result, iv);
+            return InternalDataTools.JoinByteArrays(result, iv);
         }
 
         /// <summary>
@@ -76,7 +77,7 @@ namespace EasyCrypto.Validation
         internal static bool ValidateKeyCheckValueInternal(byte[] key, byte[] originalKCV)
         {
             byte[] calculatedKcv = GenerateKeyCheckValue(key, originalKCV.SkipTake(3, 16));
-            return DataTools.CompareByteArrays(originalKCV, calculatedKcv);
+            return InternalDataTools.CompareByteArrays(originalKCV, calculatedKcv);
         }
     }
 }
