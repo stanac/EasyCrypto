@@ -39,15 +39,20 @@ Install-Package EasyCrypto
 ## Docs
 
 Table of contents:
-- [AesEncryption](#static-class-aesencryption)
-- [AesFileEncryption](#static-class-aesfileencryption)
-- [AesEncryptionAdditionalData](#static-class-aesencryptionadditionaldata)
-- [CryptoRandom](#class-cryptorandom--idisposable)
-- [PasswordGenerator](#class-passwordgenerator--idisposable)
-- [PasswordHasher](#class-passwordhasher)
-- [TokenGenerator](#class-tokengenerator)
-- [IdGenerator](#class-idgenerator)
-- [RsaEncryption](#static-class-rsaencryption)
+- [EasyCrypto](#easycrypto)
+  - [Install from nuget](#install-from-nuget)
+  - [Docs](#docs)
+    - [Static class AesEncryption](#static-class-aesencryption)
+    - [Static class AesFileEncryption](#static-class-aesfileencryption)
+    - [Static class AesEncryptionAdditionalData](#static-class-aesencryptionadditionaldata)
+    - [Class CryptoRandom : IDisposable](#class-cryptorandom--idisposable)
+    - [Class ThreadSafeRandom](#class-threadsaferandom)
+    - [Class PasswordGenerator : IDisposable](#class-passwordgenerator--idisposable)
+    - [PasswordHasherAndValidator](#passwordhasherandvalidator)
+    - [Class PasswordHasher](#class-passwordhasher)
+    - [Class TokenGenerator](#class-tokengenerator)
+    - [Class IdGenerator](#class-idgenerator)
+    - [Static Class RsaEncryption](#static-class-rsaencryption)
 
 ---
 
@@ -95,12 +100,16 @@ static string DecryptWithPassword(string dataToDecrypt, string password)
 static ValidationResult ValidateEncryptedData(byte[] encryptedData, byte[] key, byte[] iv)
 static ValidationResult ValidateEncryptedData(Stream encryptedData, byte[] key, byte[] iv)
 
-static ValidationResult ValidateEncryptedDataWithEmbededIv(byte[] encryptedData, byte[] key)
-static ValidationResult ValidateEncryptedDataWithEmbededIv(Stream encryptedData, byte[] key)
+static ValidationResult ValidateEncryptedDataWithEmbeddedIv(byte[] encryptedData, byte[] key)
+static ValidationResult ValidateEncryptedDataWithEmbeddedIv(Stream encryptedData, byte[] key)
 
 static ValidationResult ValidateEncryptedDataWithPassword(string encryptedData, string password)
 static ValidationResult ValidateEncryptedDataWithPassword(byte[] encryptedData, string password)
 static ValidationResult ValidateEncryptedDataWithPassword(Stream encryptedData, string password)
+
+// OBSOLETE methods to be removed (already renamed)
+static ValidationResult ValidateEncryptedDataWithEmbededIv(byte[] encryptedData, byte[] key)
+static ValidationResult ValidateEncryptedDataWithEmbededIv(Stream encryptedData, byte[] key)
 ```
 ---
 
@@ -145,8 +154,6 @@ static Dictionary<string, string> ReadAdditionalData(byte[] encryptedData)
 static Dictionary<string, string> ReadAdditionalData(Stream encryptedData)
 ```
 
-
-
 ---
 
 ### Class CryptoRandom : IDisposable
@@ -155,15 +162,13 @@ Every method in CryptoRandom class has static equivalent method which is called 
 This class is disposable and if you are generating multiple random values it's recommended to use 
 instance methods of one instance instead of calling static methods.
 
-Available methods:
+Available methods and properties:
 
 ```csharp
-static byte[] NextBytesStatic(uint length)
+CryptoRandom Default { get; } // default instance
+
 byte[] NextBytes(uint length)
 
-static int NextIntStatic() => NextIntStatic(0, int.MaxValue)
-static int NextIntStatic(int maxExclusive) => NextIntStatic(0, maxExclusive)
-static int NextIntStatic(int minInclusive, int maxExclusive)
 int NextInt() => NextInt(0, int.MaxValue)
 int NextInt(int maxExclusive) => NextInt(0, maxExclusive)
 int NextInt(int minInclusive, int maxExclusive)
@@ -174,6 +179,30 @@ double NextDouble()
 void FillIntArrayWithRandomValues(int[] arrayToFill, int minInclusive, int maxExclusive)
 
 void Dispose()
+
+// OBSOLETE methods, use Default property instead
+static byte[] NextBytesStatic(uint length)
+static int NextIntStatic() => NextIntStatic(0, int.MaxValue)
+static int NextIntStatic(int maxExclusive) => NextIntStatic(0, maxExclusive)
+static int NextIntStatic(int minInclusive, int maxExclusive)
+```
+
+---
+
+### Class ThreadSafeRandom
+
+Thread safe random is inheriting `System.Random` but all methods are thread safe.
+This class does not have crypto level of randomness.
+
+```csharp
+public class ThreadSafeRandom : System.Random
+{
+    int Next();
+    int Next(int maxValue);
+    int Next(int minValue, int maxValue);
+    void NextBytes(byte[] buffer);
+    double NextDouble()
+}
 ```
 
 ---
@@ -204,8 +233,43 @@ using (var pg = new PasswordGenerator())
 
 ---
 
+### PasswordHasherAndValidator
+
+New password hasher, recommended to be used for new implementations instead of `PasswordHasher`.
+
+```csharp
+// constructors:
+PasswordHasherAndValidator() // 64 bytes of salt, 64 bytes of hash and 28000 iterations
+PasswordHasherAndValidator(int iterations) // 64 bytes of salt, 64 bytes of hash and x iterations (must be at least 25000)
+
+// methods:
+string HashPasswordToString(string password);
+byte[] HashPassword(string password);
+PasswordHashValidationResult ValidatePassword(string password, string hashWithEmbeddedSalt);
+PasswordHashValidationResult ValidatePassword(string password, byte[] hashWithEmbeddedSalt);
+```
+
+Validation result enum:
+
+```csharp
+public enum PasswordHashValidationResult
+{
+    Valid,
+    NotValid,
+    ValidShouldRehash
+}
+```
+
+`PasswordHashValidationResult.ValidShouldRehash` value is returned in case when original hash was created with lesser
+number of iterations when compared to current instance of `PasswordHasherAndValidator`.
+
+---
+
 ### Class PasswordHasher
-This class can be used for hashing and validating passwords, see constructors and methods:
+
+This class can be used for hashing and validating passwords. It is recommended to use `PasswordHasherAndValidator`
+for new implementations.
+
 ```csharp
 // constructors:
 
