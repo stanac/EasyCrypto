@@ -4,24 +4,6 @@
         <name>EasyCrypto</name>
     </assembly>
     <members>
-        <member name="T:EasyCrypto.ActualPasswordGeneratorOptions">
-            <summary>
-            This options are actually used for generating passwords.
-            This options are used to set actual length of different char groups (Upper, Lower, Numbers and Symbols)
-            because in other options we are using min values.
-            </summary>
-        </member>
-        <member name="T:EasyCrypto.AdditionalData">
-            <summary>
-            Additional data to add to the encrypted, this data is not protected (but not saved in plain text either)
-            For example can be used for password hint, date of encryption etc...
-            </summary>
-        </member>
-        <member name="P:EasyCrypto.AdditionalData.Data">
-            <summary>
-            Dictionary that will contain additional data
-            </summary>
-        </member>
         <member name="T:EasyCrypto.AesEncryption">
             <summary>
             AES encryption helper class
@@ -524,11 +506,6 @@
             <param name="token">Optional token for progress report and cancellation of the operation.</param>
             <returns>Task to await</returns>
         </member>
-        <member name="T:EasyCrypto.CryptoContainer">
-            <summary>
-            Used internally to check for format and metadata (header data)
-            </summary>
-        </member>
         <member name="T:EasyCrypto.CryptoRandom">
             <summary>
             Cryptographic level RNG using <see cref="T:System.Security.Cryptography.RandomNumberGenerator"/>.
@@ -855,6 +832,61 @@
             <param name="time">Time to use in id generation</param>
             <returns>String, generated id</returns>
         </member>
+        <member name="T:EasyCrypto.Internal.ActualPasswordGeneratorOptions">
+            <summary>
+            This options are actually used for generating passwords.
+            This options are used to set actual length of different char groups (Upper, Lower, Numbers and Symbols)
+            because in other options we are using min values.
+            </summary>
+        </member>
+        <member name="T:EasyCrypto.Internal.AdditionalData">
+            <summary>
+            Additional data to add to the encrypted, this data is not protected (but not saved in plain text either)
+            For example can be used for password hint, date of encryption etc...
+            </summary>
+        </member>
+        <member name="P:EasyCrypto.Internal.AdditionalData.Data">
+            <summary>
+            Dictionary that will contain additional data
+            </summary>
+        </member>
+        <member name="T:EasyCrypto.Internal.CryptoContainer">
+            <summary>
+            Used internally to check for format and metadata (header data)
+            </summary>
+        </member>
+        <member name="M:EasyCrypto.Internal.InternalDataTools.SkipTake(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Skips and take desired number of bytes.
+            </summary>
+            <param name="array">The array used for source.</param>
+            <param name="skip">Number of bytes to skip (start index).</param>
+            <param name="take">Number of bytes to take.</param>
+            <returns>Byte array</returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:EasyCrypto.Internal.InternalDataTools.JoinByteArrays(System.Byte[][])">
+            <summary>
+            Joins the byte arrays.
+            </summary>
+            <param name="byteArrays">The byte arrays to join.</param>
+            <returns>Joined byte array to one byte array</returns>
+        </member>
+        <member name="M:EasyCrypto.Internal.InternalDataTools.CompareByteArrays(System.Byte[],System.Byte[])">
+            <summary>
+            Compares two byte arrays.
+            </summary>
+            <param name="ba1">Byte array 1.</param>
+            <param name="ba2">Byte array 2.</param>
+            <returns>Bool, true if arrays are equal.</returns>
+        </member>
+        <member name="M:EasyCrypto.Internal.InternalDataTools.ToBytes(System.IO.Stream)">
+            <summary>
+            Reads whole stream and returns bytes of the stream.
+            </summary>
+            <param name="stream">The stream to read.</param>
+            <returns>Byte array, from the stream</returns>
+        </member>
         <member name="T:EasyCrypto.PasswordGenerationOptions">
             <summary>
             Options that are used for <see cref="T:EasyCrypto.PasswordGenerator"/>
@@ -1038,7 +1070,7 @@
         </member>
         <member name="T:EasyCrypto.PasswordHasher">
             <summary>
-            Password hasher and validator
+            Password hasher and validator. For new implementations it's recommended to use <see cref="T:EasyCrypto.PasswordHasherAndValidator"/>
             </summary>
         </member>
         <member name="P:EasyCrypto.PasswordHasher.HashLengthInBytes">
@@ -1158,6 +1190,55 @@
             Generates the random salt.
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:EasyCrypto.PasswordHasherAndValidator">
+            <summary>
+            PBKDF2 hasher and validator with hash and salt length of 64 bytes with embedded 64 bytes of random salt.
+            </summary>
+        </member>
+        <member name="M:EasyCrypto.PasswordHasherAndValidator.#ctor">
+            <summary>
+            Constructor with 28K iterations
+            </summary>
+        </member>
+        <member name="M:EasyCrypto.PasswordHasherAndValidator.#ctor(System.Int32)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="iterations">Number of PBKDF2 iteration, minimum is 100000.</param>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:EasyCrypto.PasswordHasherAndValidator.HashPasswordToString(System.String)">
+            <summary>
+            Hashes password with embedded random salt and returns it as base64 string
+            </summary>
+            <param name="password">Password to hash</param>
+            <returns>Base64 string containing hash and salt that can be verified with <see cref="M:EasyCrypto.PasswordHasherAndValidator.ValidatePassword(System.String,System.String)"/></returns>
+        </member>
+        <member name="M:EasyCrypto.PasswordHasherAndValidator.HashPassword(System.String)">
+            <summary>
+            Hashes password with embedded random salt and returns it as byte array
+            </summary>
+            <param name="password">Password to hash</param>
+            <returns>Byte array containing hash and salt that can be verified with <see cref="M:EasyCrypto.PasswordHasherAndValidator.ValidatePassword(System.String,System.Byte[])"/></returns>
+        </member>
+        <member name="M:EasyCrypto.PasswordHasherAndValidator.ValidatePassword(System.String,System.String)">
+            <summary>
+            Validates password
+            </summary>
+            <param name="password">Password to validate</param>
+            <param name="hashWithEmbeddedSalt">Password hash with embedded salt created by <see cref="M:EasyCrypto.PasswordHasherAndValidator.HashPasswordToString(System.String)"/> </param>
+            <returns>Result of validation</returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:EasyCrypto.PasswordHasherAndValidator.ValidatePassword(System.String,System.Byte[])">
+            <summary>
+            Validates password
+            </summary>
+            <param name="password">Password to validate</param>
+            <param name="hashWithEmbeddedSalt">Password hash with embedded salt created by <see cref="M:EasyCrypto.PasswordHasherAndValidator.HashPassword(System.String)"/> </param>
+            <returns>Result of validation</returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
         </member>
         <member name="T:EasyCrypto.ProgressReportIntensity">
             <summary>
@@ -1432,6 +1513,11 @@
         <member name="F:EasyCrypto.TokenGenerator.DefaultAllowedChars">
             <summary>
             Characters allowed in generated token by default
+            </summary>
+        </member>
+        <member name="P:EasyCrypto.TokenGenerator.Default">
+            <summary>
+            Default instance
             </summary>
         </member>
         <member name="M:EasyCrypto.TokenGenerator.#ctor">

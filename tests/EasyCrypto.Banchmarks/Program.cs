@@ -6,7 +6,7 @@ namespace EasyCrypto.Benchmarks
     {
         static void Main()
         {
-            BenchmarkRunner.Run<CryptoRandomBenchmarks>();
+            BenchmarkRunner.Run<PasswordHasherAndValidatorBenchmarks>();
         }
     }
 }

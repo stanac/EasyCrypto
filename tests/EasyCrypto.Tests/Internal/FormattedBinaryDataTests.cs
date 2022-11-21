@@ -2,16 +2,16 @@
 using FluentAssertions;
 using Xunit;
 
-namespace EasyCrypto.Tests;
+namespace EasyCrypto.Tests.Internal;
 
 public class FormattedBinaryDataTests
 {
     [Fact]
-    public void TwoIntegersWrittenData_CanBeRead()
+    public void TwoIntegers_WrittenData_CanBeRead()
     {
         FormattedBinaryData data = new FormattedBinaryData(78, typeof(int), typeof(int));
 
-        object[] input = {4, 8};
+        object[] input = { 4, 8 };
 
         byte[] bytes = data.ToBytes(input);
 
@@ -21,7 +21,7 @@ public class FormattedBinaryDataTests
     }
 
     [Fact]
-    public void TwoIntArraysWrittenData_CanBeRead()
+    public void TwoIntArrays_WrittenData_CanBeRead()
     {
         FormattedBinaryData data = new FormattedBinaryData(78, typeof(int[]), typeof(int[]));
 
@@ -35,7 +35,28 @@ public class FormattedBinaryDataTests
     }
 
     [Fact]
-    public void CombinedWrittenData_CanBeRead()
+    public void TwoIntsTwoByteArrays_WrittenData_CanBeRead()
+    {
+        int i = CryptoRandom.Default.NextInt();
+        int j = CryptoRandom.Default.NextInt();
+        byte[] b1 = CryptoRandom.Default.NextBytes(128);
+        byte[] b2 = CryptoRandom.Default.NextBytes(128);
+
+        FormattedBinaryData data = new FormattedBinaryData(9001,
+            typeof(int), typeof(int), typeof(byte[]), typeof(byte[])
+        );
+
+        object[] input = {i, j, b1, b2};
+
+        byte[] written = data.ToBytes(input);
+
+        object[] read = data.Read(written);
+
+        read.Should().BeEquivalentTo(input);
+    }
+
+    [Fact]
+    public void Combined_WrittenData_CanBeRead()
     {
         FormattedBinaryData data = new FormattedBinaryData(879,
             typeof(int),

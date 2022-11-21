@@ -5,13 +5,12 @@ using EasyCrypto.Internal;
 namespace EasyCrypto
 {
     /// <summary>
-    /// PBKDF2 hasher and validator with hash and salt length of 128 bytes with embedded 128 bytes of random salt.
+    /// PBKDF2 hasher and validator with hash and salt length of 64 bytes with embedded 64 bytes of random salt.
     /// </summary>
     public class PasswordHasherAndValidator
     {
-        private const int HashAndSaltLengthInBytes = 128;
-        private const int MinIteration = 100_000;
-        internal const int AlgorithmId = 2;
+        private const int HashAndSaltLengthInBytes = 64;
+        private const int MinIteration = 25_000;
         private readonly int _iterations;
 
         private static readonly FormattedBinaryData _binaryHashData = new FormattedBinaryData(90_002,
@@ -20,12 +19,12 @@ namespace EasyCrypto
             typeof(byte[]),  // salt
             typeof(byte[])   // hash
         );
-        
+
         /// <summary>
-        /// Constructor with default iterations of 125K
+        /// Constructor with 28K iterations
         /// </summary>
         public PasswordHasherAndValidator()
-            : this(125_000)
+            : this(28_000)
         {
         }
 
@@ -63,7 +62,10 @@ namespace EasyCrypto
                 throw new ArgumentException("password cannot be null, empty or white space");
             }
 
-            return Hash(password, RandomSalt(), HashAndSaltLengthInBytes, _iterations);
+            byte[] salt = RandomSalt();
+            byte[] hash = Hash(password, salt, HashAndSaltLengthInBytes, _iterations);
+
+            return _binaryHashData.ToBytes(HashAndSaltLengthInBytes, _iterations, salt, hash);
         }
 
         /// <summary>

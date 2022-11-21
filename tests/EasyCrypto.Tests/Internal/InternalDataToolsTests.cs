@@ -1,9 +1,10 @@
 ﻿using System;
+using EasyCrypto.Internal;
 using Xunit;
 
-namespace EasyCrypto.Tests;
+namespace EasyCrypto.Tests.Internal;
 
-public class DataToolsTests
+public class InternalDataToolsTests
 {
     [Fact]
     public void ArrayJoinTest()
@@ -19,7 +20,7 @@ public class DataToolsTests
             8,  9, 10, 11, 12, 13, 14, 15,
             16, 17, 18, 19, 20, 21
         };
-        byte[] summed = DataTools.JoinByteArrays(a, b, c, d);
+        byte[] summed = InternalDataTools.JoinByteArrays(a, b, c, d);
 
         Assert.Equal(expected, summed);
     }

@@ -1,7 +1,7 @@
 ﻿using EasyCrypto.Internal;
 using Xunit;
 
-namespace EasyCrypto.Tests;
+namespace EasyCrypto.Tests.Internal;
 
 public class SystemStringBase55ConverterTests
 {

@@ -7,9 +7,8 @@ using EasyCrypto.Internal;
 namespace EasyCrypto
 {
     /// <summary>
-    /// Password hasher and validator
+    /// Password hasher and validator. For new implementations it's recommended to use <see cref="PasswordHasherAndValidator"/>
     /// </summary>
-    [Obsolete("User PasswordHasherAndValidator, PasswordHasher will be removed in v5")]
     public class PasswordHasher
     {
         /// <summary>

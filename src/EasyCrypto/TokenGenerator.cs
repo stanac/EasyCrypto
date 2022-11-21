@@ -20,6 +20,11 @@ namespace EasyCrypto
         private readonly string _allowedChars;
 
         /// <summary>
+        /// Default instance
+        /// </summary>
+        public static TokenGenerator Default { get; } = new TokenGenerator();
+
+        /// <summary>
         /// Default constructor, uses English upper case and lower case letters and numeric characters for allowedChar,
         /// which are used for token generation. <see cref="DefaultAllowedChars"/>
         /// </summary>
