@@ -26,6 +26,12 @@ with default hash and salt size of 256 bits and 25K iterations (by default).
 
 ---
 
+Version 5.0 is the last release which supports old .NET Framework 4.8 and will receive only
+critical fixes.
+Starting from version 6 EasyCrypto will be built using latest LTS release of .NET.
+
+---
+
 For changes see [history](https://github.com/stanac/EasyCrypto/blob/master/HISTORY.md).
 
 ## Install from nuget
@@ -106,10 +112,6 @@ static ValidationResult ValidateEncryptedDataWithEmbeddedIv(Stream encryptedData
 static ValidationResult ValidateEncryptedDataWithPassword(string encryptedData, string password)
 static ValidationResult ValidateEncryptedDataWithPassword(byte[] encryptedData, string password)
 static ValidationResult ValidateEncryptedDataWithPassword(Stream encryptedData, string password)
-
-// OBSOLETE methods to be removed (already renamed)
-static ValidationResult ValidateEncryptedDataWithEmbededIv(byte[] encryptedData, byte[] key)
-static ValidationResult ValidateEncryptedDataWithEmbededIv(Stream encryptedData, byte[] key)
 ```
 ---
 
@@ -165,7 +167,7 @@ instance methods of one instance instead of calling static methods.
 Available methods and properties:
 
 ```csharp
-CryptoRandom Default { get; } // default instance
+static CryptoRandom Default { get; } // default instance
 
 byte[] NextBytes(uint length)
 
@@ -179,12 +181,6 @@ double NextDouble()
 void FillIntArrayWithRandomValues(int[] arrayToFill, int minInclusive, int maxExclusive)
 
 void Dispose()
-
-// OBSOLETE methods, use Default property instead
-static byte[] NextBytesStatic(uint length)
-static int NextIntStatic() => NextIntStatic(0, int.MaxValue)
-static int NextIntStatic(int maxExclusive) => NextIntStatic(0, maxExclusive)
-static int NextIntStatic(int minInclusive, int maxExclusive)
 ```
 
 ---

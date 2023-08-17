@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30320.27
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EE9C0B15-A82A-40D4-B4EB-DF463FF0E446}"
 EndProject
@@ -20,7 +20,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "md", "md", "{C16C83EB-E229-
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyCrypto.Banchmarks", "tests\EasyCrypto.Banchmarks\EasyCrypto.Banchmarks.csproj", "{76F31E65-272D-4EE3-9498-A4D71A801D22}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{32382294-3195-4FC6-8D6A-BEBF93C3F7B2}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,10 +43,6 @@ Global
 		{7CCE0393-D1AA-4FF4-A505-4CF79A76DED4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CCE0393-D1AA-4FF4-A505-4CF79A76DED4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CCE0393-D1AA-4FF4-A505-4CF79A76DED4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{76F31E65-272D-4EE3-9498-A4D71A801D22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{76F31E65-272D-4EE3-9498-A4D71A801D22}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{76F31E65-272D-4EE3-9498-A4D71A801D22}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{76F31E65-272D-4EE3-9498-A4D71A801D22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,7 +51,6 @@ Global
 		{BC2042B2-CFC4-4D24-A589-70C72A585A8C} = {EE9C0B15-A82A-40D4-B4EB-DF463FF0E446}
 		{3C82DF35-3ADB-4D8D-A8FF-75C4B28755CE} = {87B2E37E-B472-41A3-8051-EAA0BDFCB958}
 		{7CCE0393-D1AA-4FF4-A505-4CF79A76DED4} = {87B2E37E-B472-41A3-8051-EAA0BDFCB958}
-		{76F31E65-272D-4EE3-9498-A4D71A801D22} = {87B2E37E-B472-41A3-8051-EAA0BDFCB958}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9402F085-2E7C-4504-9298-DC12E594AF74}

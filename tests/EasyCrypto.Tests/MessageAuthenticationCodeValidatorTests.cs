@@ -3,42 +3,44 @@ using EasyCrypto.Validation;
 using System.IO;
 using Xunit;
 
-namespace EasyCrypto.Tests;
-
-public class MessageAuthenticationCodeValidatorTests
+namespace EasyCrypto.Tests
 {
-    [Fact]
-    public void MacIs48BytesLong()
+    public class MessageAuthenticationCodeValidatorTests
     {
-        byte[] data = CryptoRandom.NextBytesStatic(1227);
-        byte[] key = CryptoRandom.NextBytesStatic(32);
-        using (Stream tempStream = new MemoryStream())
+        [Fact]
+        public void MacIs48BytesLong()
         {
-            tempStream.Write(data, 0, data.Length);
-            byte[] mac = MessageAuthenticationCodeValidator.CalculateMessageAuthenticationCode(key, tempStream);
-            Assert.Equal(48, mac.Length);
+            byte[] data = CryptoRandom.Default.NextBytes(1227);
+            byte[] key = CryptoRandom.Default.NextBytes(32);
+            using (Stream tempStream = new MemoryStream())
+            {
+                tempStream.Write(data, 0, data.Length);
+                byte[] mac = MessageAuthenticationCodeValidator.CalculateMessageAuthenticationCode(key, tempStream);
+                Assert.Equal(48, mac.Length);
+            }
         }
-    }
 
-    [Fact]
-    public void MacCanBeValidated()
-    {
-        byte[] data = CryptoRandom.NextBytesStatic(1227);
-        byte[] key = CryptoRandom.NextBytesStatic(32);
-        using (Stream tempStream = new MemoryStream())
+        [Fact]
+        public void MacCanBeValidated()
         {
-            tempStream.Write(data, 0, data.Length);
-            bool error = false;
-            byte[] mac = MessageAuthenticationCodeValidator.CalculateMessageAuthenticationCode(key, tempStream);
-            try
+            byte[] data = CryptoRandom.Default.NextBytes(1227);
+            byte[] key = CryptoRandom.Default.NextBytes(32);
+            using (Stream tempStream = new MemoryStream())
             {
-                MessageAuthenticationCodeValidator.ValidateMessageAuthenticationCode(key, mac, tempStream);
+                tempStream.Write(data, 0, data.Length);
+                bool error = false;
+                byte[] mac = MessageAuthenticationCodeValidator.CalculateMessageAuthenticationCode(key, tempStream);
+                try
+                {
+                    MessageAuthenticationCodeValidator.ValidateMessageAuthenticationCode(key, mac, tempStream);
+                }
+                catch (DataIntegrityValidationException)
+                {
+                    error = true;
+                }
+
+                Assert.False(error);
             }
-            catch (DataIntegrityValidationException)
-            {
-                error = true;
-            }
-            Assert.False(error);
         }
     }
 }

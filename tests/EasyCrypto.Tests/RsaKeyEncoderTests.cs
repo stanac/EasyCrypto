@@ -50,6 +50,6 @@ public class RsaKeyEncoderTests
     {
         if (b1 == null && b2 == null) return true;
 
-        return DataTools.CompareByteArrays(b1, b2);
+        return InternalDataTools.CompareByteArrays(b1, b2);
     }
 }

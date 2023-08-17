@@ -2,55 +2,56 @@
 using EasyCrypto.Validation;
 using Xunit;
 
-namespace EasyCrypto.Tests;
-
-public class KeyCheckValueValidatorTests
+namespace EasyCrypto.Tests
 {
-    [Fact]
-    public void KeyCheckValidIs19BytesLong()
+    public class KeyCheckValueValidatorTests
     {
-        byte[] key = CryptoRandom.NextBytesStatic(32);
-        byte[] kcv = KeyCheckValueValidator.GenerateKeyCheckValue(key);
-        Assert.True(kcv.Length == 19, "KCV is not 19 bytes long");
-    }
-
-    [Fact]
-    public void UnalteredKeyCheckValueIsValid()
-    {
-        byte[] key = CryptoRandom.NextBytesStatic(32);
-        byte[] kcv = KeyCheckValueValidator.GenerateKeyCheckValue(key);
-            
-        bool exceptionWasThrown = false;
-        try
+        [Fact]
+        public void KeyCheckValidIs19BytesLong()
         {
-            KeyCheckValueValidator.ValidateKeyCheckValue(key, kcv);
-        }
-        catch (KeyCheckValueValidationException)
-        {
-            exceptionWasThrown = true;
+            byte[] key = CryptoRandom.Default.NextBytes(32);
+            byte[] kcv = KeyCheckValueValidator.GenerateKeyCheckValue(key);
+            Assert.True(kcv.Length == 19, "KCV is not 19 bytes long");
         }
 
-        Assert.False(exceptionWasThrown, "Validation of KCV has failed");
-    }
-
-    [Fact]
-    public void AlteredKeyCheckValueIsNotValid()
-    {
-        byte[] key = CryptoRandom.NextBytesStatic(32);
-        byte[] kcv = KeyCheckValueValidator.GenerateKeyCheckValue(key);
-        if (key[0] > 120) key[0]--;
-        else key[0]++;
-
-        bool exceptionWasThrown = false;
-        try
+        [Fact]
+        public void UnalteredKeyCheckValueIsValid()
         {
-            KeyCheckValueValidator.ValidateKeyCheckValue(key, kcv);
-        }
-        catch (KeyCheckValueValidationException)
-        {
-            exceptionWasThrown = true;
+            byte[] key = CryptoRandom.Default.NextBytes(32);
+            byte[] kcv = KeyCheckValueValidator.GenerateKeyCheckValue(key);
+
+            bool exceptionWasThrown = false;
+            try
+            {
+                KeyCheckValueValidator.ValidateKeyCheckValue(key, kcv);
+            }
+            catch (KeyCheckValueValidationException)
+            {
+                exceptionWasThrown = true;
+            }
+
+            Assert.False(exceptionWasThrown, "Validation of KCV has failed");
         }
 
-        Assert.True(exceptionWasThrown, "Validation of KCV should have failed, but it didn't");
+        [Fact]
+        public void AlteredKeyCheckValueIsNotValid()
+        {
+            byte[] key = CryptoRandom.Default.NextBytes(32);
+            byte[] kcv = KeyCheckValueValidator.GenerateKeyCheckValue(key);
+            if (key[0] > 120) key[0]--;
+            else key[0]++;
+
+            bool exceptionWasThrown = false;
+            try
+            {
+                KeyCheckValueValidator.ValidateKeyCheckValue(key, kcv);
+            }
+            catch (KeyCheckValueValidationException)
+            {
+                exceptionWasThrown = true;
+            }
+
+            Assert.True(exceptionWasThrown, "Validation of KCV should have failed, but it didn't");
+        }
     }
 }

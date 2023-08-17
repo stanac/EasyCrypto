@@ -218,23 +218,7 @@
             <param name="iv">The IV</param>
             <returns>ValidationResult</returns>
         </member>
-        <member name="M:EasyCrypto.AesEncryption.ValidateEncryptedDataWithEmbededIv(System.Byte[],System.Byte[])">
-            <summary>
-            Validates the encrypted data.
-            </summary>
-            <param name="encryptedData">The encrypted data</param>
-            <param name="key">Key used for encryption</param>
-            <returns>ValidationResult</returns>
-        </member>
         <member name="M:EasyCrypto.AesEncryption.ValidateEncryptedDataWithEmbeddedIv(System.Byte[],System.Byte[])">
-            <summary>
-            Validates the encrypted data.
-            </summary>
-            <param name="encryptedData">The encrypted data</param>
-            <param name="key">Key used for encryption</param>
-            <returns>ValidationResult</returns>
-        </member>
-        <member name="M:EasyCrypto.AesEncryption.ValidateEncryptedDataWithEmbededIv(System.IO.Stream,System.Byte[])">
             <summary>
             Validates the encrypted data.
             </summary>
@@ -325,98 +309,10 @@
             <param name="encryptedData">The encrypted data.</param>
             <returns>Additional data</returns>
         </member>
-        <member name="T:EasyCrypto.AesFileEncrytion">
+        <member name="T:EasyCrypto.AesFileEncryption">
             <summary>
-            File encryption abstraction
+            File encryption helper
             </summary>
-        </member>
-        <member name="M:EasyCrypto.AesFileEncrytion.Encrypt(System.String,System.String,System.Byte[],System.Byte[],System.Boolean,EasyCrypto.ReportAndCancellationToken)">
-            <summary>
-            Encrypts the specified file.
-            </summary>
-            <param name="sourceFilePath">The plain text file path.</param>
-            <param name="destinationFilePath">The encrypted file path to write to.</param>
-            <param name="key">The key.</param>
-            <param name="iv">The iv.</param>
-            <param name="token">Optional token for progress report and cancellation of the operation.</param>
-            <param name="overwriteExistingFile">if set to <c>false</c> exception will be thrown if file already exists.</param>
-        </member>
-        <member name="M:EasyCrypto.AesFileEncrytion.EncryptAsync(System.String,System.String,System.Byte[],System.Byte[],System.Boolean,EasyCrypto.ReportAndCancellationToken)">
-            <summary>
-            Encrypts the specified file asynchronously.
-            </summary>
-            <param name="sourceFilePath">The plain text file path.</param>
-            <param name="destinationFilePath">The encrypted file path to write to.</param>
-            <param name="key">The key.</param>
-            <param name="iv">The iv.</param>
-            <param name="overwriteExistingFile">if set to <c>false</c> exception will be thrown if file already exists.</param>
-            <param name="token">Optional token for progress report and cancellation of the operation.</param>
-            <returns>Task to await</returns>
-        </member>
-        <member name="M:EasyCrypto.AesFileEncrytion.Decrypt(System.String,System.String,System.Byte[],System.Byte[],System.Boolean,EasyCrypto.ReportAndCancellationToken)">
-            <summary>
-            Decrypts the specified file.
-            </summary>
-            <param name="sourceFilePath">The encrypted file path.</param>
-            <param name="destinationFilePath">The decrypted file path to write to.</param>
-            <param name="key">The key.</param>
-            <param name="iv">The iv.</param>
-            <param name="overwriteExistingFile">if set to <c>false</c> exception will be thrown if destination file already exists.</param>
-            <param name="token">Optional token for progress report and cancellation of the operation.</param>
-        </member>
-        <member name="M:EasyCrypto.AesFileEncrytion.DecryptAsync(System.String,System.String,System.Byte[],System.Byte[],System.Boolean,EasyCrypto.ReportAndCancellationToken)">
-            <summary>
-            Decrypts the specified file asynchronously.
-            </summary>
-            <param name="sourceFilePath">The encrypted file path.</param>
-            <param name="destinationFilePath">The decrypted file path to write to.</param>
-            <param name="key">The key.</param>
-            <param name="iv">The iv.</param>
-            <param name="overwriteExistingFile">if set to <c>false</c> exception will be thrown if destination file already exists.</param>
-            <param name="token">Optional token for progress report and cancellation of the operation.</param>
-            <returns>Task to await</returns>
-        </member>
-        <member name="M:EasyCrypto.AesFileEncrytion.EncryptWithPassword(System.String,System.String,System.String,System.Boolean,EasyCrypto.ReportAndCancellationToken)">
-            <summary>
-            Encrypts the with password asynchronously.
-            </summary>
-            <param name="sourceFilePath">The source file path to encrypt.</param>
-            <param name="destinationFilePath">The destination file path to write to encrypted data.</param>
-            <param name="password">The password.</param>
-            <param name="overwriteExistingFile">if set to <c>false</c> exception will be thrown if destination file already exists.</param>
-            <param name="token">Optional token for progress report and cancellation of the operation.</param>
-        </member>
-        <member name="M:EasyCrypto.AesFileEncrytion.EncryptWithPasswordAsync(System.String,System.String,System.String,System.Boolean,EasyCrypto.ReportAndCancellationToken)">
-            <summary>
-            Encrypts the with password asynchronously.
-            </summary>
-            <param name="sourceFilePath">The source file path to encrypt.</param>
-            <param name="destinationFilePath">The destination file path to write to encrypted data.</param>
-            <param name="password">The password.</param>
-            <param name="overwriteExistingFile">if set to <c>false</c> exception will be thrown if destination file already exists.</param>
-            <param name="token">Optional token for progress report and cancellation of the operation.</param>
-            <returns>Task to await</returns>
-        </member>
-        <member name="M:EasyCrypto.AesFileEncrytion.DecryptWithPassword(System.String,System.String,System.String,System.Boolean,EasyCrypto.ReportAndCancellationToken)">
-            <summary>
-            Decrypts the with password.
-            </summary>
-            <param name="sourceFilePath">The source file path to decrypt.</param>
-            <param name="destinationFilePath">The destination file path to write to decrypted data.</param>
-            <param name="password">The password.</param>
-            <param name="overwriteExistingFile">if set to <c>true</c> [overwrite existing file].</param>
-            <param name="token">Optional token for progress report and cancellation of the operation.</param>
-        </member>
-        <member name="M:EasyCrypto.AesFileEncrytion.DecryptWithPasswordAsync(System.String,System.String,System.String,System.Boolean,EasyCrypto.ReportAndCancellationToken)">
-            <summary>
-            Decrypts the with password asynchronously.
-            </summary>
-            <param name="sourceFilePath">The source file path to decrypt.</param>
-            <param name="destinationFilePath">The destination file path to write to decrypted data.</param>
-            <param name="password">The password.</param>
-            <param name="overwriteExistingFile">if set to <c>true</c> [overwrite existing file].</param>
-            <param name="token">Optional token for progress report and cancellation of the operation.</param>
-            <returns>Task to await</returns>
         </member>
         <member name="M:EasyCrypto.AesFileEncryption.Encrypt(System.String,System.String,System.Byte[],System.Byte[],System.Boolean,EasyCrypto.ReportAndCancellationToken)">
             <summary>
@@ -529,40 +425,12 @@
             should improved performance in case when single instance of <see cref="T:EasyCrypto.CryptoRandom"/>
             is used multiple times, default value is false</param>
         </member>
-        <member name="M:EasyCrypto.CryptoRandom.NextBytesStatic(System.UInt32)">
-            <summary>
-            Returns new random bytes.
-            </summary>
-            <param name="length">The number for bytes to return.</param>
-            <returns>Byte array</returns>
-        </member>
         <member name="M:EasyCrypto.CryptoRandom.NextBytes(System.UInt32)">
             <summary>
             Returns byte array
             </summary>
             <param name="length">Length of array to return</param>
             <returns>Byte array filled with random bytes</returns>
-        </member>
-        <member name="M:EasyCrypto.CryptoRandom.NextIntStatic">
-            <summary>
-            Generates random int &gt;= 0
-            </summary>
-            <returns>Random integer</returns>
-        </member>
-        <member name="M:EasyCrypto.CryptoRandom.NextIntStatic(System.Int32)">
-            <summary>
-            Generates random int &gt;= 0 and &lt; maxExclusive
-            </summary>
-            <param name="maxExclusive">Maximum exclusive value to return</param>
-            <returns>Random integer</returns>
-        </member>
-        <member name="M:EasyCrypto.CryptoRandom.NextIntStatic(System.Int32,System.Int32)">
-            <summary>
-            Generates random int &gt;= minInclusive and &lt; maxExclusive
-            </summary>
-            <param name="minInclusive">Minimum inclusive value to return</param>
-            <param name="maxExclusive">Maximum exclusive value to return</param>
-            <returns>Random integer</returns>
         </member>
         <member name="M:EasyCrypto.CryptoRandom.NextInt">
             <summary>
@@ -591,12 +459,6 @@
             </summary>
             <returns>Random double</returns>
         </member>
-        <member name="M:EasyCrypto.CryptoRandom.NextDoubleStatic">
-            <summary>
-            Return random double between 0 and 1
-            </summary>
-            <returns>Double between 0 and 1</returns>
-        </member>
         <member name="M:EasyCrypto.CryptoRandom.FillIntArrayWithRandomValues(System.Int32[],System.Int32,System.Int32)">
             <summary>
             Fills array of integers with random values
@@ -609,43 +471,6 @@
             <summary>
             Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
             </summary>
-        </member>
-        <member name="T:EasyCrypto.DataTools">
-            <summary>
-            Helper methods for work with byte arrays
-            </summary>
-        </member>
-        <member name="M:EasyCrypto.DataTools.SkipTake(System.Byte[],System.Int32,System.Int32)">
-            <summary>
-            Skips and take desired number of bytes.
-            </summary>
-            <param name="array">The array used for source.</param>
-            <param name="skip">Number of bytes to skip (start index).</param>
-            <param name="take">Number of bytes to take.</param>
-            <returns>Byte array</returns>
-            <exception cref="T:System.ArgumentNullException"></exception>
-        </member>
-        <member name="M:EasyCrypto.DataTools.JoinByteArrays(System.Byte[][])">
-            <summary>
-            Joins the byte arrays.
-            </summary>
-            <param name="byteArrays">The byte arrays to join.</param>
-            <returns>Joined byte array to one byte array</returns>
-        </member>
-        <member name="M:EasyCrypto.DataTools.CompareByteArrays(System.Byte[],System.Byte[])">
-            <summary>
-            Compares two byte arrays.
-            </summary>
-            <param name="ba1">Byte array 1.</param>
-            <param name="ba2">Byte array 2.</param>
-            <returns>Bool, true if arrays are equal.</returns>
-        </member>
-        <member name="M:EasyCrypto.DataTools.ToBytes(System.IO.Stream)">
-            <summary>
-            Reads whole stream and returns bytes of the stream.
-            </summary>
-            <param name="stream">The stream to read.</param>
-            <returns>Byte array, from the stream</returns>
         </member>
         <member name="T:EasyCrypto.Exceptions.DataFormatValidationException">
             <summary>
@@ -855,6 +680,11 @@
             Used internally to check for format and metadata (header data)
             </summary>
         </member>
+        <member name="T:EasyCrypto.Internal.InternalDataTools">
+            <summary>
+            Internal data tools
+            </summary>
+        </member>
         <member name="M:EasyCrypto.Internal.InternalDataTools.SkipTake(System.Byte[],System.Int32,System.Int32)">
             <summary>
             Skips and take desired number of bytes.
@@ -1022,26 +852,6 @@
             <summary>
             Default instance
             </summary>
-        </member>
-        <member name="M:EasyCrypto.PasswordGenerator.GenerateStatic">
-            <summary>
-            Generates random password of 16 chars
-            </summary>
-            <returns>Random password</returns>
-        </member>
-        <member name="M:EasyCrypto.PasswordGenerator.GenerateStatic(System.UInt32)">
-            <summary>
-            Generates random password with desired length.
-            </summary>
-            <param name="length">Length of the password, default is 16, cannot be less than 4</param>
-            <returns>Random password</returns>
-        </member>
-        <member name="M:EasyCrypto.PasswordGenerator.GenerateStatic(EasyCrypto.PasswordGenerationOptions)">
-            <summary>
-            Generates password using provided options. Options must be valid (check by calling <see cref="M:EasyCrypto.PasswordGenerationOptions.AreValid(System.String@)"/>).
-            </summary>
-            <param name="options">Options used for generating passwords</param>
-            <returns>Random password</returns>
         </member>
         <member name="M:EasyCrypto.PasswordGenerator.Generate">
             <summary>
@@ -1239,6 +1049,26 @@
             <param name="hashWithEmbeddedSalt">Password hash with embedded salt created by <see cref="M:EasyCrypto.PasswordHasherAndValidator.HashPassword(System.String)"/> </param>
             <returns>Result of validation</returns>
             <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="T:EasyCrypto.PasswordHashValidationResult">
+            <summary>
+            Password hash validation result
+            </summary>
+        </member>
+        <member name="F:EasyCrypto.PasswordHashValidationResult.Valid">
+            <summary>
+            Hash is valid
+            </summary>
+        </member>
+        <member name="F:EasyCrypto.PasswordHashValidationResult.NotValid">
+            <summary>
+            Hash is not valid
+            </summary>
+        </member>
+        <member name="F:EasyCrypto.PasswordHashValidationResult.ValidShouldRehash">
+            <summary>
+            Hash is valid and password is required to be rehashed with new settings
+            </summary>
         </member>
         <member name="T:EasyCrypto.ProgressReportIntensity">
             <summary>
@@ -1485,6 +1315,11 @@
         <member name="T:EasyCrypto.ThreadSafeRandom">
             <summary>
             Thread safe regular random, inherits <see cref="T:System.Random"/>
+            </summary>
+        </member>
+        <member name="F:EasyCrypto.ThreadSafeRandom.Default">
+            <summary>
+            Default shared instance of <see cref="T:EasyCrypto.ThreadSafeRandom"/>
             </summary>
         </member>
         <member name="M:EasyCrypto.ThreadSafeRandom.Next">
