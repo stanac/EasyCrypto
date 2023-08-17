@@ -1,28 +1,27 @@
-﻿namespace EasyCrypto.Internal
+﻿namespace EasyCrypto.Internal;
+
+internal static class StringTools
 {
-    internal static class StringTools
+    public static string BeautifyBase64(this string s)
     {
-        public static string BeautifyBase64(this string s)
-        {
-            if (s == null) return null;
+        if (s == null) return null;
 
-            return s
-                .Replace("=", "")
-                .Replace("/", "_")
-                .Replace("+", "-");
-        }
+        return s
+            .Replace("=", "")
+            .Replace("/", "_")
+            .Replace("+", "-");
+    }
 
-        public static string UglifyBase64(this string s)
-        {
-            if (s == null) return null;
+    public static string UglifyBase64(this string s)
+    {
+        if (s == null) return null;
 
-            s = s.Replace("_", "/").Replace("-", "+");
+        s = s.Replace("_", "/").Replace("-", "+");
 
-            int mod = s.Length % 4;
-            if (mod == 2) s += "==";
-            if (mod == 3) s += "=";
+        int mod = s.Length % 4;
+        if (mod == 2) s += "==";
+        if (mod == 3) s += "=";
 
-            return s;
-        }
+        return s;
     }
 }

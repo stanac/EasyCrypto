@@ -1,11 +1,8 @@
-﻿using System;
+﻿namespace EasyCrypto.Internal;
 
-namespace EasyCrypto.Internal
+[Flags]
+internal enum CryptoContainerFlags
 {
-    [Flags]
-    internal enum CryptoContainerFlags
-    {
-        HasSalt = 0x01
-        // HasIv   = 0x02
-    }
+    HasSalt = 0x01
+    // HasIv   = 0x02
 }

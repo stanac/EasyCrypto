@@ -1,48 +1,44 @@
-﻿using System;
-using System.Linq;
+﻿namespace EasyCrypto.Internal;
 
-namespace EasyCrypto.Internal
+internal static class SystemStringBase55Converter
 {
-    internal static class SystemStringBase55Converter
+    public const string Charset = "23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz";
+
+    public static string ToString(long value, int pad = 0)
     {
-        public const string Charset = "23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz";
+        string result = "";
+        int targetBase = Charset.Length;
 
-        public static string ToString(long value, int pad = 0)
+        do
         {
-            string result = "";
-            int targetBase = Charset.Length;
+            result = Charset[(int)(value % targetBase)] + result;
+            value /= targetBase;
+        }
+        while (value > 0);
 
-            do
-            {
-                result = Charset[(int)(value % targetBase)] + result;
-                value /= targetBase;
-            }
-            while (value > 0);
-
-            if (pad > result.Length)
-            {
-                result = result.PadLeft(pad, Charset[0]);
-            }
-
-            return result;
+        if (pad > result.Length)
+        {
+            result = result.PadLeft(pad, Charset[0]);
         }
 
-        public static long ToLong(string value)
+        return result;
+    }
+
+    public static long ToLong(string value)
+    {
+        if (value == null) throw new ArgumentNullException(nameof(value));
+
+        value = new string(value.Reverse().ToArray());
+
+        long result = 0;
+        double baseValue = Charset.Length;
+
+        for (long index = 0; index < value.Length; index++)
         {
-            if (value == null) throw new ArgumentNullException(nameof(value));
-
-            value = new string(value.Reverse().ToArray());
-
-            long result = 0;
-            double baseValue = Charset.Length;
-
-            for (long index = 0; index < value.Length; index++)
-            {
-                long charValue = Charset.IndexOf(value[(int)index]);
-                result += charValue * (long)Math.Pow(baseValue, index);
-            }
-
-            return result;
+            long charValue = Charset.IndexOf(value[(int)index]);
+            result += charValue * (long)Math.Pow(baseValue, index);
         }
+
+        return result;
     }
 }

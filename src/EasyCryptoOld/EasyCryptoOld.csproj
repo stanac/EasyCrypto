@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <Version>5.0.0</Version>
+    <Description>EasyCrypto is .NET Standard (1.6+) library that helps with
+- Encryption and decryption of streams, byte arrays, files and strings
+- Password generating, hashing and validating
+- Generating crypto secure random bytes, integers, doubles, string tokens and string identifiers</Description>
+    <Authors>stanac</Authors>
+    <PackageProjectUrl>https://github.com/stanac/EasyCrypto/</PackageProjectUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>EasyCrypto.xml</DocumentationFile>
+    <DebugType>embedded</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
