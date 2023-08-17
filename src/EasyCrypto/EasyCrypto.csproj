@@ -8,18 +8,17 @@
 		<Version>6.0.0</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Authors>stanac</Authors>
+		<Description>Easy to use .NET cryptography library</Description>
+		<Summary>Easy to use .NET cryptography library</Summary>
+		<PackageReadmeFile>nuget-README.md</PackageReadmeFile>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
 		<PackageProjectUrl>https://github.com/stanac/EasyCrypto</PackageProjectUrl>
 		<RepositoryUrl>$(PackageProjectUrl).git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-
-		<Authors>stanac</Authors>
-		<Description>Easy to use .NET cryptography library</Description>
-		<Summary>Easy to use .NET cryptography library</Summary>
-		<PackageReadmeFile>nuget-README.md</PackageReadmeFile>
-
 	</PropertyGroup>
 
 	<ItemGroup>
