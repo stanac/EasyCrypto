@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Security.Cryptography;
+using EasyCrypto.Internal;
 
 namespace EasyCrypto.Validation
 {
@@ -54,7 +55,7 @@ namespace EasyCrypto.Validation
         internal static bool ValidateMessageAuthenticationCodeInternal(byte[] key, byte[] originalMac, Stream encryptedData, long startIndex)
         {
             byte[] calculatedMac = CalculateMessageAuthenticationCode(key, encryptedData, startIndex);
-            return DataTools.CompareByteArrays(calculatedMac, originalMac);
+            return InternalDataTools.CompareByteArrays(calculatedMac, originalMac);
         }
     }
 }

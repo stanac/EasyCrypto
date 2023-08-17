@@ -41,21 +41,7 @@ namespace EasyCrypto
                 _buffer = new SlidingBuffer(_rng.GetBytes);
             }
         }
-
-        /// <summary>
-        /// Returns new random bytes.
-        /// </summary>
-        /// <param name="length">The number for bytes to return.</param>
-        /// <returns>Byte array</returns>
-        [Obsolete(ObsoleteMessage.Message)]
-        public static byte[] NextBytesStatic(uint length)
-        {
-            using (var cr = new CryptoRandom())
-            {
-                return cr.NextBytes(length);
-            }
-        }
-
+        
         /// <summary>
         /// Returns byte array
         /// </summary>
@@ -67,37 +53,7 @@ namespace EasyCrypto
             GetRngBytes(array);
             return array;
         }
-
-        /// <summary>
-        /// Generates random int &gt;= 0
-        /// </summary>
-        /// <returns>Random integer</returns>
-        [Obsolete(ObsoleteMessage.Message)]
-        public static int NextIntStatic() => NextIntStatic(0, int.MaxValue);
-
-        /// <summary>
-        /// Generates random int &gt;= 0 and &lt; maxExclusive
-        /// </summary>
-        /// <param name="maxExclusive">Maximum exclusive value to return</param>
-        /// <returns>Random integer</returns>
-        [Obsolete(ObsoleteMessage.Message)]
-        public static int NextIntStatic(int maxExclusive) => NextIntStatic(0, maxExclusive);
-
-        /// <summary>
-        /// Generates random int &gt;= minInclusive and &lt; maxExclusive
-        /// </summary>
-        /// <param name="minInclusive">Minimum inclusive value to return</param>
-        /// <param name="maxExclusive">Maximum exclusive value to return</param>
-        /// <returns>Random integer</returns>
-        [Obsolete(ObsoleteMessage.Message)]
-        public static int NextIntStatic(int minInclusive, int maxExclusive)
-        {
-            using (var cr = new CryptoRandom())
-            {
-                return cr.NextInt(minInclusive, maxExclusive);
-            }
-        }
-
+        
         /// <summary>
         /// Generates random int &gt;= 0
         /// </summary>
@@ -129,20 +85,7 @@ namespace EasyCrypto
         /// </summary>
         /// <returns>Random double</returns>
         public double NextDouble() => (double)NextInt() / int.MaxValue;
-
-        /// <summary>
-        /// Return random double between 0 and 1
-        /// </summary>
-        /// <returns>Double between 0 and 1</returns>
-        [Obsolete(ObsoleteMessage.Message)]
-        public static double NextDoubleStatic()
-        {
-            using (var cr = new CryptoRandom())
-            {
-                return cr.NextDouble();
-            }
-        }
-
+        
         /// <summary>
         /// Fills array of integers with random values
         /// </summary>

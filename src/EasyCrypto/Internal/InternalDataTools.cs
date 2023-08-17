@@ -4,6 +4,9 @@ using System;
 
 namespace EasyCrypto.Internal
 {
+    /// <summary>
+    /// Internal data tools
+    /// </summary>
     public static class InternalDataTools
     {
         /// <summary>

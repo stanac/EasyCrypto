@@ -15,36 +15,7 @@ namespace EasyCrypto
         /// Default instance
         /// </summary>
         public static PasswordGenerator Default { get; } = new PasswordGenerator();
-
-        /// <summary>
-        /// Generates random password of 16 chars
-        /// </summary>
-        /// <returns>Random password</returns>
-        [Obsolete(ObsoleteMessage.Message)]
-        public static string GenerateStatic() => GenerateStatic(PasswordGenerationOptions.Default);
-
-        /// <summary>
-        /// Generates random password with desired length.
-        /// </summary>
-        /// <param name="length">Length of the password, default is 16, cannot be less than 4</param>
-        /// <returns>Random password</returns>
-        [Obsolete(ObsoleteMessage.Message)]
-        public static string GenerateStatic(uint length) => GenerateStatic(PasswordGenerationOptions.Default.SetLength(length));
-
-        /// <summary>
-        /// Generates password using provided options. Options must be valid (check by calling <see cref="PasswordGenerationOptions.AreValid(out string)"/>).
-        /// </summary>
-        /// <param name="options">Options used for generating passwords</param>
-        /// <returns>Random password</returns>
-        [Obsolete(ObsoleteMessage.Message)]
-        public static string GenerateStatic(PasswordGenerationOptions options)
-        {
-            using (var pg = new PasswordGenerator())
-            {
-                return pg.Generate(options);
-            }
-        }
-
+        
         /// <summary>
         /// Generates random password of 16 chars
         /// </summary>
@@ -79,18 +50,20 @@ namespace EasyCrypto
         {
             // at this point we expect options are validated and not null
             List<char> password = new List<char>();
-            Action<string, int> generageGroup = (chars, length) =>
+
+            Action<string, int> generateGroup = (chars, length) =>
             {
                 for (int i = 0; i < length; i++)
                 {
+                    // ReSharper disable once AccessToModifiedClosure, intended
                     password.Add(chars[_cr.NextInt(chars.Length)]);
                 }
             };
 
-            generageGroup(options.Numbers, options.NumbersLength);
-            generageGroup(options.Upper,   options.UpperLength);
-            generageGroup(options.Lower,   options.LowerLength);
-            generageGroup(options.Symbols, options.SymbolsLength);
+            generateGroup(options.Numbers, options.NumbersLength);
+            generateGroup(options.Upper,   options.UpperLength);
+            generateGroup(options.Lower,   options.LowerLength);
+            generateGroup(options.Symbols, options.SymbolsLength);
 
             password = ShuffleCharList(password);
             return new string(password.ToArray());
@@ -98,14 +71,12 @@ namespace EasyCrypto
 
         private List<char> ShuffleCharList(List<char> s)
         {
-            char temp;
-            int nextPosition;
             for (int i = 0; i < s.Count / 2 || i == 0; i++)
             {
                 for (int j = 0; j < s.Count; j++)
                 {
-                    temp = s[j];
-                    nextPosition = _cr.NextInt(s.Count);
+                    var temp = s[j];
+                    var nextPosition = _cr.NextInt(s.Count);
                     s[j] = s[nextPosition];
                     s[nextPosition] = temp;
                 }

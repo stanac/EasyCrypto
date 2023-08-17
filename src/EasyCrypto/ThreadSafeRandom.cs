@@ -10,6 +10,9 @@ namespace EasyCrypto
         private readonly Random _rnd = new Random(GetSeed());
         private readonly object _sync = new object();
 
+        /// <summary>
+        /// Default shared instance of <see cref="ThreadSafeRandom"/>
+        /// </summary>
         public static ThreadSafeRandom Default = new ThreadSafeRandom();
 
         /// <inheritdoc cref="Random"/>

@@ -1,4 +1,7 @@
-﻿## v4.5.0
+﻿## v5.0
+- Removed code marked as obsolete in previous versions
+
+## v4.5.0
 - Performance improvement in CryptoRandom using buffer (about 25% faster, see Banchmarks.md file)
 
 ## v4.4.0
