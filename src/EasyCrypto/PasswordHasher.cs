@@ -4,8 +4,10 @@ using EasyCrypto.Internal;
 namespace EasyCrypto;
 
 /// <summary>
-/// Password hasher and validator. For new implementations it's recommended to use <see cref="PasswordHasherAndValidator"/>
+/// Password hasher and validator. It's recommended to switch to <see cref="PasswordHasherAndValidator"/>,
+/// this class will be removed in next release.
 /// </summary>
+[Obsolete("This class will be removed in next release, use PasswordHasherAndValidator")]
 public class PasswordHasher
 {
     /// <summary>
@@ -85,11 +87,9 @@ public class PasswordHasher
             throw new ArgumentException("salt cannot be null and must be in length equal to value set in constructor, default is 16 bytes");
         }
 
-        using (var pbkdf2 = new Rfc2898DeriveBytes(password, salt))
-        {
-            pbkdf2.IterationCount = (int)HashIterations;
-            return pbkdf2.GetBytes((int)HashLengthInBytes);
-        }
+        using var pbkdf2 = new Rfc2898DeriveBytes(password, salt);
+        pbkdf2.IterationCount = (int)HashIterations;
+        return pbkdf2.GetBytes((int)HashLengthInBytes);
     }
 
     /// <summary>

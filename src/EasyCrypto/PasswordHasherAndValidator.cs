@@ -123,12 +123,19 @@ public class PasswordHasherAndValidator
 
     private static byte[] RandomSalt() => CryptoRandom.Default.NextBytes(HashAndSaltLengthInBytes);
 
-    private static byte[] Hash(string password, byte[] salt, int length, int iterations)
+    internal static byte[] HashOld(string password, byte[] salt, int length, int iterations)
     {
-        using (var pbkdf2 = new Rfc2898DeriveBytes(password, salt))
-        {
-            pbkdf2.IterationCount = iterations;
-            return pbkdf2.GetBytes(length);
-        }
+#pragma warning disable SYSLIB0041
+        using var pbkdf2 = new Rfc2898DeriveBytes(password, salt);
+        pbkdf2.IterationCount = iterations;
+        return pbkdf2.GetBytes(length);
+#pragma warning restore SYSLIB0041
+    }
+
+    // this implementation uses new non obsolete Rfc2898DeriveBytes ctor
+    internal static byte[] Hash(string password, byte[] salt, int length, int iterations)
+    {
+        using var pbkdf2 = new Rfc2898DeriveBytes(password, salt, iterations, HashAlgorithmName.SHA1);
+        return pbkdf2.GetBytes(length);
     }
 }

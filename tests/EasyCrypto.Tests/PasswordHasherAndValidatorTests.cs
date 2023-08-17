@@ -1,4 +1,5 @@
 ﻿using System;
+using EasyCrypto.Internal;
 using FluentAssertions;
 using Xunit;
 
@@ -37,5 +38,18 @@ public class PasswordHasherAndValidatorTests
         hasher = new PasswordHasherAndValidator(29_001);
         PasswordHashValidationResult valid = hasher.ValidatePassword(password, hash);
         valid.Should().Be(PasswordHashValidationResult.ValidShouldRehash);
+    }
+
+    [Fact]
+    public void HashPassword_OldWayAndNewWay_GivesSameHash()
+    {
+        var salt = CryptoRandom.Default.NextBytes(64);
+        string password = Guid.NewGuid().ToString();
+
+        byte[] newHash = PasswordHasherAndValidator.Hash(password, salt, 32, 10_000);
+        byte[] oldHash = PasswordHasherAndValidator.HashOld(password, salt, 32, 10_000);
+
+        bool newHashAndOldHashAreEqual = InternalDataTools.CompareByteArrays(newHash, oldHash);
+        Assert.True(newHashAndOldHashAreEqual);
     }
 }
