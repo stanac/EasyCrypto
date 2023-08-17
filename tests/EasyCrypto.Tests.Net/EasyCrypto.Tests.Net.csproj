@@ -26,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,6 +35,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -72,9 +74,6 @@
     </Compile>
     <Compile Include="..\EasyCrypto.Tests\CryptoRandomTests.cs">
       <Link>CryptoRandomTests.cs</Link>
-    </Compile>
-    <Compile Include="..\EasyCrypto.Tests\DataToolsTests.cs">
-      <Link>DataToolsTests.cs</Link>
     </Compile>
     <Compile Include="..\EasyCrypto.Tests\IdGeneratorTests.cs">
       <Link>IdGeneratorTests.cs</Link>
@@ -115,6 +114,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
