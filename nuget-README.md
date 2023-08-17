@@ -1,11 +1,5 @@
 # EasyCrypto
 
- [![.NET Core](https://github.com/stanac/EasyCrypto/workflows/.NET%20Core/badge.svg)](https://github.com/stanac/EasyCrypto/actions?query=workflow%3A%22.NET+Core%22)
- [![Coverage Status](https://img.shields.io/coveralls/stanac/EasyCrypto/master.svg?maxAge=900)](https://coveralls.io/github/stanac/EasyCrypto?&branch=master)
- [![NuGet](https://img.shields.io/nuget/v/EasyCrypto.svg)](https://www.nuget.org/packages/EasyCrypto/)
- [![downloads](https://img.shields.io/nuget/dt/EasyCrypto.svg?style=flat)](https://www.nuget.org/packages/EasyCrypto/)
- [![license](https://img.shields.io/github/license/stanac/EasyCrypto.svg)](https://github.com/stanac/EasyCrypto/blob/master/LICENSE)
-
 Primary goal of this library is to enable users with little or no cryptography knowledge to encrypt and decrypt data in an easy and
 safe manner as well work with passwords and random values.
 

@@ -1,4 +1,7 @@
-﻿## v5.0
+﻿## v6.0
+- Changed framework dependency from netstandard1.6 to net6.0
+
+## v5.0
 - Removed code marked as obsolete in previous versions
 
 ## v4.5.0
