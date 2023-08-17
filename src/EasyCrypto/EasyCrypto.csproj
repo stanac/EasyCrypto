@@ -15,6 +15,7 @@
 		<PackageReadmeFile>nuget-README.md</PackageReadmeFile>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PackageTags>crypto;cryptography;security;password;password-hasher;password-generator;encryption;decryption;random;crypto-secure-random</PackageTags>
 
 		<PackageProjectUrl>https://github.com/stanac/EasyCrypto</PackageProjectUrl>
 		<RepositoryUrl>$(PackageProjectUrl).git</RepositoryUrl>
