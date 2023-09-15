@@ -9,7 +9,7 @@
 Primary goal of this library is to enable users with little or no cryptography knowledge to encrypt and decrypt data in an easy and
 safe manner as well work with passwords and random values.
 
-EasyCrypto is .NET 6+ library that helps with
+EasyCrypto is .NET 6, 7, 8+ library that helps with
 - Encryption and decryption of streams, byte arrays, strings and files
 - Password generating, hashing and validating
 - Generating crypto secure random bytes, integers and doubles

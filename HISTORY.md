@@ -1,4 +1,7 @@
-﻿## v6.0
+﻿## v6.1
+- Added target framework 8 (6 and 7 are still supported)
+
+## v6.0
 - Changed framework dependency from netstandard1.6 to net6.0
 
 ## v5.0
