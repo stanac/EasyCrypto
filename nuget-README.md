@@ -1,9 +1,10 @@
 # EasyCrypto
 
+
 Primary goal of this library is to enable users with little or no cryptography knowledge to encrypt and decrypt data in an easy and
 safe manner as well work with passwords and random values.
 
-EasyCrypto is .NET 6, 7, 8 library that helps with
+EasyCrypto is .NET 6, 7, 8+ library that helps with
 - Encryption and decryption of streams, byte arrays, strings and files
 - Password generating, hashing and validating
 - Generating crypto secure random bytes, integers and doubles
@@ -55,7 +56,7 @@ Table of contents:
     - [Class TokenGenerator](#class-tokengenerator)
     - [Class IdGenerator](#class-idgenerator)
     - [Static Class RsaEncryption](#static-class-rsaencryption)
-
+    - [Class QuickEncryption](#class-quickencryption)
 ---
 
 ### Static class AesEncryption
@@ -456,4 +457,51 @@ public void String_EncryptDecrypt_GivesEqualString()
     
     Assert.Equal(plainText, decrypted);
 }
+```
+
+### Class QuickEncryption
+
+When encrypting short data with password this class provides 3000x-5000x faster encryption and decryption compared
+to `AesEncryption` password methods. It must be used with `QuickEncryptionKey` which is randomly generated.
+`QuickEncryptionKey` can be stored as plain text using `ToString()` method which returns string representation
+of the key. String representation can be parsed with `Parse(string)` method.
+
+`QuickEncryptionKey` has static methods:
+
+```csharp
+QuickEncryptionKey CreateNew() // creates new random key
+QuickEncryptionKey Parse(string s) // parses existing key
+ToString() // converts key to string which can be parsed
+```
+
+QuickEncryption constructor:
+
+```csharp
+public QuickEncryption(QuickEncryptionKey key)
+```
+
+QuickEncryption methods:
+
+```csharp
+byte[] Encrypt(byte[] plainTextData)
+string Encrypt(string plainText)
+byte[] Decrypt(byte[] data)
+string Decrypt(string encryptedData)
+
+static byte[] Encrypt(byte[] plainTextData, QuickEncryptionKey key)
+static string Encrypt(string plainText, QuickEncryptionKey key)
+static byte[] Decrypt(byte[] data, QuickEncryptionKey key)
+static string Decrypt(string encryptedData, QuickEncryptionKey key)
+```
+
+Static methods can be used with any key, instance methods are used with key provided in constructor.
+
+Example:
+
+```csharp
+QuickEncryptionKey key = QuickEncryptionKey.CreateNew();
+// you can call `key.ToString()` to save key and later call `QuickEncryptionKey.Parse(string)` to get it back
+
+string encrypted = QuickEncryption.Encrypt("some text to encrypt", key);
+string decrypted = QuickEncryption.Decrypt(encrypted, key);
 ```

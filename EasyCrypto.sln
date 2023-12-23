@@ -23,7 +23,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.github\workflows\dotnet-core.yml = .github\workflows\dotnet-core.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyCrypto", "src\EasyCrypto\EasyCrypto.csproj", "{8FC6F2A1-EA44-4D4A-94E5-7CC8A83CDA53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyCrypto", "src\EasyCrypto\EasyCrypto.csproj", "{8FC6F2A1-EA44-4D4A-94E5-7CC8A83CDA53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyCrypto.Benchmarks", "tests\EasyCrypto.Benchmarks\EasyCrypto.Benchmarks.csproj", "{AB334D8B-C2F7-4CC0-813D-6C46B3F4FE6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{8FC6F2A1-EA44-4D4A-94E5-7CC8A83CDA53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FC6F2A1-EA44-4D4A-94E5-7CC8A83CDA53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FC6F2A1-EA44-4D4A-94E5-7CC8A83CDA53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB334D8B-C2F7-4CC0-813D-6C46B3F4FE6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB334D8B-C2F7-4CC0-813D-6C46B3F4FE6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB334D8B-C2F7-4CC0-813D-6C46B3F4FE6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB334D8B-C2F7-4CC0-813D-6C46B3F4FE6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +52,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{3C82DF35-3ADB-4D8D-A8FF-75C4B28755CE} = {87B2E37E-B472-41A3-8051-EAA0BDFCB958}
 		{8FC6F2A1-EA44-4D4A-94E5-7CC8A83CDA53} = {EE9C0B15-A82A-40D4-B4EB-DF463FF0E446}
+		{AB334D8B-C2F7-4CC0-813D-6C46B3F4FE6C} = {87B2E37E-B472-41A3-8051-EAA0BDFCB958}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9402F085-2E7C-4504-9298-DC12E594AF74}

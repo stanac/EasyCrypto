@@ -1,4 +1,7 @@
-﻿## v6.1
+﻿## v6.2
+- Added QuickEncryption (~3000x faster encryption and ~5500x faster decryption for small data)
+
+## v6.1
 - Added target framework 8 (6 and 7 are still supported)
 
 ## v6.0

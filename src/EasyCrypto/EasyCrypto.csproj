@@ -5,7 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>disable</Nullable>
 		<LangVersion>11</LangVersion>
-		<Version>6.1.0</Version>
+		<Version>6.2.0</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>

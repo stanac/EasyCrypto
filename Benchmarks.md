@@ -1,23 +1,29 @@
 // * Summary *
 
-BenchmarkDotNet=v0.12.1, OS=Windows 10.0.18363.1016 (1909/November2018Update/19H2)
-AMD Ryzen 7 2700X, 1 CPU, 16 logical and 8 physical cores
-.NET Core SDK=5.0.100-preview.7.20366.6
-  [Host]     : .NET Core 3.1.6 (CoreCLR 4.700.20.26901, CoreFX 4.700.20.31603), X64 RyuJIT
-  DefaultJob : .NET Core 3.1.6 (CoreCLR 4.700.20.26901, CoreFX 4.700.20.31603), X64 RyuJIT
+BenchmarkDotNet v0.13.11, Windows 11 (10.0.22621.2861/22H2/2022Update/SunValley2)
+AMD Ryzen 5 5600X, 1 CPU, 12 logical and 6 physical cores
+.NET SDK 8.0.100
+  [Host]     : .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2
+  DefaultJob : .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2
 
-|              Method |     Mean |    Error |   StdDev |
-|-------------------- |---------:|---------:|---------:|
-|   RandomIntNoBuffer | 80.37 ns | 1.498 ns | 1.251 ns |
-| RandomIntWithBuffer | 60.88 ns | 1.064 ns | 0.995 ns |
+
+| Method          | Mean          | Error      | StdDev     |
+|---------------- |--------------:|-----------:|-----------:|
+| AesEncrypt      | 11,780.431 us | 26.9828 us | 25.2397 us |
+| AesDecrypt      | 23,168.337 us | 52.8699 us | 46.8678 us |
+| AesEncryptQuick |      3.837 us |  0.0280 us |  0.0248 us |
+| AesDecryptQuick |      4.181 us |  0.0331 us |  0.0310 us |
 
 // * Hints *
 Outliers
-  CryptoRandomBanchmarks.RandomIntNoBuffer: Default -> 3 outliers were removed (88.08 ns..91.41 ns)
+  EncryptionBenchmark.AesDecrypt: Default      -> 1 outlier  was  removed (23.32 ms)
+  EncryptionBenchmark.AesEncryptQuick: Default -> 1 outlier  was  removed (3.92 us)
 
 // * Legends *
+  Mean   : Arithmetic mean of all measurements
+  Error  : Half of 99.9% confidence interval
+  StdDev : Standard deviation of all measurements
+  1 us   : 1 Microsecond (0.000001 sec)
 
- - Mean   : Arithmetic mean of all measurements
- - Error  : Half of 99.9% confidence interval
- - StdDev : Standard deviation of all measurements
- - 1 ns   : 1 Nanosecond (0.000000001 sec)
+// ***** BenchmarkRunner: End *****
+Run time: 00:01:17 (77.51 sec), executed benchmarks: 4
