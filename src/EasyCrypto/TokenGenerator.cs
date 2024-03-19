@@ -7,9 +7,9 @@ namespace EasyCrypto;
 /// </summary>
 public class TokenGenerator
 {
-    private static readonly CryptoRandom _rand = new CryptoRandom();
-    private static readonly PasswordHasher _hasher = new PasswordHasher(16, 500);
-
+    private readonly CryptoRandom _rand = new();
+    private readonly PasswordHasher _hasher = new(16, 500);
+    
     /// <summary>
     /// Characters allowed in generated token by default
     /// </summary>
@@ -89,6 +89,22 @@ public class TokenGenerator
     }
 
     /// <summary>
+    /// Hashes token
+    /// </summary>
+    /// <param name="token">Token to hash</param>
+    /// <param name="quickHash">True for quick hash (SHA256, suitable for long random token with short expiry time), false to use old method</param>
+    /// <returns>Hashed token with embedded salt</returns>
+    public string HashToken(string token, bool quickHash)
+    {
+        if (quickHash)
+        {
+            return "01" + HashSha256(token);
+        }
+
+        return HashToken(token);
+    }
+
+    /// <summary>
     /// Validates token hash
     /// </summary>
     /// <param name="token">Token to validate</param>
@@ -104,6 +120,19 @@ public class TokenGenerator
             return _hasher.ValidatePasswordWithEmbeddedSalt(token, hash.UglifyBase64());
         }
 
+        if (version == "01")
+        {
+            string hash2 = HashSha256(token);
+            return hash == hash2;
+        }
+
         throw new InvalidOperationException("Unknown hash version, please update reference of EasyCrypto.");
+    }
+
+    private static string HashSha256(string token)
+    {
+        SHA256 sha = SHA256.Create();
+        byte[] hash = sha.ComputeHash(Encoding.UTF8.GetBytes(token));
+        return Convert.ToBase64String(hash);
     }
 }

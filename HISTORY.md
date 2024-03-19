@@ -1,13 +1,16 @@
-﻿## v6.2
-- Added QuickEncryption (~3000x faster encryption and ~5500x faster decryption for small data)
+﻿## v6.3.0
+- Added overload for `HashToken` in `TokenGenerator` for quick hash
 
-## v6.1
+## v6.2.0
+- Added `QuickEncryption` (~3000x faster encryption and ~5500x faster decryption for small data)
+
+## v6.1.0
 - Added target framework 8 (6 and 7 are still supported)
 
-## v6.0
+## v6.0.0
 - Changed framework dependency from netstandard1.6 to net6.0
 
-## v5.0
+## v5.0.0
 - Removed code marked as obsolete in previous versions
 
 ## v4.5.0

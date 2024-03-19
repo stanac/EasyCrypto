@@ -317,7 +317,10 @@ string GenerateToken(int length)
 // Hashes token (with random salt) so you don't have to store plain text token
 string HashToken(string token)
 
-// Validates token hash that is created by calling HashToken(string)
+// Hashes token with SHA256 if quickHash is true (suitable for long random tokens with short expiry time), if false it works the same as HashToken(string)
+string HashToken(string token, bool quickHash)
+
+// Validates token hash that is created by calling HashToken(string) or HashToken(string, bool)
 bool ValidateTokenHash(string token, string hash)
 ```
 

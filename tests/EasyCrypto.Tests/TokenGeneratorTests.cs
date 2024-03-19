@@ -46,4 +46,15 @@ public class TokenGeneratorTests
         bool isValid = tokenGen.ValidateTokenHash(token, hash);
         Assert.False(isValid);
     }
+
+    [Fact]
+    public void QuickHash_Verify_ReturnsTrue()
+    {
+        var tokenGen = new TokenGenerator();
+        string token = tokenGen.GenerateToken(30);
+        string hash = tokenGen.HashToken(token, true);
+
+        bool isValid = tokenGen.ValidateTokenHash(token, hash);
+        Assert.True(isValid);
+    }
 }
